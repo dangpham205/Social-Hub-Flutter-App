@@ -1,4 +1,5 @@
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:endterm/constants/colors.dart';
 import 'package:firebase_core/firebase_core.dart';
@@ -15,7 +16,7 @@ void main() async {
             storageBucket: "instagram-flutter-7c654.appspot.com",
             messagingSenderId: "368117043222",
             appId: "1:368117043222:web:6f1b3c2898c64c0ce62537"
-        );
+        ));
         }
         else{
     await Firebase.initializeApp();
