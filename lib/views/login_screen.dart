@@ -4,6 +4,9 @@ import 'package:flutter_svg/flutter_svg.dart';
 
 import '../constants/colors.dart';
 import '../constants/utils.dart';
+import '../responsive/mobile_screen_layout.dart';
+import '../responsive/responsive_layout.dart';
+import '../responsive/web_screen_layout.dart';
 import '../shared/firebase_auth.dart';
 import 'signup_screen.dart';
 
@@ -28,6 +31,15 @@ class _LoginScreenState extends State<LoginScreen> {
     if (res == 'Log In Succeed'){   //succeed thif chuyen sang trang main
       if (mounted){
         // Code here
+        Navigator.of(context).pushAndRemoveUntil(    //nếu chỉ dùng push thì bấm back vẫn có thể quay lại screen trc
+        MaterialPageRoute(
+          builder: (context) => const ResponsiveLayout(
+                                                  webScreenLayout: WebScreenLayout(),
+                                                  mobileScreenLayout: MobileScreenLayout(),
+                                                ),
+          ),
+          (route) => false
+        );
       }
     }
     else{

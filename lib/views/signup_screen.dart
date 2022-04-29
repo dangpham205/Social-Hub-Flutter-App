@@ -5,6 +5,9 @@ import 'package:image_picker/image_picker.dart';
 import 'package:endterm/constants/colors.dart';
 import 'package:endterm/constants/utils.dart';
 import 'package:endterm/shared/firebase_auth.dart';
+import '../responsive/mobile_screen_layout.dart';
+import '../responsive/responsive_layout.dart';
+import '../responsive/web_screen_layout.dart';
 import 'login_screen.dart';
 
 class SignUpScreen extends StatefulWidget {
@@ -56,7 +59,16 @@ class _SignUpScreenState extends State<SignUpScreen> {
       showSnackBar(context, res);
     }
     else{
-      
+      Future.delayed(const Duration(milliseconds: 1500)).then((value) {
+        return Navigator.of(context).pushReplacement(      //nếu chỉ dùng push thì bấm back vẫn có thể quay lại screen trc
+          MaterialPageRoute(
+            builder: (context) => const ResponsiveLayout(
+                                                webScreenLayout: WebScreenLayout(),
+                                                mobileScreenLayout: MobileScreenLayout(),
+                                              ),
+          ),
+        );
+      });
     }
 
     setState(() {
