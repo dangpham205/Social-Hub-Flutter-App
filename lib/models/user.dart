@@ -1,4 +1,6 @@
 
+import 'package:cloud_firestore/cloud_firestore.dart';
+
 class User{
   final String uid;
   final String email;
@@ -28,5 +30,22 @@ class User{
     "photoUrl": photoUrl,
   };
 
+  //static method là method có thể gọi thẳng từ lớp mà kh cần tạo obj
+  // User.fromSnapShot()
+  static User fromSnapShot(DocumentSnapshot snapshot) {
+
+    
+    var snap = snapshot.data()! as Map<String, dynamic>;   //cast snapshot thành dạng Map
+
+    return User(    //chuyển thành object User và return
+      uid: snap['uid'],
+      email: snap['email'],
+      username: snap['username'],
+      bio: snap['bio'],
+      followers: snap['followers'],
+      following: snap['following'],
+      photoUrl: snap['photoUrl']
+    );
+  }
     
 }
