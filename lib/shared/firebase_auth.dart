@@ -60,4 +60,44 @@ class AuthMethods {
       return res;
   }
 
+   // LOGIN METHOD
+  Future<String> logIn({
+    required String email,
+    required String password,
+    }) async{
+      String res = 'Log In Failed';
+
+      try{
+        if (email.isNotEmpty &&  password.isNotEmpty ){
+          await _auth.signInWithEmailAndPassword(email: email, password: password);
+          res = 'Log In Succeed';
+        }
+        else{
+          res = 'Please enter all the fields';
+        }
+      }
+      on FirebaseAuthException catch (error){
+        if (error.code == 'wrong-password'){
+          res = 'Wrong password !!!';
+        }
+        else if (error.code == 'user-not-found'){
+          res = 'Please enter a valid account.';
+        }
+        else if (error.code == 'too-many-requests'){
+          res = 'Too many requests !!! Please try again later.';
+        }
+        else if (error.code == 'invalid-email'){
+          res = 'The email address is badly formatted.';
+        }
+        else{
+          res = error.toString();
+        }
+      }
+
+      return res;
+  }
+
+  Future<void> signOut() async {
+    await _auth.signOut();
+  }
 }

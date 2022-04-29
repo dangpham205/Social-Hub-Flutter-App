@@ -1,4 +1,11 @@
+
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
+
+import '../constants/colors.dart';
+import '../constants/utils.dart';
+import '../shared/firebase_auth.dart';
+import 'signup_screen.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({ Key? key }) : super(key: key);
@@ -8,10 +15,177 @@ class LoginScreen extends StatefulWidget {
 }
 
 class _LoginScreenState extends State<LoginScreen> {
+  final TextEditingController _emailController = TextEditingController();
+  final TextEditingController _passwordController = TextEditingController();
+  bool _isLoading = false;
+
+  void loginUser() async {
+    setState(() {
+      _isLoading = true;
+    });   
+
+    String res = await AuthMethods().logIn(email: _emailController.text, password: _passwordController.text);
+    if (res == 'Log In Succeed'){   //succeed thif chuyen sang trang main
+      if (mounted){
+        // Code here
+      }
+    }
+    else{
+      showSnackBar(context, res);
+    }
+    if(mounted){
+      setState(() {
+        _isLoading = false;
+      }); 
+    }
+  }
+
+  void navigateToSignUp() {
+    Navigator.of(context).push(
+      MaterialPageRoute(
+        builder: (context) => const SignUpScreen(),
+      ),
+    );
+  }
+
+  
+  @override
+  void dispose() {
+    super.dispose();
+    _emailController.dispose();      //very important
+    _passwordController.dispose();
+  }
   @override
   Widget build(BuildContext context) {
-    return Container(
-      
+    return Scaffold(
+      body: SingleChildScrollView(
+        child: SizedBox(
+          height: MediaQuery.of(context).size.height,
+          child: SafeArea(
+              child: Container(
+            padding: const EdgeInsets.symmetric(horizontal: 30),
+            width: double.infinity,   //return width cua man hinh
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.center,    //center tat ca children theo chieu truc cross ==> chieu ngang
+              children: [
+                Flexible(child: Container(), flex: 2,),
+                SvgPicture.asset('assets/of_logo.svg', color: primaryColor, height: 48,),
+                const SizedBox(height: 64,),
+                UserEmail(emailController: _emailController),
+                const SizedBox(height: 28,),
+                UserPassword(passwordController: _passwordController),
+                const SizedBox(height: 28,),
+                InkWell(                        //button login
+                  onTap: loginUser,
+                  child: Container(        
+                    alignment: Alignment.center,
+                    child: _isLoading
+                        ? const CircularProgressIndicator(
+                            color: Colors.white,
+                          )
+                        : const Text('LOG IN'),
+                    width: double.infinity,
+                    height: 46,
+                    decoration: const ShapeDecoration(
+                      color: loginButton,
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.all(Radius.circular(4),
+                        ),
+                      ),
+                    ),
+                  ),
+                ),
+                const SizedBox(height: 28,),
+                Flexible(child: Container(), flex: 2,),
+                Row(                    //text de chuyen sang sign up screen
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children:  [
+                    const Text("Don't have an account?"),
+                    const SizedBox(width: 10,),
+                    GestureDetector(
+                      onTap: navigateToSignUp,
+                      child: const Text(
+                        'Sign Up',
+                        style: TextStyle(
+                          fontStyle: FontStyle.italic,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                    )
+                  ],
+                ),
+                const SizedBox(height: 22,),
+              ],
+            ),
+          )),
+        ),
+      ),
+    );
+  }
+}
+
+
+class UserPassword extends StatelessWidget {
+  const UserPassword({
+    Key? key,
+    required TextEditingController passwordController,
+  }) : _passwordController = passwordController, super(key: key);
+
+  final TextEditingController _passwordController;
+
+  @override
+  Widget build(BuildContext context) {
+    // return TextInput(
+    //     textEditingController: _passwordController,
+    //     hintText: 'Enter Password',
+    //     textInputType: TextInputType.text,
+    //     isPassword: true,
+    // );
+    return TextFormField(
+      textInputAction: TextInputAction.go,
+      controller: _passwordController,
+      decoration: const InputDecoration(
+        label: Text('Password'),
+        labelStyle: TextStyle(fontSize: 14, color: Colors.purple, fontWeight: FontWeight.bold),
+        hintText: 'Enter Password',
+        focusedBorder: OutlineInputBorder(
+                borderSide: BorderSide(color: Colors.purple, width: 1.0),
+            ),
+        enabledBorder: OutlineInputBorder(
+                borderSide: BorderSide(color: Colors.white, width: 1.0),
+            ),
+      ),
+      keyboardType: TextInputType.text,
+      obscureText: true
+    );
+  }
+}
+
+class UserEmail extends StatelessWidget {
+  const UserEmail({
+    Key? key,
+    required TextEditingController emailController,
+  }) : _emailController = emailController, super(key: key);
+
+  final TextEditingController _emailController;
+
+  @override
+  Widget build(BuildContext context) {
+    return TextFormField(
+      textInputAction: TextInputAction.next,
+      controller: _emailController,
+      decoration: const InputDecoration(
+        label: Text('Email'),
+        labelStyle: TextStyle(fontSize: 14, color: Colors.purple, fontWeight: FontWeight.bold),
+        hintText: 'Enter Email',
+        focusedBorder: OutlineInputBorder(
+                borderSide: BorderSide(color: Colors.purple, width: 1.0),
+            ),
+        enabledBorder: OutlineInputBorder(
+                borderSide: BorderSide(color: Colors.white, width: 1.0),
+            ),
+      ),
+      keyboardType: TextInputType.emailAddress,
     );
   }
 }
