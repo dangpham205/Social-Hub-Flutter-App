@@ -81,7 +81,7 @@ class _LoginScreenState extends State<LoginScreen> {
               crossAxisAlignment: CrossAxisAlignment.center,    //center tat ca children theo chieu truc cross ==> chieu ngang
               children: [
                 Flexible(child: Container(), flex: 2,),
-                SvgPicture.asset('assets/of_logo.svg', color: primaryColor, height: 48,),
+                SvgPicture.asset('assets/logo.svg', color: primaryColor, height: 48,),
                 const SizedBox(height: 64,),
                 UserEmail(emailController: _emailController),
                 const SizedBox(height: 28,),
@@ -112,13 +112,14 @@ class _LoginScreenState extends State<LoginScreen> {
                 Row(                    //text de chuyen sang sign up screen
                   mainAxisAlignment: MainAxisAlignment.center,
                   children:  [
-                    const Text("Don't have an account?"),
+                    const Text("Don't have an account?", style: TextStyle(color: Colors.grey,)),
                     const SizedBox(width: 10,),
                     GestureDetector(
                       onTap: navigateToSignUp,
                       child: const Text(
                         'Sign Up',
                         style: TextStyle(
+                          color: Colors.black,
                           fontStyle: FontStyle.italic,
                           fontWeight: FontWeight.bold,
                         ),
@@ -164,7 +165,7 @@ class UserPassword extends StatelessWidget {
                 borderSide: BorderSide(color: Colors.purple, width: 1.0),
             ),
         enabledBorder: OutlineInputBorder(
-                borderSide: BorderSide(color: Colors.white, width: 1.0),
+                borderSide: BorderSide(color: Colors.grey, width: 1.0),
             ),
       ),
       keyboardType: TextInputType.text,
@@ -194,7 +195,7 @@ class UserEmail extends StatelessWidget {
                 borderSide: BorderSide(color: Colors.purple, width: 1.0),
             ),
         enabledBorder: OutlineInputBorder(
-                borderSide: BorderSide(color: Colors.white, width: 1.0),
+                borderSide: BorderSide(color: Colors.grey, width: 1.0),
             ),
       ),
       keyboardType: TextInputType.emailAddress,
