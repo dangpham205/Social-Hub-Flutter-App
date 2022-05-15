@@ -2,7 +2,6 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:provider/provider.dart';
-
 import '../constants/colors.dart';
 import '../models/user.dart' as model;
 import '../providers/user_provider.dart';
@@ -12,6 +11,7 @@ class HomeScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    
     final model.User? user = Provider.of<UserProvider>(context).getUser; //lấy ra th user hiện tại
 
     return Scaffold(

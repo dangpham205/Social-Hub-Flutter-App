@@ -30,7 +30,6 @@ class _LoginScreenState extends State<LoginScreen> {
     String res = await AuthMethods().logIn(email: _emailController.text, password: _passwordController.text);
     if (res == 'Log In Succeed'){   //succeed thif chuyen sang trang main
       if (mounted){
-        // Code here
         Navigator.of(context).pushAndRemoveUntil(    //nếu chỉ dùng push thì bấm back vẫn có thể quay lại screen trc
         MaterialPageRoute(
           builder: (context) => const ResponsiveLayout(

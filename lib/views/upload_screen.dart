@@ -1,10 +1,7 @@
 import 'dart:typed_data';
-
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
-
 import 'package:provider/provider.dart';
-
 import '../constants/colors.dart';
 import '../constants/utils.dart';
 import '../models/user.dart';
@@ -117,8 +114,6 @@ class _UploadScreenState extends State<UploadScreen> {
     }
   }
 
-
-
   void clearScreen(){
     setState(() {
       _image = null;
@@ -155,7 +150,7 @@ class _UploadScreenState extends State<UploadScreen> {
     return _image == null ? Center(
       child: IconButton(
         iconSize: 50,
-        icon: const Icon(Icons.upload),
+        icon: const Icon(Icons.upload, color: Colors.black,),
         onPressed: () => _selectImage(context),
       ),
     ) :
