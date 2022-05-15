@@ -5,6 +5,7 @@ import 'package:provider/provider.dart';
 import '../constants/colors.dart';
 import '../models/user.dart' as model;
 import '../providers/user_provider.dart';
+import '../widgets/post_card.dart';
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({ Key? key }) : super(key: key);
@@ -33,11 +34,8 @@ class HomeScreen extends StatelessWidget {
       body: user!.following.isEmpty ?       //nếu không có follow ai thì  trả về empty
       const SizedBox()
           : StreamBuilder(                              //dùng stream để load ra các post
-        stream: FirebaseFirestore.instance
-            .collection('posts')
-            .where('uid', whereIn: user.following)
-            .orderBy('uploadDate', descending: true)
-            .snapshots(),
+        stream: FirebaseFirestore.instance.collection('posts').orderBy('uploadDate', descending: true).snapshots(),
+            // .where('uid', whereIn: user.following)
         // .where('uid', isLessThanOrEqualTo: user.uid)
         //stream sẽ là các bài post, khi có các bài post mới đc add lên, stream builder sẽ build lại
         builder:(context, AsyncSnapshot<QuerySnapshot<Map<String, dynamic>>> snapshot) {
@@ -60,7 +58,9 @@ class HomeScreen extends StatelessWidget {
               physics: const BouncingScrollPhysics(),
               itemCount: snapshot.data!.docs.length,      //bắt buộc phải truyền vô
               itemBuilder:(context, index) {
-                return Text("");
+                return PostCard(
+                  snap: snapshot.data!.docs[index].data(),    //truyền vô cái snap chứa thông tin của post đó, ****nơi xét follow???
+                );
               }
           );
         }  ,
