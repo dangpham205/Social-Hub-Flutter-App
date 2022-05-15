@@ -9,6 +9,7 @@ import '../constants/colors.dart';
 import '../constants/utils.dart';
 import '../models/user.dart';
 import '../providers/user_provider.dart';
+import '../shared/firebase_firestore.dart';
 
 class UploadScreen extends StatefulWidget {
   const UploadScreen({ Key? key }) : super(key: key);
@@ -79,6 +80,43 @@ class _UploadScreenState extends State<UploadScreen> {
     });
   }
 
+  void uploadPost(
+      String uid,
+      String username,
+      String avatarUrl,
+      ) async {
+    setState(() {
+      _isLoading = true;
+    });
+    try{
+      String res = await FirestoreMethods().uploadPost(
+        uid,
+        _descriptionController.text,
+        _image!,
+      );
+
+      if (res == 'Upload Succeed'){
+        setState(() {
+          _isLoading = false;
+        });
+        showSnackBar(context, res);
+        clearScreen();
+      }
+      else{
+        setState(() {
+          _isLoading = false;
+        });
+        showSnackBar(context, res);
+      }
+    }
+    catch(error){
+      setState(() {
+        _isLoading = false;
+      });
+      showSnackBar(context, error.toString());
+    }
+  }
+
 
 
   void clearScreen(){
@@ -143,7 +181,7 @@ class _UploadScreenState extends State<UploadScreen> {
               title: const Text('Post to'),
               actions: [                //nút Post
                 TextButton(
-                  onPressed: () =>{},
+                  onPressed: () => uploadPost( user!.uid, user!.username, user!.photoUrl),
                   child: const Text(
                     'POST', 
                     style: TextStyle(
