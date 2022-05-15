@@ -3,6 +3,8 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:endterm/constants/colors.dart';
 
+import '../views/upload_screen.dart';
+
 
 // import 'package:instagram/models/user.dart' as model;        //user của class này trùng tên với instance user của firebase nên phải as
 
@@ -60,7 +62,7 @@ class _MobileScreenLayoutState extends State<MobileScreenLayout> {
         children: const[
           Text ('HomeScreen'),
           Text ('ExploreScreen'),
-          Text ('UploadScreen'),
+          UploadScreen(),
           Text('notiiiiiiiiiiiiiiiiii'),
           Text ('ProfileScreen'),
         ]
