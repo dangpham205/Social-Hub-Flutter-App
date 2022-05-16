@@ -32,7 +32,9 @@ class HomeScreen extends StatelessWidget {
         ],
       ),
       body: StreamBuilder(                              //dùng stream để load ra các post
-        stream: FirebaseFirestore.instance.collection('posts').orderBy('uploadDate', descending: true).snapshots(),
+        stream: FirebaseFirestore.instance.collection('posts')
+                .orderBy('uploadDate', descending: true)
+                .snapshots(),
             // .where('uid', whereIn: user.following)
         // .where('uid', isLessThanOrEqualTo: user.uid)
         //stream sẽ là các bài post, khi có các bài post mới đc add lên, stream builder sẽ build lại
