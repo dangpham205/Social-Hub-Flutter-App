@@ -31,9 +31,7 @@ class HomeScreen extends StatelessWidget {
           ),
         ],
       ),
-      body: user!.following.isEmpty ?       //nếu không có follow ai thì  trả về empty
-      const SizedBox()
-          : StreamBuilder(                              //dùng stream để load ra các post
+      body: StreamBuilder(                              //dùng stream để load ra các post
         stream: FirebaseFirestore.instance.collection('posts').orderBy('uploadDate', descending: true).snapshots(),
             // .where('uid', whereIn: user.following)
         // .where('uid', isLessThanOrEqualTo: user.uid)
