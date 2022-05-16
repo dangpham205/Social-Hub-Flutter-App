@@ -7,6 +7,8 @@ import '../constants/colors.dart';
 import '../constants/utils.dart';
 import '../models/user.dart';
 import '../providers/user_provider.dart';
+import '../shared/firebase_firestore.dart';
+import 'like_animation.dart';
 
 
 class PostCard extends StatefulWidget {
@@ -176,7 +178,14 @@ class _PostCardState extends State<PostCard> {
           //image display
           GestureDetector(
             onDoubleTap: () async {
-              // like khi double tap vô hình 
+              await FirestoreMethods().likePost(
+                widget.snap['postId'],
+                user.uid,
+                widget.snap['likes'],
+              );
+              setState(() {
+                isLikeDisplaying = true;
+              });
             },
             child: Stack(
               alignment: Alignment.center,
@@ -198,7 +207,29 @@ class _PostCardState extends State<PostCard> {
                     ), //dùng snap lấy url ảnh bài post
                   ),
                 ),
-                
+                AnimatedOpacity(
+                  opacity: isLikeDisplaying ? 1 : 0,
+                  //cái nút like vẫn luôn ở đó, chỉ là check xem ng dùng có bấm like không để chỉnh opa thôi
+                  duration: const Duration(
+                      milliseconds:
+                          100), //mất 10 milisec để hiện từ opa 0 lên 1
+                  child: LikeAnimation(
+                    child: const Icon(
+                      Icons.thumb_up,
+                      color: Colors.blue,
+                      size: 70,
+                    ),
+                    isDisplaying: isLikeDisplaying,
+                    duration: const Duration(milliseconds: 200),
+                    //nó sẽ foward và reverse (scale trong file like_animation) trong 200 milisec sau đó hiện thêm 1s (startAnimation trong cùng file)
+                    onEnd: () {
+                      setState(() {
+                        isLikeDisplaying =
+                            false; //khi chỉnh này thành false lại thì opa thành 0 ===> biến mất
+                      });
+                    },
+                  ),
+                ),
               ],
             ),
           ),
@@ -208,11 +239,26 @@ class _PostCardState extends State<PostCard> {
             color: darkColor,
             child: Row(
               children: [
-                IconButton(                   // NÚT LIKE NHỎ
-                  onPressed: () {}, 
-                  icon: const Icon(
-                    Icons.thumb_up,
-                    color: Colors.blue,
+                LikeAnimation(
+                  // isDisplaying: true,
+                  isDisplaying: widget.snap['likes'].contains(user.uid),
+                  smallLike:
+                      true, //smallLike là like bằng nút like, mặc định là false(like bằng double   tap)
+                  child: IconButton(
+                    //LIKE
+                    onPressed: () async {
+                      await FirestoreMethods().likePost(
+                        widget.snap['postId'],
+                        user.uid,
+                        widget.snap['likes'],
+                      );
+                    },
+                    icon: widget.snap['likes'].contains(user.uid) ? 
+                      const Icon(
+                        Icons.thumb_up,
+                        color: Colors.blue,)
+                      : const Icon(
+                        Icons.thumb_up,)
                   ),
                 ),
                 IconButton(
