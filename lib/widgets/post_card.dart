@@ -9,6 +9,7 @@ import '../models/user.dart';
 import '../providers/user_provider.dart';
 import '../shared/firebase_firestore.dart';
 import 'like_animation.dart';
+import 'yes_no_dialog.dart';
 
 
 class PostCard extends StatefulWidget {
@@ -149,7 +150,19 @@ class _PostCardState extends State<PostCard> {
                                   child: const Text('Delete'),
                                 ),
                                 onTap: () async {
-                                  // này để mở yes no dialog lên delete
+                                  Navigator.of(context).pop();      
+                                  showDialog(
+                                    context: context,
+                                    builder: (context) => YesNoDialog(
+                                      title: 'Delete',
+                                      content:
+                                          'Do you really want to delete this post?',
+                                      function: () async {
+                                        FirestoreMethods().deletePost(widget.snap['postId']);
+                                        Navigator.of(context).pop();
+                                      },
+                                    ),
+                                  );
                                 },
                               ), 
                               InkWell(
