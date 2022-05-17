@@ -8,6 +8,7 @@ import '../constants/utils.dart';
 import '../models/user.dart';
 import '../providers/user_provider.dart';
 import '../shared/firebase_firestore.dart';
+import '../views/comment_screen.dart';
 import 'like_animation.dart';
 import 'yes_no_dialog.dart';
 
@@ -277,7 +278,11 @@ class _PostCardState extends State<PostCard> {
                 IconButton(
                   //COMMENT
                   onPressed: () {
-                    // đi tới trang comment
+                   Navigator.of(context).push(
+                      MaterialPageRoute(
+                        builder: (context) => CommentScreen(snap: widget.snap),
+                      ),
+                    );
                   },
                   icon: const Icon(
                     Icons.comment,
@@ -349,7 +354,11 @@ class _PostCardState extends State<PostCard> {
                 ),
                 InkWell(
                   onTap: () {
-                    // ĐI TỚI TRANG COMMENT
+                    Navigator.of(context).push(
+                      MaterialPageRoute(
+                        builder: (context) => CommentScreen(snap: widget.snap),
+                      ),
+                    );
                   },
                   child: Container(
                     //VIEW COMMENTS
