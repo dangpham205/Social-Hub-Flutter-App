@@ -4,6 +4,7 @@ import 'package:provider/provider.dart';
 import '../constants/colors.dart';
 import '../models/user.dart';
 import '../providers/user_provider.dart';
+import '../widgets/comment_card.dart';
 
 class CommentScreen extends StatefulWidget {
   final snap;
@@ -48,7 +49,9 @@ class _CommentScreenState extends State<CommentScreen> {
 
           return ListView.builder(
             itemCount: snapshot.data!.docs.length,
-            itemBuilder: (context, index) => Text("Comment card")
+            itemBuilder: (context, index) => CommentCard(
+              snap: snapshot.data!.docs[index].data(),    //truyền vô cái snap chứa thông tin của comment đó
+            ),
           );
         },
       ),
