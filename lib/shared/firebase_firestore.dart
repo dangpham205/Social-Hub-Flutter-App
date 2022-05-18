@@ -58,6 +58,34 @@ class FirestoreMethods {
     }
   }
 
+  Future<void> uploadComment(
+    String postId, 
+    String uid, 
+    String username,
+    String avatarUrl, 
+    String comment) async {
+
+    try{
+      if (comment.isNotEmpty){
+        String commentId = const Uuid().v1();
+        await _firestore.collection('posts').doc(postId).collection('comments').doc(commentId).set({
+          'commentId':commentId,
+          'uid': uid,
+          'username': username,
+          'avatarUrl': avatarUrl,
+          'comment': comment,
+          'uploadDate': DateTime.now(),
+        });
+      }
+      else{
+        log('Comment is empty!!');
+      }
+    }
+    catch(error){
+      log(error.toString());
+    }
+  }
+
   Future<void> deletePost(String postId) async {
     try {
       await _firestore.collection('posts').doc(postId).delete();

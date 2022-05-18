@@ -159,8 +159,7 @@ class _PostCardState extends State<PostCard> {
                                       content:
                                           'Do you really want to delete this post?',
                                       function: () async {
-                                        FirestoreMethods().deletePost(widget.snap['postId']);
-                                        Navigator.of(context).pop();
+                                        // Delete post here 
                                       },
                                     ),
                                   );
