@@ -4,6 +4,7 @@ import 'package:provider/provider.dart';
 import '../constants/colors.dart';
 import '../models/user.dart';
 import '../providers/user_provider.dart';
+import '../shared/firebase_firestore.dart';
 import '../widgets/comment_card.dart';
 
 class CommentScreen extends StatefulWidget {
@@ -83,7 +84,13 @@ class _CommentScreenState extends State<CommentScreen> {
               ),
               InkWell(
                 onTap: () async {
-                  //hàm upload comment
+                  await FirestoreMethods().uploadComment(
+                      widget.snap['postId'],
+                      user.uid,
+                      user.username,
+                      user.photoUrl,
+                      _commentController.text,
+                  );
                   FocusManager.instance.primaryFocus?.unfocus(); //tắt bàn phím sau khi comment đc up lên
                   _commentController.text = '';         //sau khi comment xong thi set phần comment về trống không
                 },
