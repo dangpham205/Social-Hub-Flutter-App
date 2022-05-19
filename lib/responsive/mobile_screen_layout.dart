@@ -1,4 +1,5 @@
 import 'package:endterm/views/home_screen.dart';
+import 'package:endterm/views/profile_screen.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -60,12 +61,12 @@ class _MobileScreenLayoutState extends State<MobileScreenLayout> {
     // user này có thể null vì lúc đầu có thể chưa kết nối tới firebase kịp để get
     return Scaffold(
       body: PageView(
-        children: const[
-          HomeScreen(),
-          Text ('ExploreScreen'),
-          UploadScreen(),
-          Text('notiiiiiiiiiiiiiiiiii'),
-          Text ('ProfileScreen'),
+        children:[
+          const HomeScreen(),
+          const Text ('ExploreScreen'),
+          const UploadScreen(),
+          const Text('notiiiiiiiiiiiiiiiiii'),
+          ProfileScreen(uid: FirebaseAuth.instance.currentUser!.uid),
         ]
         ,  //liệt kê các page sẽ có (số lượng tương ứng với số icon dưới thanh nav)
         physics: const NeverScrollableScrollPhysics(), //tắt chuyển tab bằng cách kéo ngang
