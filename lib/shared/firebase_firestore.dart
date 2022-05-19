@@ -12,13 +12,13 @@ class FirestoreMethods {
   Future<String> uploadPost(
     String uid,
     String description,
-    Uint8List image, //đây là file truyền vô để upload lên storage
+    Uint8List image,    //đây là file truyền vô để upload lên storage
   ) async {
+
     String res = 'Upload Failed';
 
-    try {
-      String photoUrl = await StorageMethods().uploadImgToStorage(
-          'postPics', image, true); //up ảnh bài post lên storage
+    try{
+      String photoUrl = await StorageMethods().uploadImgToStorage('postPics', image, true); //up ảnh bài post lên storage
       String postId = const Uuid().v1();
 
       Post post = Post(
@@ -29,31 +29,32 @@ class FirestoreMethods {
           postUrl: photoUrl,
           likes: []);
 
-      _firestore
-          .collection('posts')
-          .doc(postId)
-          .set(post.toJSON()); //up post lên firebase
+      _firestore.collection('posts').doc(postId).set(post.toJSON());    //up post lên firebase
 
       res = 'Upload Succeed';
-    } catch (error) {
+    } 
+    catch(error){
       res = error.toString();
     }
 
     return res;
   }
 
+
   Future<void> likePost(String postId, String uid, List likes) async {
     try {
-      if (likes.contains(uid)) {
+      if (likes.contains(uid)){
         await _firestore.collection('posts').doc(postId).update({
           'likes': FieldValue.arrayRemove([uid])
         });
-      } else {
+      }
+      else{
         await _firestore.collection('posts').doc(postId).update({
           'likes': FieldValue.arrayUnion([uid])
         });
       }
-    } catch (error) {
+    } 
+    catch(error){
       log(error.toString());
     }
   }
@@ -87,9 +88,10 @@ class FirestoreMethods {
   }
 
   Future<void> deletePost(String postId) async {
-    try {
+    try{
       await _firestore.collection('posts').doc(postId).delete();
-    } catch (error) {
+    } 
+    catch(error){
       log(error.toString());
     }
   }

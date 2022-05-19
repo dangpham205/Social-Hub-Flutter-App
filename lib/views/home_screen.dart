@@ -4,8 +4,8 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:provider/provider.dart';
 import '../constants/colors.dart';
 import '../models/user.dart' as model;
-import '../providers/user_provider.dart';
 import '../widgets/post_card.dart';
+import '../providers/user_provider.dart';
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({ Key? key }) : super(key: key);
@@ -32,7 +32,8 @@ class HomeScreen extends StatelessWidget {
         ],
       ),
       body: StreamBuilder(                              //dùng stream để load ra các post
-        stream: FirebaseFirestore.instance.collection('posts')
+        stream: FirebaseFirestore.instance
+                .collection('posts')
                 .orderBy('uploadDate', descending: true)
                 .snapshots(),
             // .where('uid', whereIn: user.following)

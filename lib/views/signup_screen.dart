@@ -111,7 +111,6 @@ class _SignUpScreenState extends State<SignUpScreen> {
                     radius: 64,
                     backgroundColor: darkColor,
                     backgroundImage: AssetImage('assets/icon.png'),
-                    // backgroundImage: NetworkImage('https://images.squarespace-cdn.com/content/v1/54b7b93ce4b0a3e130d5d232/1519987020970-8IQ7F6Z61LLBCX85A65S/icon.png?format=1000w'),
                   ),   //avatar mặc định
                   Positioned(     //nút thêm ảnh avatar
                     bottom: -6,
