@@ -95,4 +95,26 @@ class FirestoreMethods {
       log(error.toString());
     }
   }
+
+  Future<void> followUser(String currentUser, String followUser) async {
+    try {
+      DocumentSnapshot snapshot = await _firestore.collection('users').doc(followUser).get();
+      List followers = (snapshot.data() as dynamic)['followers'];
+
+      if (followers.contains(currentUser)){
+        await _firestore.collection('users').doc(followUser).update({'followers' : FieldValue.arrayRemove([currentUser])});
+        
+        await _firestore.collection('users').doc(currentUser).update({'following' : FieldValue.arrayRemove([followUser])});
+
+      }
+      else{
+        await _firestore.collection('users').doc(followUser).update({'followers' : FieldValue.arrayUnion([currentUser])});
+
+        await _firestore.collection('users').doc(currentUser).update({'following' : FieldValue.arrayUnion([followUser])});
+      }
+    }
+    catch (error) {
+      log(error.toString());
+    }
+  }
 }

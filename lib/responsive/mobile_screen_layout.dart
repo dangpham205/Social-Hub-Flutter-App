@@ -1,3 +1,4 @@
+import 'package:endterm/views/explore_screen.dart';
 import 'package:endterm/views/home_screen.dart';
 import 'package:endterm/views/profile_screen.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -7,8 +8,6 @@ import 'package:endterm/constants/colors.dart';
 
 import '../views/upload_screen.dart';
 
-
-// import 'package:instagram/models/user.dart' as model;        //user của class này trùng tên với instance user của firebase nên phải as
 
 
 class MobileScreenLayout extends StatefulWidget {
@@ -61,9 +60,9 @@ class _MobileScreenLayoutState extends State<MobileScreenLayout> {
     // user này có thể null vì lúc đầu có thể chưa kết nối tới firebase kịp để get
     return Scaffold(
       body: PageView(
-        children:[
+        children: [
           const HomeScreen(),
-          const Text ('ExploreScreen'),
+          const ExploreScreen(),
           const UploadScreen(),
           const Text('notiiiiiiiiiiiiiiiiii'),
           ProfileScreen(uid: FirebaseAuth.instance.currentUser!.uid),

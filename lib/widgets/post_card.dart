@@ -9,6 +9,7 @@ import '../models/user.dart';
 import '../providers/user_provider.dart';
 import '../shared/firebase_firestore.dart';
 import '../views/comment_screen.dart';
+import '../views/profile_screen.dart';
 import 'like_animation.dart';
 import 'yes_no_dialog.dart';
 
@@ -105,7 +106,13 @@ class _PostCardState extends State<PostCard> {
                 .copyWith(right: 0),
             child: InkWell(
               onTap: () {
-                //này đi tới trang profile người post
+                Navigator.of(context).push(
+                  MaterialPageRoute(
+                    builder: (context) => ProfileScreen(
+                      uid: widget.snap['uid'],
+                    ),
+                  ),
+                );
               },
               child: Row(
                 children: [

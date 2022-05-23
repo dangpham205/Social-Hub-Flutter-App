@@ -163,7 +163,11 @@ class _ProfileScreenState extends State<ProfileScreen> {
                         buttonText: 'UNFOLLOW',
                         buttonTextColor: Colors.black,
                         function: () async {
-                          // hàm unfollow
+                          await FirestoreMethods().followUser(FirebaseAuth.instance.currentUser!.uid, widget.uid);
+                          setState(() {
+                            isFollowing = false;
+                            followerCount--;
+                          });
                         },)
                     : ProfileButton(                          //còn không thì hiện nút follow
                         buttonColor: Colors.blueAccent,
@@ -171,7 +175,11 @@ class _ProfileScreenState extends State<ProfileScreen> {
                         buttonText: 'FOLLOW',
                         buttonTextColor: Colors.white,
                         function: () async {
-                          // hàm follow
+                          await FirestoreMethods().followUser(FirebaseAuth.instance.currentUser!.uid, widget.uid);
+                          setState(() {
+                            isFollowing = true;
+                            followerCount++;
+                          });
                         },
                       ),
                 const SizedBox( height: 16,),
