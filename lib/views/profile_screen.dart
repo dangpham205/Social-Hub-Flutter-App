@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import '../constants/colors.dart';
 import '../shared/firebase_firestore.dart';
 import '../widgets/profile_button.dart';
+import 'post_detail_screen.dart';
 
 class ProfileScreen extends StatefulWidget {
   final String uid;
@@ -212,7 +213,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                           child: CircularProgressIndicator(),
                                         );
                                       }
-                                      return Text('khi bấm vào hình thì đi tới post detail screen');
+                                      return PostDetailScreen(snap: snapshot.data!.docs[index].data());
                                     }
                                   ),
                                   //  PostDetailScreen(snap: snapshot.data!.docs[index].data(),),

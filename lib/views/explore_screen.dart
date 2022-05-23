@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 
 import '../constants/colors.dart';
+import 'post_detail_screen.dart';
 import 'profile_screen.dart';
 
 
@@ -114,7 +115,7 @@ class _ExploreScreenState extends State<ExploreScreen> {
                                     child: CircularProgressIndicator(),
                                   );
                                 }
-                                return const Text("Post Detail screen");
+                                return PostDetailScreen(snap: snapshot.data!.docs[index].data());
                               }
                             ),
                             //  PostDetailScreen(snap: snapshot.data!.docs[index].data(),),
