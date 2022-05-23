@@ -31,13 +31,15 @@ class HomeScreen extends StatelessWidget {
           ),
         ],
       ),
-      body: StreamBuilder(                              //dùng stream để load ra các post
-        stream: FirebaseFirestore.instance
-                .collection('posts')
-                .orderBy('uploadDate', descending: true)
-                .snapshots(),
-            // .where('uid', whereIn: user.following)
-        // .where('uid', isLessThanOrEqualTo: user.uid)
+      body: user!.following.isEmpty ?       //nếu không có follow ai thì  trả về empty
+      const SizedBox()
+      : StreamBuilder(                              //dùng stream để load ra các post
+              stream: FirebaseFirestore.instance
+                  .collection('posts')
+                  .where('uid', whereIn: user.following)
+                  .orderBy('uploadDate', descending: true)
+                  .snapshots(),
+                  // .where('uid', isLessThanOrEqualTo: user.uid)
         //stream sẽ là các bài post, khi có các bài post mới đc add lên, stream builder sẽ build lại
         builder:(context, AsyncSnapshot<QuerySnapshot<Map<String, dynamic>>> snapshot) {
           //mặc định thì builder sẽ có snapshot

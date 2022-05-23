@@ -105,6 +105,11 @@ class AuthMethods {
       return res;
   }
 
+  Future<void> signOut() async {
+    await _auth.signOut();
+  }
+
+
   Future<String> updateProfile({
     required String uid,
     required String username,
@@ -133,10 +138,4 @@ class AuthMethods {
     }
     return res;
   }
-
-  Future<void> signOut() async {
-    await _auth.signOut();
-  }
-
-
 }

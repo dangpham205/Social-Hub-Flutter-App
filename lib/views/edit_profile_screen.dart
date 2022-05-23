@@ -74,7 +74,26 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
   }
 
   void updateUser() async {                                   // khi bấm vào nút UPDATE
+    setState(() {
+        _isUpdating = true;
+      });  
 
+      String res = await AuthMethods().updateProfile(
+        uid: widget.uid,
+        username: _usernameController.text,
+        bio: _bioController.text ,
+        oldAvatar: userData['photoUrl'].toString(),
+        image: _avatar);
+      if (res != 'Update Succeed'){
+        showSnackBar(context, res);
+      }
+      else{
+        Navigator.of(context).pop();
+      }
+
+      setState(() {
+        _isUpdating = false;
+      }); 
   }
 
   @override
