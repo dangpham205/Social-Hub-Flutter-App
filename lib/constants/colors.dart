@@ -65,3 +65,4 @@ const postCardBg = Color.fromARGB(255, 245, 184, 184);
 const unlikeBtn = Colors.grey;
     // post detail screen: 302, 310, 318, 329
     // post card: 288, 303, 310, 320
+const searchBox = Colors.grey;

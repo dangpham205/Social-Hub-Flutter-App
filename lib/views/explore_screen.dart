@@ -1,11 +1,11 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:endterm/views/search_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 
 
 import '../constants/colors.dart';
 import 'post_detail_screen.dart';
-import 'profile_screen.dart';
 
 
 class ExploreScreen extends StatefulWidget {
@@ -16,13 +16,10 @@ class ExploreScreen extends StatefulWidget {
 }
 
 class _ExploreScreenState extends State<ExploreScreen> {
-  final TextEditingController _searchController = TextEditingController();
-  bool showSearchResults = false;
 
   @override
   void dispose() {
     super.dispose();
-    _searchController.dispose();
   }
 
   @override
@@ -30,75 +27,41 @@ class _ExploreScreenState extends State<ExploreScreen> {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: mobileBackgroundColor,
-        title: TextFormField(
-          style: const TextStyle(color: cblack),
-          textInputAction: TextInputAction.search,
-          controller: _searchController,
-          decoration: const InputDecoration(
-            labelText: 'Search',
-            labelStyle: TextStyle(color: subText)
+        title: Container(
+          height: 38,
+          padding: const EdgeInsets.symmetric(horizontal: 8),
+          decoration: const BoxDecoration(
+            borderRadius: BorderRadius.vertical(
+              bottom: Radius.circular(8.0),
+              top: Radius.circular(8.0)
+            ),
+            color: searchBox,
           ),
-          onFieldSubmitted: (String _) {      //khoong qtam String nhan dc la gi nen dat ten la _
-            setState(() {
-              showSearchResults = true;
-            });
-          },
+          child: Material(
+            color: searchBox,
+            child: InkWell(
+              onTap: () {
+                showSearch(context: context, delegate: SearchScreen());
+                // Navigator.of(context).push(
+                //   MaterialPageRoute(
+                //     builder: (context) => const SearchScreen(),
+                //   ),
+                // );
+              },
+              child: Row(
+                mainAxisSize: MainAxisSize.max,
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: const [
+                  Icon(Icons.search, size: 20, color: cwhite,),
+                  Text('  Search', style: TextStyle(color: cwhite, fontSize: 14),)
+                ],
+              ),
+            ),
+          ),
         ),
-        actions: [
-          showSearchResults ? IconButton(                                   //tawts phaanf ket qua cua search
-            onPressed: () {
-              Navigator.of(context).push(    //nếu chỉ dùng push thì bấm back vẫn có thể quay lại screen trc
-              MaterialPageRoute(
-                builder: (context) => const ExploreScreen(),
-                ),
-              );
-            },
-            icon: const Icon(Icons.close),
-            color: subText,
-          ) 
-          : const SizedBox()
-        ],
       ),
-      body: showSearchResults ? FutureBuilder(
-              future: FirebaseFirestore.instance
-                  .collection('users')
-                  .where('username', isGreaterThanOrEqualTo: _searchController.text.toString(),)
-                  .get(), 
-            //get the collections, data cua users
-        builder: (context, AsyncSnapshot<QuerySnapshot<Map<String, dynamic>>> snapshot) {
-          if (!snapshot.hasData){
-            return const Center(
-              child: CircularProgressIndicator(),
-            );
-          }
-          else{
-            return ListView.builder(
-              itemCount: snapshot.data!.docs.length,     //sd kiểu này nếu không muốn cast type cho snapshot ở trên
-              itemBuilder: (context, index){
-                return InkWell(
-                      onTap: () => Navigator.of(context).push(
-                          MaterialPageRoute(
-                              builder: (context) => ProfileScreen(
-                                  uid: snapshot.data!.docs[index].data()['uid'],
-                          ),
-                        ),
-                      ),
-                      child: ListTile(
-                        leading: CircleAvatar(
-                          backgroundImage: NetworkImage(snapshot.data!.docs[index].data()['photoUrl'].toString()),
-                        ),
-                        title: Text(
-                          snapshot.data!.docs[index].data()['username'].toString(),
-                          style: const TextStyle(color: cblack),
-                        ),
-                  ),
-                );
-              }
-            );
-          }
-        },
-      )
-      : FutureBuilder(
+      body:  
+      FutureBuilder(
         future: FirebaseFirestore.instance.collection('posts').get(),
         builder:(context, AsyncSnapshot<QuerySnapshot<Map<String, dynamic>>> snapshot) {
           if (snapshot.connectionState == ConnectionState.waiting) {

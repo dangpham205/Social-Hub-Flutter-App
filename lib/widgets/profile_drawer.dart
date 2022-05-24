@@ -18,13 +18,14 @@ class _ProfileDrawerState extends State<ProfileDrawer> {
   Widget build(BuildContext context) {
     return Drawer(
       child: Material(
-        color: darkColor,
+        color: mobileBackgroundColor,
         child: ListView(
-          padding: const EdgeInsets.symmetric(horizontal: 20),
+          padding: const EdgeInsets.symmetric(horizontal: 2),
           children: [
             const SizedBox(height: 48,),
             drawerItem(
               text: 'Settings',
+              textColor: cblack,
               icon: Icons.settings,
               function: () {
                 Navigator.of(context).push(MaterialPageRoute(
@@ -34,6 +35,7 @@ class _ProfileDrawerState extends State<ProfileDrawer> {
             ),
             drawerItem(
               text: 'Saved',
+              textColor: cblack,
               icon: Icons.bookmark,
               function: () {
                 Navigator.of(context).push(MaterialPageRoute(
@@ -41,9 +43,10 @@ class _ProfileDrawerState extends State<ProfileDrawer> {
                 ));
               }
             ),
-            const Divider(color: Colors.white,),
+            const Divider(color: dividerColor,),
             drawerItem(
               text: 'Log Out',
+              textColor: cblack,
               icon: Icons.logout,
               function: () async {
                 showDialog(context: context, builder: (context) => YesNoDialog(
@@ -64,13 +67,18 @@ class _ProfileDrawerState extends State<ProfileDrawer> {
     );
   }
 
-  Widget drawerItem({required String text, required IconData icon, VoidCallback? function}) {
+  Widget drawerItem(
+  {
+    required String text,
+    required IconData icon,
+    required Color textColor,
+    VoidCallback? function,
+  }) {
     
-    const color = Colors.white;
 
     return ListTile(
-      leading: Icon(icon, color: color),
-      title: Text(text, style: const TextStyle(color: color),),
+      leading: Icon(icon, color: textColor),
+      title: Text(text, style: TextStyle(color: textColor),),
       onTap:function,
     );
   }
