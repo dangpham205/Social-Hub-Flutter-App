@@ -8,6 +8,7 @@ import '../shared/firebase_firestore.dart';
 import '../widgets/comment_card.dart';
 
 class CommentScreen extends StatefulWidget {
+  // ignore: prefer_typing_uninitialized_variables
   final snap;
   const CommentScreen({ Key? key, this.snap, }) : super(key: key);
 

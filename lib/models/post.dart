@@ -6,6 +6,7 @@ class Post{
   final String description;
   final DateTime uploadDate;
   final String postUrl;
+  // ignore: prefer_typing_uninitialized_variables
   final likes;
 
   Post(

@@ -13,6 +13,7 @@ import '../widgets/yes_no_dialog.dart';
 import 'profile_screen.dart';
 
 class PostDetailScreen extends StatefulWidget {
+  // ignore: prefer_typing_uninitialized_variables
   final snap;
   const PostDetailScreen({ Key? key,required this.snap }) : super(key: key);
 

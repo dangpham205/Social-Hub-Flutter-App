@@ -150,93 +150,87 @@ class _UploadScreenState extends State<UploadScreen> {
     return _image == null ? Center(
       child: IconButton(
         iconSize: 50,
-        icon: const Icon(Icons.upload, color: Colors.black,),
+        icon: const Icon(Icons.upload, color: cblack,),
         onPressed: () => _selectImage(context),
       ),
     ) :
 
-    RefreshIndicator(
-      onRefresh: (){
-        setState(() {
-          
-          user = Provider.of<UserProvider>(context).getUser;      //get thằng user hiện tại ra
-        });
-        throw 'đá';
-      },
-      child: SingleChildScrollView(
-        child: SizedBox(
-          height: MediaQuery.of(context).size.height,
-          child: Scaffold(
-            appBar: AppBar(
-              backgroundColor: mobileBackgroundColor,
-              leading: IconButton(
-                onPressed: clearScreen,
-                icon: const Icon(Icons.arrow_back),
+    SingleChildScrollView(
+      child: SizedBox(
+        height: MediaQuery.of(context).size.height,
+        child: Scaffold(
+          appBar: AppBar(
+            backgroundColor: mobileBackgroundColor,
+            leading: IconButton(
+              onPressed: clearScreen,
+              icon: const Icon(Icons.arrow_back),
+              color: cblack,
+            ),
+            title: const Text('Upload Post', style: TextStyle(color: cblack),),
+            actions: [                //nút Post
+              TextButton(
+                onPressed: () => uploadPost( user!.uid, user!.username, user!.photoUrl),
+                child: const Text(
+                  'POST', 
+                  style: TextStyle(
+                    color: txtBtn, 
+                    fontWeight: FontWeight.bold,
+                    fontSize: 16,
+                  ),
+                ),
               ),
-              title: const Text('Post to'),
-              actions: [                //nút Post
-                TextButton(
-                  onPressed: () => uploadPost( user!.uid, user!.username, user!.photoUrl),
-                  child: const Text(
-                    'POST', 
-                    style: TextStyle(
-                      color: Colors.blueAccent, 
-                      fontWeight: FontWeight.bold,
-                      fontSize: 16,
+            ],
+          ),
+          body: Column(
+            children: [
+              _isLoading ? const LinearProgressIndicator() : Container(),   //show indicator khi bấm nút POST
+              const Divider(color: mobileBackgroundColor,),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceAround,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  CircleAvatar(
+                    radius: 28,
+                    backgroundColor: cblack,
+                    backgroundImage: NetworkImage(
+                      user!.photoUrl,
+                    ),   
+                  ),
+                  SizedBox(
+                    width: MediaQuery.of(context).size.width*0.7,
+                    child: TextField(
+                      style: const TextStyle(color: cblack),
+                      textInputAction: TextInputAction.newline,
+                      controller: _descriptionController,
+                      decoration: const InputDecoration(
+                        hintText: "What's on your mind?",
+                        hintStyle: TextStyle(color: subText),
+                        border: InputBorder.none,
+                      ),
+                      maxLines: 10,
                     ),
                   ),
-                ),
-              ],
-            ),
-            body: Column(
-              children: [
-                _isLoading ? const LinearProgressIndicator() : Container(),   //show indicator khi bấm nút POST
-                const Divider(color: Colors.white,),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceAround,
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    CircleAvatar(
-                      radius: 28,
-                      backgroundColor: Colors.grey,
-                      backgroundImage: NetworkImage(
-                        user!.photoUrl,
-                      ),   
-                    ),
-                    SizedBox(
-                      width: MediaQuery.of(context).size.width*0.7,
-                      child: TextField(
-                        textInputAction: TextInputAction.newline,
-                        controller: _descriptionController,
-                        decoration: const InputDecoration(
-                          hintText: "What's on your mind?",
-                          border: InputBorder.none,
-                        ),
-                        maxLines: 10,
-                      ),
-                    ),
-                  ],
-                ),
-                const Divider(color: Colors.white,),
-                SizedBox(
-                  width: MediaQuery.of(context).size.width,
-                  height: MediaQuery.of(context).size.height*0.5,
-                  child: AspectRatio(
-                    aspectRatio: 487/451,
-                    child: Container(
-                      decoration: BoxDecoration(
-                        color: darkColor,
-                        image: DecorationImage(
-                          image: MemoryImage(_image!),
-                          fit: BoxFit.contain,
-                          alignment: FractionalOffset.topCenter
-                        ),
+                ],
+              ),
+              const Divider(color: dividerColor,),
+              SizedBox(
+                width: MediaQuery.of(context).size.width,
+                height: MediaQuery.of(context).size.height*0.5,
+                child: AspectRatio(
+                  aspectRatio: 487/451,
+                  child: Container(
+                    decoration: BoxDecoration(
+                      color: darkColor,
+                      image: DecorationImage(
+                        image: MemoryImage(_image!),
+                        fit: BoxFit.contain,
+                        alignment: FractionalOffset.topCenter
                       ),
                     ),
                   ),
-                )
-              ],
-            ),
+                ),
+              )
+            ],
           ),
         ),
       ),

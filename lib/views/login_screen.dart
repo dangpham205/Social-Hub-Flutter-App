@@ -80,7 +80,7 @@ class _LoginScreenState extends State<LoginScreen> {
               crossAxisAlignment: CrossAxisAlignment.center,    //center tat ca children theo chieu truc cross ==> chieu ngang
               children: [
                 Flexible(child: Container(), flex: 2,),
-                SvgPicture.asset('assets/logo.svg', color: primaryColor, height: 48,),
+                SvgPicture.asset('assets/logo.svg', color: logoColor, height: 70,),   //logo
                 const SizedBox(height: 64,),
                 UserEmail(emailController: _emailController),
                 const SizedBox(height: 28,),
@@ -92,9 +92,9 @@ class _LoginScreenState extends State<LoginScreen> {
                     alignment: Alignment.center,
                     child: _isLoading
                         ? const CircularProgressIndicator(
-                            color: Colors.white,
+                            color: cwhite,
                           )
-                        : const Text('LOG IN'),
+                        : const Text('LOG IN', style: TextStyle(fontWeight: FontWeight.bold)),
                     width: double.infinity,
                     height: 46,
                     decoration: const ShapeDecoration(
@@ -111,16 +111,19 @@ class _LoginScreenState extends State<LoginScreen> {
                 Row(                    //text de chuyen sang sign up screen
                   mainAxisAlignment: MainAxisAlignment.center,
                   children:  [
-                    const Text("Don't have an account?", style: TextStyle(color: Colors.grey,)),
+                    const Text("Don't have an account?", style: TextStyle(color: subText,)),
                     const SizedBox(width: 10,),
-                    GestureDetector(
+                    InkWell(
                       onTap: navigateToSignUp,
-                      child: const Text(
-                        'Sign Up',
-                        style: TextStyle(
-                          color: Colors.black,
-                          fontStyle: FontStyle.italic,
-                          fontWeight: FontWeight.bold,
+                      child: const Padding(
+                        padding: EdgeInsets.all(6.0),
+                        child: Text(
+                          'Sign Up',
+                          style: TextStyle(
+                            color: cblack,
+                            fontStyle: FontStyle.italic,
+                            fontWeight: FontWeight.bold,
+                          ),
                         ),
                       ),
                     )
@@ -147,13 +150,8 @@ class UserPassword extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // return TextInput(
-    //     textEditingController: _passwordController,
-    //     hintText: 'Enter Password',
-    //     textInputType: TextInputType.text,
-    //     isPassword: true,
-    // );
     return TextFormField(
+      style: const TextStyle(color: cblack),
       textInputAction: TextInputAction.go,
       controller: _passwordController,
       decoration: const InputDecoration(
@@ -184,6 +182,7 @@ class UserEmail extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return TextFormField(
+      style: const TextStyle(color: cblack),
       textInputAction: TextInputAction.next,
       controller: _emailController,
       decoration: const InputDecoration(

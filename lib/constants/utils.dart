@@ -1,3 +1,4 @@
+import 'package:endterm/constants/colors.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 
@@ -15,8 +16,9 @@ pickImage(ImageSource imageSource) async {
 showSnackBar( BuildContext context, String content){
   ScaffoldMessenger.of(context).showSnackBar(
     SnackBar(
+      backgroundColor: snackBg,
       duration: const Duration(milliseconds: 1300),
-      content: Text(content),
+      content: Text(content, style: const TextStyle(color: Colors.white),),
     ),
   );
 }

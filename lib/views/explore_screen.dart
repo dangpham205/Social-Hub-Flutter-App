@@ -31,10 +31,12 @@ class _ExploreScreenState extends State<ExploreScreen> {
       appBar: AppBar(
         backgroundColor: mobileBackgroundColor,
         title: TextFormField(
+          style: const TextStyle(color: cblack),
           textInputAction: TextInputAction.search,
           controller: _searchController,
           decoration: const InputDecoration(
             labelText: 'Search',
+            labelStyle: TextStyle(color: subText)
           ),
           onFieldSubmitted: (String _) {      //khoong qtam String nhan dc la gi nen dat ten la _
             setState(() {
@@ -51,7 +53,8 @@ class _ExploreScreenState extends State<ExploreScreen> {
                 ),
               );
             },
-            icon: const Icon(Icons.close)
+            icon: const Icon(Icons.close),
+            color: subText,
           ) 
           : const SizedBox()
         ],
@@ -84,7 +87,10 @@ class _ExploreScreenState extends State<ExploreScreen> {
                         leading: CircleAvatar(
                           backgroundImage: NetworkImage(snapshot.data!.docs[index].data()['photoUrl'].toString()),
                         ),
-                        title: Text(snapshot.data!.docs[index].data()['username'].toString()),
+                        title: Text(
+                          snapshot.data!.docs[index].data()['username'].toString(),
+                          style: const TextStyle(color: cblack),
+                        ),
                   ),
                 );
               }

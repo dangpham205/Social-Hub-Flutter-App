@@ -15,6 +15,7 @@ import 'yes_no_dialog.dart';
 
 
 class PostCard extends StatefulWidget {
+  // ignore: prefer_typing_uninitialized_variables
   final snap;
   const PostCard({Key? key, required this.snap}) : super(key: key);
 

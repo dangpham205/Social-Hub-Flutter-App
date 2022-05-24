@@ -106,7 +106,13 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
       appBar: AppBar(
         backgroundColor: mobileBackgroundColor,
         elevation: 1,
-        title: const Text('Update Profile'),
+        leading: IconButton(      
+          icon: const Icon(Icons.arrow_back, color: cblack,),
+          onPressed: () {
+            Navigator.of(context).pop();
+          },
+        ),
+        title: const Text('Update Profile', style: TextStyle(color: cblack),),
       ),
       body: SingleChildScrollView(
         child: SizedBox(
@@ -119,7 +125,6 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                   crossAxisAlignment: CrossAxisAlignment.center,    //center tat ca children theo chieu truc cross ==> chieu ngang
                   children: [
                     Flexible(child: Container(), flex: 0,),
-                    // SvgPicture.asset('assets/ic_instagram.svg', color: primaryColor, height: 48,),
                     const SizedBox(height: 18,),
                     Stack(
                       children:  [
@@ -138,6 +143,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                           child: IconButton(
                             onPressed: selectAvatar,
                             icon: const Icon(Icons.add_a_photo),
+                            color: Colors.grey,
                           ),
                         )
                       ],
@@ -156,7 +162,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                             ? const Center(         //nếu mà bấm update thì sẽ hiện vòng load
                           child: CircularProgressIndicator(color: Colors.white,),
                         )
-                            : const Text('UPDATE'),  //update xong thì sẽ quay lại hiện chữ trong button
+                            : const Text('UPDATE', style: TextStyle(fontWeight: FontWeight.bold),),  //update xong thì sẽ quay lại hiện chữ trong button
                         alignment: Alignment.center,
                         width: double.infinity,
                         height: 46,
@@ -170,25 +176,6 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                       ),
                     ),
                     const SizedBox(height: 28,),
-                    Flexible(child: Container(), flex: 0,),
-                    Row(                    //text de chuyen sang sign up screen
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children:  [
-                        const Text("Already have an account?"),
-                        const SizedBox(width: 10,),
-                        GestureDetector(
-                          onTap: () {},
-                          child: const Text(
-                            'Log In',
-                            style: TextStyle(
-                              fontStyle: FontStyle.italic,
-                              fontWeight: FontWeight.bold,
-                            ),
-                          ),
-                        )
-                      ],
-                    ),
-                    const SizedBox(height: 22,),
                   ],
                 ),
               )),
@@ -209,15 +196,15 @@ class UserEmail extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return TextFormField(
+      style: const TextStyle(color: Colors.grey),
       textInputAction: TextInputAction.next,
       decoration: const InputDecoration(
         label: Text('Email'),
-        labelStyle: TextStyle(fontSize: 16, color: Colors.purple, fontWeight: FontWeight.bold),
+        labelStyle: TextStyle(fontSize: 16, color: Colors.grey, fontWeight: FontWeight.bold),
         disabledBorder: OutlineInputBorder(
           borderSide: BorderSide(color: Colors.grey, width: 1.0),
         ),
       ),
-      style: const TextStyle(color: Colors.grey),
       keyboardType: TextInputType.emailAddress,
       enabled: false,
       initialValue: userEmail,
@@ -236,6 +223,7 @@ class UserBio extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return TextFormField(
+      style: const TextStyle(color: cblack),
       textInputAction: TextInputAction.go,
       controller: _passwordController,
       decoration: const InputDecoration(
@@ -246,7 +234,7 @@ class UserBio extends StatelessWidget {
           borderSide: BorderSide(color: Colors.purple, width: 1.0),
         ),
         enabledBorder: OutlineInputBorder(
-          borderSide: BorderSide(color: Colors.white, width: 1.0),
+          borderSide: BorderSide(color: Colors.grey, width: 1.0),
         ),
       ),
       keyboardType: TextInputType.text,
@@ -266,6 +254,7 @@ class UserName extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return TextFormField(
+      style: const TextStyle(color: cblack),
       textInputAction: TextInputAction.next,
       controller: _usernameController,
       decoration: const InputDecoration(
@@ -276,7 +265,7 @@ class UserName extends StatelessWidget {
           borderSide: BorderSide(color: Colors.purple, width: 1.0),
         ),
         enabledBorder: OutlineInputBorder(
-          borderSide: BorderSide(color: Colors.white, width: 1.0),
+          borderSide: BorderSide(color: Colors.grey, width: 1.0),
         ),
       ),
       keyboardType: TextInputType.text,

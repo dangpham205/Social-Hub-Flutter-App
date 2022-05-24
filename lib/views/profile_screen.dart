@@ -86,16 +86,19 @@ class _ProfileScreenState extends State<ProfileScreen> {
             key: _scaffoldKey,
             appBar: AppBar(
               backgroundColor: mobileBackgroundColor,
-              title: Text(userData['username'].toString()),
+              title: Text(
+                userData['username'].toString(),
+                style: const TextStyle(color: cblack),
+              ),
               actions: [
                 FirebaseAuth.instance.currentUser!.uid != widget.uid ? IconButton(      //nếu mở trang profile không phải của bản thân (tức là đang vô xem profile ngkhac) thì cần cho phép pop để quay lại (ví dụ về màn home, search)
-                  icon: const Icon(Icons.close),
+                  icon: const Icon(Icons.close, color: cblack,),
                   onPressed: () {
                     Navigator.of(context).pop();
                   },
                 ) : const SizedBox(),
                 FirebaseAuth.instance.currentUser!.uid == widget.uid ?  IconButton(
-                  icon: const Icon(Icons.menu),
+                  icon: const Icon(Icons.menu, color: cblack,),
                   onPressed: () => _scaffoldKey.currentState!.openEndDrawer(),
                 ) : const SizedBox(),
               ],
@@ -108,6 +111,9 @@ class _ProfileScreenState extends State<ProfileScreen> {
                 children: [
                   Column(
                     children: [
+                      const SizedBox(
+                        height: 20,
+                      ),
                       CircleAvatar(
                         radius: 52,
                         backgroundColor: darkColor,
@@ -119,7 +125,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                       Text(
                         userData['username'].toString(),
                         style:
-                            const TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+                            const TextStyle(fontSize: 20, fontWeight: FontWeight.bold, color: cblack),
                       ),
                       const SizedBox(
                         height: 12,
@@ -131,7 +137,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                               child: Text(
                                 userData['bio'].toString(),
                                 textAlign: TextAlign.justify,
-                                style: const TextStyle(fontWeight: FontWeight.w300),
+                                style: const TextStyle(fontWeight: FontWeight.w300, color: subText),
                               ),
                             )
                           : const SizedBox(
@@ -154,7 +160,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                       const SizedBox( height: 12,),
                       FirebaseAuth.instance.currentUser!.uid == widget.uid
                           ? ProfileButton(                    //nếu user truyền vô screen là current user (chính chủ) thì hiện nút edit profile
-                              buttonColor: Colors.red,
+                              buttonColor: Colors.teal,
                               borderColor: Colors.white,
                               buttonText: 'EDIT PROFILE',
                               buttonTextColor: Colors.white,
@@ -173,7 +179,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                   buttonColor: Colors.grey,
                                   borderColor: Colors.white,
                                   buttonText: 'UNFOLLOW',
-                                  buttonTextColor: Colors.black,
+                                  buttonTextColor: Colors.white,
                                   function: () async {
                                     await FirestoreMethods().followUser(FirebaseAuth.instance.currentUser!.uid, widget.uid);
                                     setState(() {
@@ -263,14 +269,14 @@ class _ProfileScreenState extends State<ProfileScreen> {
       children: [
         Text(
           name,
-          style: const TextStyle(fontSize: 13, color: secondaryColor),
+          style: const TextStyle(fontSize: 13, color: cblack),
         ),
         const SizedBox(
           height: 2,
         ),
         Text(
           number.toString(),
-          style: const TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
+          style: const TextStyle(fontSize: 24, fontWeight: FontWeight.bold, color: cblack),
         )
       ],
     );

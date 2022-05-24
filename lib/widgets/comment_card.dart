@@ -3,6 +3,7 @@ import '../constants/colors.dart';
 import 'package:intl/intl.dart';
 
 class CommentCard extends StatefulWidget {
+  // ignore: prefer_typing_uninitialized_variables
   final snap;
   const CommentCard({ Key? key,required this.snap }) : super(key: key);
 

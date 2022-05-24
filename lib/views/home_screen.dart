@@ -20,14 +20,15 @@ class HomeScreen extends StatelessWidget {
         backgroundColor: mobileBackgroundColor,
         centerTitle: false,
         title: SvgPicture.asset(                  //logo app
-          'assets/of_logo.svg',
-          color: primaryColor,
-          height: 36,
+          'assets/logo.svg',
+          color: logoColor,
+          height: 50,
         ),
         actions: [
           IconButton(                                   //chat
               onPressed: () {},
-              icon: const Icon(Icons.chat)
+              icon: const Icon(Icons.chat),
+              color: cblack,
           ),
         ],
       ),
@@ -51,7 +52,7 @@ class HomeScreen extends StatelessWidget {
           //vì nó kh biết docs muốn lấy là docs async, kh thể lấy liền đc
           if (snapshot.connectionState == ConnectionState.waiting){
             return const Center(
-              child: CircularProgressIndicator(),
+              child: CircularProgressIndicator(color: cblack,),
             );
           }
           if (snapshot.data == null){         //nếu trong những người follow mà kh ai có post gì thì trả về empty

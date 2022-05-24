@@ -60,13 +60,14 @@ class _SignUpScreenState extends State<SignUpScreen> {
     }
     else{
       Future.delayed(const Duration(milliseconds: 1500)).then((value) {
-        return Navigator.of(context).pushReplacement(      //nếu chỉ dùng push thì bấm back vẫn có thể quay lại screen trc
+        return Navigator.of(context).pushAndRemoveUntil(      //nếu chỉ dùng push thì bấm back vẫn có thể quay lại screen trc
           MaterialPageRoute(
             builder: (context) => const ResponsiveLayout(
                                                 webScreenLayout: WebScreenLayout(),
                                                 mobileScreenLayout: MobileScreenLayout(),
                                               ),
           ),
+          (route) => false
         );
       });
     }
@@ -98,7 +99,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
               crossAxisAlignment: CrossAxisAlignment.center,    //center tat ca children theo chieu truc cross ==> chieu ngang
               children: [
                 Flexible(child: Container(), flex: 2,),
-                SvgPicture.asset('assets/logo.svg', color: primaryColor, height: 48,),
+                SvgPicture.asset('assets/logo.svg', color: logoColor, height: 48,),
                 const SizedBox(height: 36,),
                 Stack(
                 children:  [
@@ -109,7 +110,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                   )
                   : const CircleAvatar(   //còn không thì hiện avt mặc định
                     radius: 64,
-                    backgroundColor: darkColor,
+                    backgroundColor: cblack,
                     backgroundImage: AssetImage('assets/icon.png'),
                   ),   //avatar mặc định
                   Positioned(     //nút thêm ảnh avatar
@@ -135,9 +136,9 @@ class _SignUpScreenState extends State<SignUpScreen> {
                   child: Container(        
                     child: _isLoading
                         ? const Center(         //nếu mà bấm sign up thì sẽ hiện vòng load
-                            child: CircularProgressIndicator(color: Colors.white,),
+                            child: CircularProgressIndicator(color: cwhite,),
                           ) 
-                        : const Text('SIGN UP'),  //sign up xong thì sẽ quay lại hiện chữ trong button (đọc hàm signUpUser)
+                        : const Text('SIGN UP', style: TextStyle(fontWeight: FontWeight.bold),),  //sign up xong thì sẽ quay lại hiện chữ trong button (đọc hàm signUpUser)
                     alignment: Alignment.center,
                     width: double.infinity,
                     height: 46,
@@ -156,17 +157,20 @@ class _SignUpScreenState extends State<SignUpScreen> {
                   mainAxisAlignment: MainAxisAlignment.center,
                   children:  [
                     const Text("Already have an account?", 
-                      style: TextStyle(color: Colors.grey),
+                      style: TextStyle(color: subText),
                     ),
                     const SizedBox(width: 10,),
-                    GestureDetector(
+                    InkWell(
                       onTap: navigateToLogIn,
-                      child: const Text(
-                        'Log In',
-                        style: TextStyle(
-                          color: Colors.black,
-                          fontStyle: FontStyle.italic,
-                          fontWeight: FontWeight.bold,
+                      child: const Padding(
+                        padding: EdgeInsets.all(6.0),
+                        child: Text(
+                          'Log In',
+                          style: TextStyle(
+                            color: cblack,
+                            fontStyle: FontStyle.italic,
+                            fontWeight: FontWeight.bold,
+                          ),
                         ),
                       ),
                     )
@@ -192,14 +196,8 @@ class UserPassword extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // return TextInput(
-    //     textEditingController: _passwordController,
-    //     hintText: 'Enter Password',
-    //     textInputType: TextInputType.text,
-    //     isPassword: true,
-    // );
     return TextFormField(
-      style: const TextStyle(color: Colors.black),
+      style: const TextStyle(color: cblack),
       textInputAction: TextInputAction.go,
       controller: _passwordController,
       decoration: const InputDecoration(
@@ -229,15 +227,8 @@ class UserName extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // return TextInput(
-
-    //     textEditingController: _usernameController,
-    //     hintText: 'Enter Username',
-    //     textInputType: TextInputType.text,
-        
-    // );
     return TextFormField(
-      style: const TextStyle(color: Colors.black),
+      style: const TextStyle(color: cblack),
       textInputAction: TextInputAction.next,
       controller: _usernameController,
       decoration: const InputDecoration(
@@ -266,13 +257,8 @@ class UserEmail extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // return TextInput(
-    //     textEditingController: _emailController,
-    //     hintText: 'Enter Email',
-    //     textInputType: TextInputType.emailAddress,
-    // );
     return TextFormField(
-      style: const TextStyle(color: Colors.black),
+      style: const TextStyle(color: cblack),
       textInputAction: TextInputAction.next,
       controller: _emailController,
       decoration: const InputDecoration(

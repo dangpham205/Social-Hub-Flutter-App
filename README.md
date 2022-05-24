@@ -1,16 +1,22 @@
 # endterm
 
-A new Flutter project.
+thay image hiện default lúc sign up thành asset image
+thêm chức năng: 
+--bạn đã mở app bnh lần (tổng lần/ tổng ngày)
 
-## Getting Started
+--chỉ show bài viết của ng nào mình follow                                  check (đọc típs LINE 56)(còn thiếu show post của self)
 
-This project is a starting point for a Flutter application.
+--lắng nghe internet connection
 
-A few resources to get you started if this is your first Flutter project:
-
-- [Lab: Write your first Flutter app](https://flutter.dev/docs/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://flutter.dev/docs/cookbook)
-
-For help getting started with Flutter, view our
-[online documentation](https://flutter.dev/docs), which offers tutorials,   
-samples, guidance on mobile development, and a full API reference.
+todo:
+trong comment_card: có thể tới profile ngta bằng cách bấm vào avt hoặc tên
+trong ghi chú phần việc, ghi rõ những lần commit đã code những gì
+màn:
+	+ màn follower, following
+	+ màn edit caption
+	+ màn đổi passwords
+	+ pop màn search
+	+ bottom dialog ở endrawer để mở options màn setting
+	+ up videos
+	+ dark mode, light mode	
+	+ slide discover people ở màn profile
