@@ -10,7 +10,8 @@ import 'post_detail_screen.dart';
 
 class ProfileScreen extends StatefulWidget {
   final String uid;
-  const ProfileScreen({Key? key, required this.uid}) : super(key: key);
+  final bool myProfile;
+  const ProfileScreen({Key? key, required this.uid, required this.myProfile}) : super(key: key);
 
   @override
   State<ProfileScreen> createState() => _ProfileScreenState();
@@ -32,18 +33,6 @@ class _ProfileScreenState extends State<ProfileScreen> {
     super.initState();
     getUserData();
   }
-
-  // getUserData() async {
-  //     await FirebaseFirestore.instance.collection('users').doc(widget.uid).get().then((value) {
-  //       snapshot = value;
-  //     });
-  //     //xuống dưới lúc gọi ra phải toString vì value trả về ở trên là Map<String, dynamic> nên phải toString
-  //     username = snapshot!['username'];
-  //     bio = snapshot!['bio'];
-  //     avatarUrl = snapshot!['photoUrl'];
-  //     setState(() {
-  //     });
-  // }
 
   Future getUserData() async {
     setState(() {
@@ -91,16 +80,17 @@ class _ProfileScreenState extends State<ProfileScreen> {
                 style: const TextStyle(color: cblack),
               ),
               actions: [
-                FirebaseAuth.instance.currentUser!.uid != widget.uid ? IconButton(      //nếu mở trang profile không phải của bản thân (tức là đang vô xem profile ngkhac) thì cần cho phép pop để quay lại (ví dụ về màn home, search)
+                widget.myProfile == false
+                ? IconButton(      //nếu mở trang profile không phải của bản thân (tức là đang vô xem profile ngkhac) thì cần cho phép pop để quay lại (ví dụ về màn home, search)
                   icon: const Icon(Icons.close, color: cblack,),
                   onPressed: () {
                     Navigator.of(context).pop();
                   },
-                ) : const SizedBox(),
-                FirebaseAuth.instance.currentUser!.uid == widget.uid ?  IconButton(
+                )  
+                : IconButton(
                   icon: const Icon(Icons.menu, color: cblack,),
                   onPressed: () => _scaffoldKey.currentState!.openEndDrawer(),
-                ) : const SizedBox(),
+                ) 
               ],
             ),
             body: RefreshIndicator(

@@ -65,7 +65,7 @@ class _MobileScreenLayoutState extends State<MobileScreenLayout> {
           const ExploreScreen(),
           const UploadScreen(),
           const Text('notiiiiiiiiiiiiiiiiii'),
-          ProfileScreen(uid: FirebaseAuth.instance.currentUser!.uid),
+          ProfileScreen(uid: FirebaseAuth.instance.currentUser!.uid, myProfile: true,),
         ]
         ,  //liệt kê các page sẽ có (số lượng tương ứng với số icon dưới thanh nav)
         physics: const NeverScrollableScrollPhysics(), //tắt chuyển tab bằng cách kéo ngang

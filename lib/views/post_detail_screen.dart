@@ -123,6 +123,7 @@ class _PostDetailScreenState extends State<PostDetailScreen> {
                       MaterialPageRoute(
                         builder: (context) => ProfileScreen(
                           uid: widget.snap['uid'],
+                          myProfile: false,
                         ),
                       ),
                     );

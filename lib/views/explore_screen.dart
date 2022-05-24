@@ -32,8 +32,8 @@ class _ExploreScreenState extends State<ExploreScreen> {
           padding: const EdgeInsets.symmetric(horizontal: 8),
           decoration: const BoxDecoration(
             borderRadius: BorderRadius.vertical(
-              bottom: Radius.circular(8.0),
-              top: Radius.circular(8.0)
+              bottom: Radius.circular(4.0),
+              top: Radius.circular(4.0)
             ),
             color: searchBox,
           ),
@@ -42,11 +42,6 @@ class _ExploreScreenState extends State<ExploreScreen> {
             child: InkWell(
               onTap: () {
                 showSearch(context: context, delegate: SearchScreen());
-                // Navigator.of(context).push(
-                //   MaterialPageRoute(
-                //     builder: (context) => const SearchScreen(),
-                //   ),
-                // );
               },
               child: Row(
                 mainAxisSize: MainAxisSize.max,

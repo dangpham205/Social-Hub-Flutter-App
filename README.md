@@ -16,7 +16,7 @@ màn:
 	+ màn follower, following
 	+ màn edit caption
 	+ màn đổi passwords
-	+ pop màn search
+done	+ pop màn search
 	+ bottom dialog ở endrawer để mở options màn setting
 	+ up videos
 	+ dark mode, light mode	

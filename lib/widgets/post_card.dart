@@ -112,6 +112,7 @@ class _PostCardState extends State<PostCard> {
                   MaterialPageRoute(
                     builder: (context) => ProfileScreen(
                       uid: widget.snap['uid'],
+                      myProfile: false,
                     ),
                   ),
                 );

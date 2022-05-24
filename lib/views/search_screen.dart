@@ -97,7 +97,8 @@ class SearchScreen extends SearchDelegate {
                 onTap: () => Navigator.of(context).push(
                     MaterialPageRoute(
                         builder: (context) => ProfileScreen(
-                            uid: snapshot.data!.docs[index].data()['uid'],
+                          uid: snapshot.data!.docs[index].data()['uid'],
+                          myProfile: false,
                     ),
                   ),
                 ),
@@ -140,7 +141,8 @@ class SearchScreen extends SearchDelegate {
                 onTap: () => Navigator.of(context).push(
                     MaterialPageRoute(
                         builder: (context) => ProfileScreen(
-                            uid: snapshot.data!.docs[index].data()['uid'],
+                          uid: snapshot.data!.docs[index].data()['uid'],
+                          myProfile: false,
                     ),
                   ),
                 ),
