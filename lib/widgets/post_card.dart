@@ -70,9 +70,9 @@ class _PostCardState extends State<PostCard> {
     avatarUrl = userData['photoUrl'].toString();
     username = userData['username'].toString();
     if (mounted){
-    setState(() {
-      gettingUserData = false;
-    });
+      setState(() {
+        gettingUserData = false;
+      });
     }
   }
 
@@ -93,14 +93,15 @@ class _PostCardState extends State<PostCard> {
     return Container(
       color: mobileBackgroundColor,
       padding: const EdgeInsets.symmetric(horizontal: 1),
-      child: gettingUserData ? const Center(child: CircularProgressIndicator(),)
-      :
+      child: 
+      // gettingUserData ? const Center(child: CircularProgressIndicator(),)
+      // :
       Column(
         children: [
           Container(
             decoration: const BoxDecoration(
               borderRadius: BorderRadius.vertical(top: Radius.circular(26.0)),
-              color: darkColor,
+              color: postCardBg,
             ),
             //container chứa avatar, tên ng dùng và dấu 3 chấm trên đầu bài viết
             padding: const EdgeInsets.symmetric(vertical: 4, horizontal: 12)
@@ -133,7 +134,10 @@ class _PostCardState extends State<PostCard> {
                         children: [
                           Text(
                             username, //dùng snap lấy ra username
-                            style: const TextStyle(fontWeight: FontWeight.bold, color: Colors.black),
+                            style: const TextStyle(
+                              fontWeight: FontWeight.bold, 
+                              color: cblack
+                            ),
                           ),
                         ],
                       ),
@@ -190,7 +194,7 @@ class _PostCardState extends State<PostCard> {
                         ),
                       );
                     },
-                    icon: const Icon(Icons.more_vert),
+                    icon: const Icon(Icons.more_vert, color: cblack,),
                   ) : const SizedBox(),
                 ],
               ),
@@ -222,7 +226,7 @@ class _PostCardState extends State<PostCard> {
                   child: SizedBox(
                     width: double.infinity,
                     child: postImageReady == false ?
-                    const Center(child: Text('Waiting for internet connection', style: TextStyle(color: Colors.white),),)
+                    const Center(child: Text('Waiting for internet connection', style: TextStyle(color: cblack),),)
                     : Image.network(
                       postImageUrl,
                       fit: BoxFit.fitWidth,
@@ -258,7 +262,7 @@ class _PostCardState extends State<PostCard> {
 
           //like comment share
           Container(
-            color: darkColor,
+            color: postCardBg,
             child: Row(
               children: [
                 LikeAnimation(
@@ -280,7 +284,9 @@ class _PostCardState extends State<PostCard> {
                         Icons.thumb_up,
                         color: Colors.blue,)
                       : const Icon(
-                        Icons.thumb_up,)
+                        Icons.thumb_up,
+                        color: unlikeBtn,
+                      )
                   ),
                 ),
                 IconButton(
@@ -294,12 +300,14 @@ class _PostCardState extends State<PostCard> {
                   },
                   icon: const Icon(
                     Icons.comment,
+                    color: unlikeBtn,
                   ),
                 ),
                 IconButton(
                   //SEND
                   onPressed: () {},
-                  icon: const Icon(Icons.send),
+                  icon: const Icon(Icons.send,
+                  color: unlikeBtn,),
                 ),
                 Expanded(
                   child: Align(
@@ -309,6 +317,7 @@ class _PostCardState extends State<PostCard> {
                       onPressed: () {},
                       icon: const Icon(
                         Icons.bookmark_border,
+                        color: unlikeBtn,
                       ),
                     ),
                   ),
@@ -321,7 +330,7 @@ class _PostCardState extends State<PostCard> {
           Container(
             decoration: const BoxDecoration(
               borderRadius: BorderRadius.vertical(bottom: Radius.circular(26.0)),
-              color: darkColor,
+              color: postCardBg,
             ),
             padding: const EdgeInsets.only(left: 8,right: 8, bottom: 16),
             child: Column(
@@ -332,7 +341,10 @@ class _PostCardState extends State<PostCard> {
                   //số like
                   '${widget.snap['likes'].length} likes',
                   style: const TextStyle(
-                      fontWeight: FontWeight.bold, fontSize: 14),
+                    fontWeight: FontWeight.bold, 
+                    fontSize: 14,
+                    color: cblack
+                  ),
                 ),
                 Container(
                   //caption
@@ -340,7 +352,7 @@ class _PostCardState extends State<PostCard> {
                   padding: const EdgeInsets.only(top: 4, bottom: 4),
                   child: RichText(
                     text: TextSpan(
-                      style: const TextStyle(color: primaryColor),
+                      style: const TextStyle(color: cblack),
                       children: [
                         TextSpan(
                           text: username, //dùng snap lấy ra username
@@ -374,7 +386,7 @@ class _PostCardState extends State<PostCard> {
                     child: Text(
                       'View all ${numberOfComments.toString()} comments',
                       style:
-                          const TextStyle(fontSize: 14, color: secondaryColor),
+                          const TextStyle(fontSize: 14, color: subText),
                     ),
                   ),
                 ),
@@ -385,7 +397,7 @@ class _PostCardState extends State<PostCard> {
                     DateFormat.yMMMd().format(
                       widget.snap['uploadDate'].toDate(),
                     ),
-                    style: const TextStyle(fontSize: 12, color: secondaryColor),
+                    style: const TextStyle(fontSize: 12, color: subText),
                   ),
                 ),
               ],

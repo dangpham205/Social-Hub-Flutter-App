@@ -112,7 +112,7 @@ class _PostDetailScreenState extends State<PostDetailScreen> {
               Container(
                 decoration: const BoxDecoration(
                   // borderRadius: BorderRadius.vertical(top: Radius.circular(26.0)),
-                  // color: postCardBg,
+                  color: postCardBg,
                 ),
                 //container chứa avatar, tên ng dùng và dấu 3 chấm trên đầu bài viết
                 padding: const EdgeInsets.only(top: 8, left: 12),
@@ -239,7 +239,7 @@ class _PostDetailScreenState extends State<PostDetailScreen> {
                       child: SizedBox(
                         width: double.infinity,
                         child: postImageReady == false ?
-                        const Center(child: Text('Waiting for internet connection', style: TextStyle(color: Colors.white),),)
+                        const Center(child: Text('Waiting for internet connection', style: TextStyle(color: cblack),),)
                         : Image.network(
                           postImageUrl,
                           fit: BoxFit.fitWidth,
@@ -262,10 +262,11 @@ class _PostDetailScreenState extends State<PostDetailScreen> {
                         duration: const Duration(milliseconds: 200),
                         //nó sẽ foward và reverse (scale trong file like_animation) trong 200 milisec sau đó hiện thêm 1s (startAnimation trong cùng file)
                         onEnd: () {
-                          setState(() {
-                            isLikeDisplaying =
-                                false; //khi chỉnh này thành false lại thì opa thành 0 ===> biến mất
-                          });
+                          if (mounted){
+                            setState(() {
+                              isLikeDisplaying = false; //khi chỉnh này thành false lại thì opa thành 0 ===> biến mất
+                            });
+                          }
                         },
                       ),
                     ),
@@ -335,7 +336,7 @@ class _PostDetailScreenState extends State<PostDetailScreen> {
                   
               Container(
                 decoration: const BoxDecoration(
-                  // color: postCardBg,
+                  color: postCardBg,
                 ),
                 padding: const EdgeInsets.only(left: 8,right: 8, bottom: 8),
                 child: Column(
@@ -389,7 +390,6 @@ class _PostDetailScreenState extends State<PostDetailScreen> {
               ),  
               SafeArea(
                 child: Container(
-                  // color: Colors.white,
                   decoration: const BoxDecoration(
                     border: Border(
                       // bottom: BorderSide(color: dividerColor, width: 0.5),
