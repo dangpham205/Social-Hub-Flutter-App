@@ -16,6 +16,14 @@ class _CommentCardState extends State<CommentCard> {
   Widget build(BuildContext context) {
     return Container(
       padding: const EdgeInsets.symmetric(vertical: 16, horizontal: 16),
+      decoration: const BoxDecoration(
+        border: Border(
+          bottom: BorderSide(
+            color: dividerColor,
+            width: 0.3
+          ),
+        ),
+      ),
       child: Row(
         children: [
           CircleAvatar(
@@ -33,8 +41,21 @@ class _CommentCardState extends State<CommentCard> {
                   RichText(
                     text: TextSpan(
                       children: [
-                        TextSpan(text: widget.snap['username']+" ", style: const TextStyle(fontWeight: FontWeight.bold),),
-                        TextSpan(text: widget.snap['comment'], style: const TextStyle(fontSize: 14, fontWeight: FontWeight.w300),),
+                        TextSpan(
+                          text: widget.snap['username']+" ", 
+                          style: const TextStyle(
+                            fontWeight: FontWeight.bold,
+                            color: cblack
+                          ),
+                        ),
+                        TextSpan(
+                          text: widget.snap['comment'], 
+                          style: const TextStyle(
+                            fontSize: 14, 
+                            fontWeight: FontWeight.w300,
+                            color: cblack
+                          ),
+                        ),
                       ],
                     ),
                   ),
@@ -45,16 +66,12 @@ class _CommentCardState extends State<CommentCard> {
                       style: const TextStyle(
                           fontSize: 12,
                           fontWeight: FontWeight.w300,
-                          color: secondaryColor),
+                          color: subText),
                     ),
                   ),
                 ],
               ),
             ),
-          ),
-          const Icon(
-            Icons.thumb_up,
-            color: Colors.blue,
           ),
         ],
       ),

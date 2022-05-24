@@ -202,7 +202,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                 ),
                       const SizedBox( height: 16,),
                       FutureBuilder(                                  //hiển thị các post dưới dạng grid
-                        future: FirebaseFirestore.instance.collection('posts').where('uid', isEqualTo: widget.uid).get(),
+                        future: FirebaseFirestore.instance.collection('posts').where('uid', isEqualTo: userData['uid'].toString()).get(),
                         builder: (context, AsyncSnapshot<QuerySnapshot<Map<String, dynamic>>> snapshot) {
                           if (snapshot.connectionState == ConnectionState.waiting) {
                             return const Center(child: CircularProgressIndicator(),);

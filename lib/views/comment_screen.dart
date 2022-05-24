@@ -34,7 +34,13 @@ class _CommentScreenState extends State<CommentScreen> {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: mobileBackgroundColor,
-        title: const Text('Comments'),
+        leading: IconButton(      
+          icon: const Icon(Icons.arrow_back, color: cblack,),
+          onPressed: () {
+            Navigator.of(context).pop();
+          },
+        ),
+        title: const Text('Comments', style: TextStyle(color: cblack),),
         centerTitle: false,
       ),
       body: StreamBuilder(
@@ -75,8 +81,9 @@ class _CommentScreenState extends State<CommentScreen> {
                   padding: const EdgeInsets.only(left: 12, right: 4),
                   child: TextField(
                     controller: _commentController,
-                    style: const TextStyle(fontSize: 14),
+                    style: const TextStyle(fontSize: 14, color: cblack),
                     decoration: const InputDecoration(
+                      hintStyle: TextStyle(color: subText),
                       hintText: 'Type your comment',
                       border: InputBorder.none,
                     ),
@@ -99,7 +106,7 @@ class _CommentScreenState extends State<CommentScreen> {
                   padding: const EdgeInsets.symmetric(vertical: 4, horizontal: 8),
                   child: const Text(
                     'POST',
-                    style: TextStyle(color: Colors.blueAccent, fontWeight: FontWeight.w900),
+                    style: TextStyle(color: txtBtn, fontWeight: FontWeight.w900),
                   ),
                 ),
               ),

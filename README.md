@@ -12,6 +12,7 @@ todo:
 trong comment_card: có thể tới profile ngta bằng cách bấm vào avt hoặc tên
 trong ghi chú phần việc, ghi rõ những lần commit đã code những gì
 màn:
+	+ màn xem những người đã like
 	+ màn follower, following
 	+ màn edit caption
 	+ màn đổi passwords

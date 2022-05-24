@@ -86,13 +86,19 @@ class _PostDetailScreenState extends State<PostDetailScreen> {
 
     return Scaffold(
       appBar: AppBar(
-        toolbarHeight: 40,
         backgroundColor: mobileBackgroundColor,
         leading: IconButton(
-          icon: const Icon(Icons.arrow_back),
+          icon: const Icon(Icons.arrow_back, color: cblack,),
           onPressed: () {
             Navigator.of(context).pop();
           },
+        ),
+        title: const Text(
+          'POST', 
+          style: TextStyle(
+            color: cblack,
+            fontWeight: FontWeight.bold
+          ),
         ),
       ),
       body: Container(
@@ -106,11 +112,11 @@ class _PostDetailScreenState extends State<PostDetailScreen> {
               Container(
                 decoration: const BoxDecoration(
                   // borderRadius: BorderRadius.vertical(top: Radius.circular(26.0)),
-                  color: darkColor,
+                  // color: postCardBg,
                 ),
                 //container chứa avatar, tên ng dùng và dấu 3 chấm trên đầu bài viết
-                padding: const EdgeInsets.symmetric(vertical: 4, horizontal: 20)
-                    .copyWith(right: 0),
+                padding: const EdgeInsets.only(top: 8, left: 12),
+                    // .copyWith(right: 0),
                 child: InkWell(
                   onTap: () {
                     Navigator.of(context).push(
@@ -125,7 +131,7 @@ class _PostDetailScreenState extends State<PostDetailScreen> {
                     children: [
                       CircleAvatar(
                         //avatar
-                        radius: 16,
+                        radius: 18,
                         backgroundColor: darkColor,
                         backgroundImage: NetworkImage(avatarUrl), //dùng snap lấy ra avatar của user
                       ),
@@ -141,6 +147,7 @@ class _PostDetailScreenState extends State<PostDetailScreen> {
                                 username, //dùng snap lấy ra username
                                 style: const TextStyle(
                                   fontWeight: FontWeight.bold,
+                                  color: cblack
                                 ),
                               ),
                             ],
@@ -149,7 +156,7 @@ class _PostDetailScreenState extends State<PostDetailScreen> {
                       ),
                       widget.snap['uid'].toString() == user!.uid.toString() ? IconButton(
                         //3 chấm options
-                        icon: const Icon(Icons.more_vert),
+                        icon: const Icon(Icons.more_vert, color: cblack,),
                         onPressed: () {
                           showDialog(
                             context: context,
@@ -288,9 +295,10 @@ class _PostDetailScreenState extends State<PostDetailScreen> {
                       icon: widget.snap['likes'].contains(user.uid) ? 
                         const Icon(
                           Icons.thumb_up,
-                          color: Colors.blue,)
+                          color: txtBtn,)
                         : const Icon(
-                          Icons.thumb_up,)
+                          Icons.thumb_up,
+                          color: unlikeBtn,)
                     ),
                   ),
                   IconButton(
@@ -298,12 +306,16 @@ class _PostDetailScreenState extends State<PostDetailScreen> {
                     onPressed: () => focusNode.requestFocus(),
                     icon: const Icon(
                       Icons.comment,
+                      color: unlikeBtn,
                     ),
                   ),
                   IconButton(
                     //SEND
                     onPressed: () {},
-                    icon: const Icon(Icons.send),
+                    icon: const Icon(
+                      Icons.send,
+                      color: unlikeBtn,
+                    ),
                   ),
                   Expanded(
                     child: Align(
@@ -313,6 +325,7 @@ class _PostDetailScreenState extends State<PostDetailScreen> {
                         onPressed: () {},
                         icon: const Icon(
                           Icons.bookmark_border,
+                          color: unlikeBtn,
                         ),
                       ),
                     ),
@@ -322,9 +335,7 @@ class _PostDetailScreenState extends State<PostDetailScreen> {
                   
               Container(
                 decoration: const BoxDecoration(
-                  // borderRadius: BorderRadius.vertical(bottom: Radius.circular(26.0)),
-                  // color: darkColor,
-                  border: Border(bottom: BorderSide(color: darkColor, width: 2)) 
+                  // color: postCardBg,
                 ),
                 padding: const EdgeInsets.only(left: 8,right: 8, bottom: 8),
                 child: Column(
@@ -335,7 +346,7 @@ class _PostDetailScreenState extends State<PostDetailScreen> {
                       //số like
                       '${widget.snap['likes'].length} likes',
                       style: const TextStyle(
-                          fontWeight: FontWeight.bold, fontSize: 14),
+                          fontWeight: FontWeight.bold, fontSize: 14, color: cblack),
                     ),
                     Container(
                       //caption
@@ -343,7 +354,7 @@ class _PostDetailScreenState extends State<PostDetailScreen> {
                       padding: const EdgeInsets.only(top: 4, bottom: 4),
                       child: RichText(
                         text: TextSpan(
-                          style: const TextStyle(color: primaryColor),
+                          style: const TextStyle(color: cblack),
                           children: [
                             TextSpan(
                               text: username, //dùng snap lấy ra username
@@ -370,12 +381,76 @@ class _PostDetailScreenState extends State<PostDetailScreen> {
                         DateFormat.yMMMd().format(
                           widget.snap['uploadDate'].toDate(),
                         ),
-                        style: const TextStyle(fontSize: 12, color: secondaryColor),
+                        style: const TextStyle(fontSize: 12, color: subText),
                       ),
                     ),
                   ],
                 ),
               ),  
+              SafeArea(
+                child: Container(
+                  // color: Colors.white,
+                  decoration: const BoxDecoration(
+                    border: Border(
+                      // bottom: BorderSide(color: dividerColor, width: 0.5),
+                      top: BorderSide(color: dividerColor, width: 0.5),
+                    )
+                  ),
+                  height: kToolbarHeight,
+                  margin: EdgeInsets.only(bottom: MediaQuery.of(context).viewInsets.bottom+4),
+                  padding: const EdgeInsets.only(left: 12, right: 8),
+                  child: Row(
+                    children: [
+                      CircleAvatar(
+                        //avatar
+                        radius: 18,
+                        backgroundImage: NetworkImage(user.photoUrl), //dùng snap lấy ra avatar của user
+                      ),
+                      Expanded(
+                        child: Padding(
+                          padding: const EdgeInsets.only(left: 12, right: 4),
+                          child: TextField(
+                            focusNode: focusNode,
+                            controller: _commentController,
+                            style: const TextStyle(fontSize: 14, color: cblack),
+                            decoration: const InputDecoration(
+                              hintText: 'Type your comment',
+                              hintStyle: TextStyle(color: subText),
+                              border: InputBorder.none,
+                            ),
+                          ),
+                        ),
+                      ),
+                      InkWell(
+                        onTap: () async {
+                          await FirestoreMethods().uploadComment(
+                              widget.snap['postId'],
+                              user.uid,
+                              user.username,
+                              user.photoUrl,
+                              _commentController.text,
+                          );
+                          FocusManager.instance.primaryFocus?.unfocus();    //tắt bàn phím sau khi comment đc up lên
+                          _commentController.text = '';         //sau khi comment xong thi set phần comment về trống không
+                        },
+                        child: Container(
+                          padding: const EdgeInsets.symmetric(vertical: 4, horizontal: 8),
+                          child: const Text(
+                            'POST',
+                            style: TextStyle(color: txtBtn, fontWeight: FontWeight.w900),
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+              Container(
+                width: MediaQuery.of(context).size.width,
+                padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 12),
+                color: postCardBg,
+                child: const Text('Comments', style: TextStyle(color: subText, fontWeight: FontWeight.bold),),
+              )
             ],
           ),
 
@@ -405,60 +480,7 @@ class _PostDetailScreenState extends State<PostDetailScreen> {
           ]
         )
       ),
-      bottomNavigationBar: SafeArea(
-        child: Container(
-          // color: Colors.white,
-          decoration: const BoxDecoration(
-            border: Border(top: BorderSide(color: darkColor, width: 3))
-          ),
-          height: kToolbarHeight,
-          margin: EdgeInsets.only(bottom: MediaQuery.of(context).viewInsets.bottom+4),
-          padding: const EdgeInsets.only(left: 12, right: 8),
-          child: Row(
-            children: [
-              CircleAvatar(
-                //avatar
-                radius: 18,
-                backgroundImage: NetworkImage(user!.photoUrl), //dùng snap lấy ra avatar của user
-              ),
-              Expanded(
-                child: Padding(
-                  padding: const EdgeInsets.only(left: 12, right: 4),
-                  child: TextField(
-                    focusNode: focusNode,
-                    controller: _commentController,
-                    style: const TextStyle(fontSize: 14),
-                    decoration: const InputDecoration(
-                      hintText: 'Type your comment',
-                      border: InputBorder.none,
-                    ),
-                  ),
-                ),
-              ),
-              InkWell(
-                onTap: () async {
-                  await FirestoreMethods().uploadComment(
-                      widget.snap['postId'],
-                      user.uid,
-                      user.username,
-                      user.photoUrl,
-                      _commentController.text,
-                  );
-                  FocusManager.instance.primaryFocus?.unfocus();    //tắt bàn phím sau khi comment đc up lên
-                  _commentController.text = '';         //sau khi comment xong thi set phần comment về trống không
-                },
-                child: Container(
-                  padding: const EdgeInsets.symmetric(vertical: 4, horizontal: 8),
-                  child: const Text(
-                    'POST',
-                    style: TextStyle(color: Colors.blueAccent, fontWeight: FontWeight.w900),
-                  ),
-                ),
-              ),
-            ],
-          ),
-        ),
-      ),
+      // bottomNavigationBar: ,
     );
   }
 }

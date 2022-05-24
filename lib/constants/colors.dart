@@ -5,6 +5,7 @@ const mobileBackgroundColor = Colors.white;
     // explore screen: 32
     // profile screen: 88
     // edit profile screen: 107
+    // cmt screen: 36
 const webBackgroundColor = Color.fromRGBO(18, 18, 18, 1);
 const mobileSearchColor = Color.fromRGBO(38, 38, 38, 1);
 const blueColor = Color.fromRGBO(0, 149, 246, 1);
@@ -29,18 +30,26 @@ const cblack = Colors.black;
     // explore screen: 92
     // profile screen: 91, 95, 101, 128, 272, 279
     // edit profile screen: 110, 115, 226, 257
+    // cmt screen: 38, 43
+    // cmt card: 48, 56
 const subText = Color.fromARGB(255, 119, 119, 119);
     //login_screen: 114
     //signup_screen: 159
     // upload screen: 207
     // explore screen: 39, 57
     // profile screen: 140
+    // cmt screen: 86
+    // cmt card: 69
 const txtBtn = Colors.blueAccent;
     // upload screen: 176
+    // cmt screen: 109
 const dividerColor = Color.fromARGB(255, 108, 105, 105);
     // upload screen: 215
+    // cmt card: 22
 const darkColor = Color.fromARGB(255, 154, 153, 153);    
     // upload screen: 223
     // profile screen: 119
 const snackBg = Color.fromARGB(255, 133, 112, 239);
     // utils: 19
+const postCardBg = Color.fromARGB(255, 245, 184, 184);    
+const unlikeBtn = Colors.grey;

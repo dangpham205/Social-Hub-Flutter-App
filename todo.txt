@@ -1,6 +1,5 @@
 refactor màu: 
 còn:
-    comment screen, post detail
-    comment card,
+    post detail
     post card
     profile drawer
