@@ -201,8 +201,12 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                   },
                                 ),
                       const SizedBox( height: 16,),
-                      FutureBuilder(                                  //hiển thị các post dưới dạng grid
-                        future: FirebaseFirestore.instance.collection('posts').where('uid', isEqualTo: userData['uid'].toString()).get(),
+                      StreamBuilder(                                  //hiển thị các post dưới dạng grid
+                        stream: FirebaseFirestore.instance
+                          .collection('posts')
+                          .where('uid', isEqualTo: widget.uid)
+                          .orderBy('uploadDate', descending: true)
+                          .snapshots(),
                         builder: (context, AsyncSnapshot<QuerySnapshot<Map<String, dynamic>>> snapshot) {
                           if (snapshot.connectionState == ConnectionState.waiting) {
                             return const Center(child: CircularProgressIndicator(),);
@@ -222,18 +226,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                   onTap: () {
                                     Navigator.of(context).push(
                                       MaterialPageRoute(
-                                        builder: (context) => StreamBuilder(
-                                            stream: FirebaseFirestore.instance.collection('posts').snapshots(),
-                                            builder: (context, AsyncSnapshot<QuerySnapshot<Map<String, dynamic>>> snapshot) {
-                                              if (snapshot.connectionState == ConnectionState.waiting){
-                                                return const Center(
-                                                  child: CircularProgressIndicator(),
-                                                );
-                                              }
-                                              return PostDetailScreen(snap: snapshot.data!.docs[index].data());
-                                            }
-                                          ),
-                                        //  PostDetailScreen(snap: snapshot.data!.docs[index].data(),),
+                                        builder: (context) => PostDetailScreen(snap: snapshot.data!.docs[index].data())
                                       ),
                                     ).then((value) {
                                       setState(() {

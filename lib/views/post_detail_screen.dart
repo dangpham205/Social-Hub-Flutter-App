@@ -56,7 +56,7 @@ class _PostDetailScreenState extends State<PostDetailScreen> {
     });
     var userSnapShot = await FirebaseFirestore.instance
         .collection('users')
-        .doc(widget.snap['uid'])
+        .doc(widget.snap['uid'].toString())
         .get();
     userData = userSnapShot.data()!;
 
