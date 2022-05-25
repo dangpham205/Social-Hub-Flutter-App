@@ -72,46 +72,50 @@ class _MobileScreenLayoutState extends State<MobileScreenLayout> {
         controller: pageController,     
         onPageChanged: onPageChanged,   //thay đổi state của _tab bằng index của tab trong list children ở trên
       ),
-      bottomNavigationBar: CupertinoTabBar(
-        onTap: tabNavigate,       //dùng để chuyển trang
-        backgroundColor: mobileBackgroundColor,
-        items: [
-          BottomNavigationBarItem(
-              icon: Icon(
-                Icons.home,
-                color: tabColor(0),     //xét xem _tab hiện tại có bằng argument truyền vào tabColor có bằng nhau kh để nổi bật màu lên
-              ),
-              label: '',
-              backgroundColor: primaryColor),
-          BottomNavigationBarItem(
-              icon: Icon(
-                Icons.search,
-                color: tabColor(1),
-              ),
-              label: '',
-              backgroundColor: primaryColor),
-          BottomNavigationBarItem(
-              icon: Icon(
-                Icons.add,
-                color: tabColor(2),
-              ),
-              label: '',
-              backgroundColor: primaryColor),
-          BottomNavigationBarItem(
-              icon: Icon(
-                Icons.notifications,
-                color: tabColor(3),
-              ),
-              label: '',
-              backgroundColor: primaryColor),
-          BottomNavigationBarItem(
-              icon: Icon(
-                Icons.person,
-                color: tabColor(4),
-              ),
-              label: '',
-              backgroundColor: primaryColor),
-        ],
+      bottomNavigationBar: Padding(
+        padding: const EdgeInsets.only(top: 8.0),
+        child: CupertinoTabBar(
+          border: null,
+          onTap: tabNavigate,       //dùng để chuyển trang
+          backgroundColor: mobileBackgroundColor,
+          items: [
+            BottomNavigationBarItem(
+                icon: Icon(
+                  Icons.home,
+                  color: tabColor(0),     //xét xem _tab hiện tại có bằng argument truyền vào tabColor có bằng nhau kh để nổi bật màu lên
+                ),
+                label: '',
+                backgroundColor: primaryColor),
+            BottomNavigationBarItem(
+                icon: Icon(
+                  Icons.search,
+                  color: tabColor(1),
+                ),
+                label: '',
+                backgroundColor: primaryColor),
+            BottomNavigationBarItem(
+                icon: Icon(
+                  Icons.add,
+                  color: tabColor(2),
+                ),
+                label: '',
+                backgroundColor: primaryColor),
+            BottomNavigationBarItem(
+                icon: Icon(
+                  Icons.notifications,
+                  color: tabColor(3),
+                ),
+                label: '',
+                backgroundColor: primaryColor),
+            BottomNavigationBarItem(
+                icon: Icon(
+                  Icons.person,
+                  color: tabColor(4),
+                ),
+                label: '',
+                backgroundColor: primaryColor),
+          ],
+        ),
       ),
     );
   }

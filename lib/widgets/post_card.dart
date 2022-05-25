@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 
+import '../constants/animation.dart';
 import '../constants/colors.dart';
 import '../constants/utils.dart';
 import '../models/user.dart';
@@ -31,9 +32,15 @@ class _PostCardState extends State<PostCard> {
   var userData = {};
   String avatarUrl = '';
   String username = '';
+  final TextEditingController _editCaptionController = TextEditingController();
   bool gettingUserData = false;
   
-
+  @override
+  void dispose() {
+    // TODO: implement dispose
+    super.dispose();
+    _editCaptionController.dispose();
+  }
 
   @override
   void initState() {
@@ -146,57 +153,172 @@ class _PostCardState extends State<PostCard> {
                   ),
                   widget.snap['uid'].toString() == user!.uid.toString() ? IconButton(
                     //3 chấm options
-                    onPressed: () {
-                      showDialog(
-                        context: context,
-                        builder: (context) => Dialog(
-                          child: ListView(
-                            padding:
-                                const EdgeInsets.symmetric(vertical: 8),
-                            shrinkWrap: true,
-                            children: [
-                              
-                              InkWell(
-                                child: Container(
-                                  padding: const EdgeInsets.symmetric(
-                                        vertical: 12,
-                                        horizontal: 16),
-                                  child: const Text('Delete'),
-                                ),
-                                onTap: () async {
-                                  Navigator.of(context).pop();      
-                                  showDialog(
-                                    context: context,
-                                    builder: (context) => YesNoDialog(
-                                      title: 'Delete',
-                                      content:
-                                          'Do you really want to delete this post?',
-                                      function: () async {
-                                        FirestoreMethods().deletePost(widget.snap['postId']);
-                                        Navigator.of(context).pop();
-                                      },
-                                    ),
-                                  );
-                                },
-                              ), 
-                              InkWell(
-                                child: Container(
-                                  padding: const EdgeInsets.symmetric(
-                                        vertical: 12,
-                                        horizontal: 16),
-                                  child: const Text('Cancel'),
-                                ),
-                                onTap: () async {
-                                  Navigator.of(context).pop(); 
-                                }
-                              )
-                            ]
-                          ),
-                        ),
-                      );
-                    },
                     icon: const Icon(Icons.more_vert, color: cblack,),
-                  ) : const SizedBox(),
+                        onPressed: () {
+                          showDialog(
+                            
+                            context: context,
+                            builder: (context) => Dialog(
+                              backgroundColor: cwhite,
+                              child: ListView(
+                                padding:
+                                    const EdgeInsets.symmetric(vertical: 8),
+                                shrinkWrap: true,
+                                children: [
+                                  InkWell(
+                                    onTap: () async {
+                                      Navigator.of(context).pop();      
+                                      showDialog(
+                                        context: context,
+                                        builder: (context) => YesNoDialog(
+                                          title: 'Delete',
+                                          content:
+                                              'Do you really want to delete this post?',
+                                          function: () async {
+                                            FirestoreMethods().deletePost(widget.snap['postId']);
+                                            Navigator.of(context).pop();
+                                            Navigator.of(context).pop();    
+                                            //sau khi xóa thì pop cái dialog yes no xong pop quay lại màn trc luôn
+                                            
+                                          },
+                                        ),
+                                      );
+                                    },
+                                    child: Container(
+                                      padding: const EdgeInsets.symmetric(
+                                            vertical: 12,
+                                            horizontal: 16),
+                                      child: const Text('Delete', style: TextStyle(color: cblack,),)
+                                    ),
+                                  ),
+
+                                  InkWell(
+                                    child: Container(
+                                      padding: const EdgeInsets.symmetric(
+                                            vertical: 12,
+                                            horizontal: 16),
+                                      child: const Text('Edit caption', style: TextStyle(color: cblack,),),
+                                    ),
+                                    onTap: () async {
+                                      // Navigator.of(context).pop();     
+                                      showGeneralDialog(
+                                        context: context,
+                                        barrierLabel: '',
+                                        barrierDismissible: true,
+                                        transitionBuilder: (context, _animation, _secondaryAnimation, _child) {
+                                          return Animations.fromLeft(_animation, _secondaryAnimation, _child);
+                                        },
+                                        pageBuilder: (_animation, _secondaryAnimation, _child) {
+                                          return AlertDialog(
+                                            backgroundColor: cwhite,
+                                            title: const Text('Edit caption', style: TextStyle(color: cblack),),
+                                            content: Container(
+                                              color: cwhite,
+                                              // width: MediaQuery.of(context).size.width/2,
+                                              // height: MediaQuery.of(context).size.height/4,
+                                              child: Column(
+                                                mainAxisSize: MainAxisSize.min,
+                                                crossAxisAlignment: CrossAxisAlignment.start,
+                                                mainAxisAlignment: MainAxisAlignment.start,
+                                                children: [
+                                                  RichText(
+                                                    text: TextSpan(
+                                                      style: const TextStyle(color: cblack),
+                                                      children: [
+                                                        TextSpan(
+                                                          text: username, //dùng snap lấy ra username
+                                                          style: const TextStyle(
+                                                              fontWeight: FontWeight.bold, fontSize: 18),
+                                                        ),
+                                                        const TextSpan(
+                                                          text: "  ",
+                                                        ),
+                                                        TextSpan(
+                                                          text: widget
+                                                              .snap['description'], //dùng snap lấy ra caption
+                                                          style: const TextStyle(
+                                                              fontWeight: FontWeight.w400, fontSize: 20),
+                                                        ),
+                                                      ],
+                                                    ),
+                                                  ),
+                                                  const SizedBox(height: 10,),
+                                                  TextField(
+                                                    style: const TextStyle(color: cblack),
+                                                    keyboardType: TextInputType.multiline,
+                                                    maxLines: null,
+                                                    controller: _editCaptionController,
+                                                    decoration: const InputDecoration(
+                                                      focusedBorder: UnderlineInputBorder(
+                                                        borderSide: BorderSide(color: cblack)
+                                                      ),
+                                                      labelText: "... New Caption Here",
+                                                      labelStyle: TextStyle(
+                                                        color: cblack,
+                                                        fontSize: 16
+                                                      ),
+                                                    ),
+                                                  ),
+                                                  const SizedBox(height: 15,),
+                                                  Row(
+                                                    mainAxisAlignment: MainAxisAlignment.center,
+                                                    children: [
+                                                      GestureDetector(
+                                                        onTap: () {
+                                                          Navigator.of(context).pop(); 
+                                                          Navigator.of(context).pop();
+                                                          FirestoreMethods().updateCaption(
+                                                            widget.snap['postId'],
+                                                            _editCaptionController.text
+                                                          );
+                                                          setState(() {
+                                                            _editCaptionController.text = '';
+                                                            
+                                                          });
+                                                          // .then((value) {
+                                                          //   Future.delayed(const Duration(milliseconds: 500)).then((value) {
+                                                          //     Navigator.of(context).pushReplacement(
+                                                          //       MaterialPageRoute(
+                                                          //         builder: (context) => PostDetailScreen(snap: widget.snap)
+                                                          //       ),
+                                                          //     );
+                                                          //   });
+                                                          // });
+                                                        },
+                                                        child: Container(
+                                                          padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+                                                          child: const Text("Confirm"),
+                                                          color: txtBtn,
+                                                        ),
+                                                      ),
+                                                    ],
+                                                  )
+                                                ],
+                                              )
+                                            ),
+                                          );
+                                        },
+                                      );
+                                    }
+                                  ), 
+
+                                  InkWell(
+                                    child: Container(
+                                      padding: const EdgeInsets.symmetric(
+                                            vertical: 12,
+                                            horizontal: 16),
+                                      child: const Text('Cancel', style: TextStyle(color: cblack,),),
+                                    ),
+                                    onTap: () async {
+                                      Navigator.of(context).pop(); 
+                                    }
+                                  )
+                                ],
+                              ),
+                            ),
+                          );
+                        },
+                      ) : const SizedBox(),
                 ],
               ),
             ),

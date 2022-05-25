@@ -96,6 +96,18 @@ class FirestoreMethods {
     }
   }
 
+  Future<void> updateCaption(String postId, String newCaption) async {
+    try {
+      if (newCaption.isNotEmpty) {
+        await _firestore.collection('posts').doc(postId).update({
+          'description': newCaption,
+        });
+      }
+    } catch (e) {
+      log(e.toString());
+    }
+  }
+
   Future<void> followUser(String currentUser, String followUser) async {
     try {
       DocumentSnapshot snapshot = await _firestore.collection('users').doc(followUser).get();
