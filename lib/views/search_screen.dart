@@ -2,6 +2,9 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:endterm/constants/colors.dart';
 import 'package:endterm/views/profile_screen.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import '../models/user.dart' as model;
+import '../providers/user_provider.dart';
 
 // class SearchScreen extends StatefulWidget {
 //   const SearchScreen({ Key? key }) : super(key: key);
@@ -121,10 +124,20 @@ class SearchScreen extends SearchDelegate {
 
   @override
   Widget buildSuggestions(BuildContext context) {
+
+    List id = [];
+    final model.User? user = Provider.of<UserProvider>(context).getUser; //lấy ra th user hiện tại
+    if (user!.following.isEmpty){
+      id.add('default');
+    }
+    else{
+      id = user.following;
+    }
+
     return FutureBuilder(
       future: FirebaseFirestore.instance
         .collection('users')
-        // .where('username', isGreaterThanOrEqualTo: query.toLowerCase(),)
+        .where('uid', whereIn: id)
         .get(), 
         //get the collections, data cua users
       builder: (context, AsyncSnapshot<QuerySnapshot<Map<String, dynamic>>> snapshot) {
