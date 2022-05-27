@@ -18,16 +18,7 @@ class _HomeScreenState extends State<HomeScreen> {
 
   model.User? user;
   List<dynamic> id = [];
-
-
-  Future<void> refreshList() async{
-      user = Provider.of<UserProvider>(context).getUser;
-      List<dynamic> id = user!.following.toList();
-      id.add(user!.uid);
-    setState(() {
-      
-    });      
-  }
+  late Stream<QuerySnapshot<Map<String, dynamic>>> stream;
 
   @override
   void didChangeDependencies() {
@@ -35,6 +26,11 @@ class _HomeScreenState extends State<HomeScreen> {
     user = Provider.of<UserProvider>(context).getUser;
     id = user!.following.toList();
     id.add(user!.uid);
+    stream = FirebaseFirestore.instance
+                  .collection('posts')
+                  .where('uid', whereIn: id)
+                  .orderBy('uploadDate', descending: true)
+                  .snapshots();
   }
 
   @override
@@ -62,20 +58,31 @@ class _HomeScreenState extends State<HomeScreen> {
         ],
       ),
       body: RefreshIndicator(
-        onRefresh: refreshList,
+        onRefresh: (){
+          return Future.delayed(const Duration(seconds: 1)).then((value) {
+            setState(() {
+              List<dynamic> id = user!.following.toList();
+              id.add(user!.uid);
+              stream = FirebaseFirestore.instance
+                  .collection('posts')
+                  .where('uid', whereIn: id)
+                  .orderBy('uploadDate', descending: true)
+                  .snapshots();
+            });
+          });
+        },
         child: ListView(
             physics: const BouncingScrollPhysics(),
             shrinkWrap: true,
             scrollDirection: Axis.vertical,
             children: [
-            StreamBuilder(                              //dùng stream để load ra các post
-              stream: FirebaseFirestore.instance
-                  .collection('posts')
-                  // .where('uid', isEqualTo: user.uid)
-                  .where('uid', whereIn: id)
-                  .orderBy('uploadDate', descending: true)
-                  .snapshots(),
-                  // .where('uid', isLessThanOrEqualTo: user.uid)
+            StreamBuilder(
+              stream: stream,                              //dùng stream để load ra các post
+              // stream: FirebaseFirestore.instance
+              //     .collection('posts')
+              //     .where('uid', whereIn: id)
+              //     .orderBy('uploadDate', descending: true)
+              //     .snapshots(),
               //stream sẽ là các bài post, khi có các bài post mới đc add lên, stream builder sẽ build lại
               builder:(context, AsyncSnapshot<QuerySnapshot<Map<String, dynamic>>> snapshot) {
                 //mặc định thì builder sẽ có snapshot

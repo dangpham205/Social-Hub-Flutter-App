@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:endterm/views/follow_screen.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import '../constants/colors.dart';
@@ -140,11 +141,29 @@ class _ProfileScreenState extends State<ProfileScreen> {
                           const SizedBox(
                             width: 16,
                           ),
-                          buildProfileColumn('Followers', followerCount),
+                          InkWell(
+                            onTap: () {
+                              Navigator.of(context).push(
+                                MaterialPageRoute(
+                                  builder: (context) => FollowScreen(uid: widget.uid,)
+                                ),
+                              );
+                            },
+                            child: buildProfileColumn('Followers', followerCount)
+                          ),
                           const SizedBox(
                             width: 16,
                           ),
-                          buildProfileColumn('Following', followingCount),
+                          InkWell(
+                            onTap: () {
+                              Navigator.of(context).push(
+                                MaterialPageRoute(
+                                  builder: (context) => FollowScreen(uid: widget.uid,)
+                                ),
+                              );
+                            },
+                            child: buildProfileColumn('Following', followingCount)
+                          ),
                         ],
                       ),
                       const SizedBox( height: 12,),
