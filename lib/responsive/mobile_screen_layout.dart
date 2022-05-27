@@ -61,7 +61,7 @@ class _MobileScreenLayoutState extends State<MobileScreenLayout> {
     return Scaffold(
       body: PageView(
         children: [
-          HomeScreen(),
+          const HomeScreen(),
           const ExploreScreen(),
           const UploadScreen(),
           const Text('notiiiiiiiiiiiiiiiiii'),

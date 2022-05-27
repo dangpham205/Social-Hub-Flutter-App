@@ -37,7 +37,6 @@ class _PostCardState extends State<PostCard> {
   
   @override
   void dispose() {
-    // TODO: implement dispose
     super.dispose();
     _editCaptionController.dispose();
   }
