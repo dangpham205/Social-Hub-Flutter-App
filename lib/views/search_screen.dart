@@ -41,16 +41,25 @@ class SearchScreen extends SearchDelegate {
         color: mobileBackgroundColor, 
         elevation: 1,
       ),
-      inputDecorationTheme: const InputDecorationTheme(
+      inputDecorationTheme: InputDecorationTheme(
         fillColor: searchBox,
         filled: true,
-        border: InputBorder.none,
-        hintStyle: TextStyle(color: cwhite, fontSize: 14),
+        focusedBorder: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(6.0),
+          borderSide: const BorderSide(
+            color: searchBox,
+            width: 1.0,
+          ),
+        ),
+        border: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(6.0),
+        ),
+        hintStyle: const  TextStyle(color: cwhite, fontSize: 14),
         iconColor: subText,
-        constraints: BoxConstraints(
+        constraints: const BoxConstraints(
           maxHeight: 38
         ),
-        contentPadding: EdgeInsets.only(bottom: 8, left: 12)
+        contentPadding: const EdgeInsets.only(bottom: 8, left: 12)
       ),
     );
   }

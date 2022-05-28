@@ -4,6 +4,9 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:provider/provider.dart';
 import '../constants/colors.dart';
 import '../models/user.dart' as model;
+import '../responsive/mobile_screen_layout.dart';
+import '../responsive/responsive_layout.dart';
+import '../responsive/web_screen_layout.dart';
 import '../widgets/post_card.dart';
 import '../providers/user_provider.dart';
 
@@ -60,17 +63,23 @@ class _HomeScreenState extends State<HomeScreen> {
       body: RefreshIndicator(
         onRefresh: ()async{
           return Future.delayed(const Duration(seconds: 1)).then((value) {
-              setState(() {
-                List<dynamic> id = user!.following.toList();
-                id.add(user!.uid);
-                stream = FirebaseFirestore.instance
-                    .collection('posts')
-                    .where('uid', whereIn: id)
-                    .orderBy('uploadDate', descending: true)
-                    .snapshots();
-                
-                print("hế lô 111111111"+id.toString());
-              });
+            
+            setState(() {
+              List<dynamic> id = user!.following.toList();
+              id.add(user!.uid);
+              stream = FirebaseFirestore.instance
+                  .collection('posts')
+                  .where('uid', whereIn: id)
+                  .orderBy('uploadDate', descending: true)
+                  .snapshots();
+              Navigator.of(context).pushReplacement(
+                MaterialPageRoute(
+                  builder: (context) => const ResponsiveLayout(
+                    webScreenLayout: WebScreenLayout(),
+                    mobileScreenLayout: MobileScreenLayout(),
+                ),
+              ));
+            });
           },);
         },
         child: ListView(
@@ -121,7 +130,6 @@ class _HomeScreenState extends State<HomeScreen> {
                     itemCount: snapshot.data!.docs.length,      //bắt buộc phải truyền vô
                     itemBuilder:(context, index) {
                       if( id.contains(snapshot.data!.docs[index]["uid"])){
-                        print("hế lô"+id.toString());
                         return PostCard(
                           snap: snapshot.data!.docs[index].data(),    //truyền vô cái snap chứa thông tin của post đó, ****nơi xét follow???
                         );

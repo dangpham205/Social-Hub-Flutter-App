@@ -82,6 +82,7 @@ class _FollowScreenState extends State<FollowScreen> {
           ),
         ),
         body: const TabBarView(
+          physics: NeverScrollableScrollPhysics(),
           children: [
             FollowerTab(),
             FollowingTab(),

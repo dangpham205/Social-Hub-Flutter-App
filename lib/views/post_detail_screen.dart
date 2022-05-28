@@ -330,7 +330,7 @@ class _PostDetailScreenState extends State<PostDetailScreen> {
                   ),
                 ) ,
               ),
-                  
+              Container(height: 6, color: postCardBg,),
               //image display image display image display image display
               GestureDetector(
                 onDoubleTap: () async {
