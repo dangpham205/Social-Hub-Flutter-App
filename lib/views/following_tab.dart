@@ -18,6 +18,24 @@ class _FollowingTabState extends State<FollowingTab> {
 
   final TextEditingController _searchController = TextEditingController();
   bool showSearchResults = false;
+  model.User? user;
+  List<dynamic> id = [];
+  late Stream<QuerySnapshot<Map<String, dynamic>>> stream;
+
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    user = Provider.of<UserProvider>(context).getUser;
+    id = user!.following.toList();
+    if (id.isEmpty){
+      id.add('default');
+    }
+    print('alo 1' + id.toString());
+    stream = FirebaseFirestore.instance
+                  .collection('users')
+                  .where('uid', whereIn: id)
+                  .snapshots();
+  }
 
   @override
   void dispose() {
@@ -28,170 +46,191 @@ class _FollowingTabState extends State<FollowingTab> {
   @override
   Widget build(BuildContext context) {
     
-    final model.User? user = Provider.of<UserProvider>(context).getUser; //lấy ra th user hiện tại
-    
     return Scaffold(
-      body: Container(
-        color: mobileBackgroundColor2,
-        height: MediaQuery.of(context).size.height,
-        child: RefreshIndicator(
-          onRefresh: () async {
-            return Future.delayed(const Duration(seconds: 1)).then((value) {
+      body: RefreshIndicator(
+        displacement: 0,
+        onRefresh: () async {
+          return Future.delayed(const Duration(seconds: 1)).then((value) {
+            setState(() {
+              id = user!.following.toList();
+              if (id.isEmpty){
+                id.add('default');
+              }
+              print('alo' + id.toString());
+              stream = FirebaseFirestore.instance
+                  .collection('users')
+                  .where('uid', whereIn: id)
+                  .snapshots();
               Navigator.of(context).pushReplacement(
                 MaterialPageRoute(
                   builder: (context) =>  FollowScreen(uid: user!.uid, selectedTab: 1,)
               ));
-            },);
-          },
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.start,
-            children: [
-              Padding(
-                padding: const EdgeInsets.only(top: 12.0, left: 12, right: 12, bottom: 8),
-                child: Theme(
-                  data: Theme.of(context).copyWith(
-                    colorScheme: ThemeData().colorScheme.copyWith(
-                      primary: cwhite,
-                    ),
-                  ),
-                  child: TextFormField(
-                    style: const TextStyle(color: cblack),
-                    textInputAction: TextInputAction.search,
-                    controller: _searchController,
-                    decoration: InputDecoration(
-                      fillColor: searchBox,
-                      filled: true,
-                      prefixIcon: const Icon(Icons.search),
-                      prefixIconColor: cwhite,
-                      constraints: const BoxConstraints(
-                        maxHeight: 42
+            });
+          },);
+        },
+        child: SingleChildScrollView(
+          physics: const AlwaysScrollableScrollPhysics(),
+          child: SizedBox.fromSize(
+            size: MediaQuery.of(context).size,
+            child: Column(
+              mainAxisSize: MainAxisSize.max,
+              mainAxisAlignment: MainAxisAlignment.start,
+              children: [
+                Container(
+                  color: mobileBackgroundColor2,
+                  padding: const EdgeInsets.only(top: 12.0, left: 12, right: 12, bottom: 8),
+                  child: Theme(
+                    data: Theme.of(context).copyWith(
+                      colorScheme: ThemeData().colorScheme.copyWith(
+                        primary: cwhite,
                       ),
-                      focusedBorder: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(6.0),
-                        borderSide: const BorderSide(
-                          color: searchBox,
-                          width: 1.0,
+                    ),
+                    child: TextFormField(
+                      style: const TextStyle(color: cblack),
+                      textInputAction: TextInputAction.search,
+                      controller: _searchController,
+                      decoration: InputDecoration(
+                        fillColor: searchBox,
+                        filled: true,
+                        prefixIcon: const Icon(Icons.search),
+                        prefixIconColor: cwhite,
+                        constraints: const BoxConstraints(
+                          maxHeight: 42
                         ),
+                        focusedBorder: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(6.0),
+                          borderSide: const BorderSide(
+                            color: searchBox,
+                            width: 1.0,
+                          ),
+                        ),
+                        border: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(6.0),
+                        ),
+                        hintText: 'Search',
+                        hintStyle: const TextStyle(color: cwhite),
+                        contentPadding: const EdgeInsets.all(0),
+                        suffixIcon: IconButton(
+                          icon: const Icon(Icons.close),
+                          onPressed: (){
+                            _searchController.text = '';
+                            FocusScope.of(context).unfocus();
+                            setState(() {
+                              showSearchResults = false;
+                            });
+                          },)
                       ),
-                      border: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(6.0),
-                      ),
-                      hintText: 'Search',
-                      hintStyle: const TextStyle(color: cwhite),
-                      contentPadding: const EdgeInsets.all(0),
-                      suffixIcon: IconButton(
-                        icon: const Icon(Icons.close),
-                        onPressed: (){
-                          _searchController.text = '';
-                          FocusScope.of(context).unfocus();
-                        },)
+                      cursorColor: cblack,
+                      onFieldSubmitted: (String _) {      //khoong qtam String nhan dc la gi nen dat ten la _
+                        setState(() {
+                          showSearchResults = true;
+                        });
+                      },
                     ),
-                    cursorColor: cblack,
-                    onFieldSubmitted: (String _) {      //khoong qtam String nhan dc la gi nen dat ten la _
-                      setState(() {
-                        showSearchResults = true;
-                      });
-                    },
                   ),
                 ),
-              ),
-              showSearchResults 
-              ? FutureBuilder(        // hiện kqua search
-                future: FirebaseFirestore.instance
-                  .collection('users')
-                  .where('username', isGreaterThanOrEqualTo: _searchController.text,)
-                  .get(), 
-                //get the collections, data cua users
-                builder: (context, AsyncSnapshot<QuerySnapshot<Map<String, dynamic>>> snapshot) {
-                  if (!snapshot.hasData){
-                    return const Center(
-                      child: CircularProgressIndicator(),
-                    );
-                  }
-                  else{
-                    return ListView.builder(
-                      shrinkWrap: true,
-                      scrollDirection: Axis.vertical,
-                      itemCount: snapshot.data!.docs.length,     //sd kiểu này nếu không muốn cast type cho snapshot ở trên
-                      itemBuilder: (context, index){
-                        return InkWell(
-                          onTap: () => Navigator.of(context).push(
-                              MaterialPageRoute(
-                                  builder: (context) => ProfileScreen(
-                                      uid: snapshot.data!.docs[index].data()['uid'], myProfile: false,
-                              ),
-                            ),
-                          ),
-                          child: ListTile(
-                            leading: CircleAvatar(
-                              backgroundImage: NetworkImage(snapshot.data!.docs[index].data()['photoUrl'].toString()),
-                            ),
-                            title: Text(
-                              snapshot.data!.docs[index].data()['username'].toString(),
-                              style: const TextStyle(color: cblack),
-                            ),
-                          ),
-                        );
-                      }
-                    );
-                  }
-                },
-              )
-              : user!.following.isEmpty
-              ? Padding(
-                padding: const EdgeInsets.only(top: 128),
-                child: Center(
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: const [
-                      Icon(Icons.heart_broken, size: 50, color: subText,),
-                      Text("You have not followed anyone yet.", style: TextStyle(color: subText),),
-                    ],
-                  ),
-                ),
-              )
-              : StreamBuilder(                //mặc định thì hiện hết tất cả following ra
-                stream: FirebaseFirestore.instance
+                showSearchResults 
+                ? FutureBuilder(        // hiện kqua search
+                  future: FirebaseFirestore.instance
                     .collection('users')
-                    .where('uid', whereIn: user.following)
-                    .snapshots(), 
-                    //get the collections, data cua users
-                builder: (context, AsyncSnapshot<QuerySnapshot<Map<String, dynamic>>> snapshot) {
-                  if (!snapshot.hasData){
-                    return const Center(
-                      child: CircularProgressIndicator(),
-                    );
-                  }
-                  else{
-                    return ListView.builder(
-                      shrinkWrap: true,
-                      scrollDirection: Axis.vertical,
-                      itemCount: snapshot.data!.docs.length,     //sd kiểu này nếu không muốn cast type cho snapshot ở trên
-                      itemBuilder: (context, index){
-                        return InkWell(
-                          onTap: () => Navigator.of(context).push(
-                              MaterialPageRoute(
-                                  builder: (context) => ProfileScreen(
-                                      uid: snapshot.data!.docs[index].data()['uid'], myProfile: false,
+                    .where('username', isGreaterThanOrEqualTo: _searchController.text,)
+                    .get(), 
+                  //get the collections, data cua users
+                  builder: (context, AsyncSnapshot<QuerySnapshot<Map<String, dynamic>>> snapshot) {
+                    if (!snapshot.hasData){
+                      return const Center(
+                        child: CircularProgressIndicator(),
+                      );
+                    }
+                    else{
+                      return ListView.builder(
+                        shrinkWrap: true,
+                        scrollDirection: Axis.vertical,
+                        itemCount: snapshot.data!.docs.length,     //sd kiểu này nếu không muốn cast type cho snapshot ở trên
+                        itemBuilder: (context, index){
+                          return InkWell(
+                            onTap: () => Navigator.of(context).push(
+                                MaterialPageRoute(
+                                    builder: (context) => ProfileScreen(
+                                        uid: snapshot.data!.docs[index].data()['uid'], myProfile: false,
+                                ),
                               ),
                             ),
-                          ),
-                          child: ListTile(
-                            leading: CircleAvatar(
-                              backgroundImage: NetworkImage(snapshot.data!.docs[index].data()['photoUrl'].toString()),
+                            child: ListTile(
+                              leading: CircleAvatar(
+                                backgroundImage: NetworkImage(snapshot.data!.docs[index].data()['photoUrl'].toString()),
+                              ),
+                              title: Text(
+                                snapshot.data!.docs[index].data()['username'].toString(),
+                                style: const TextStyle(color: cblack),
+                              ),
                             ),
-                            title: Text(
-                              snapshot.data!.docs[index].data()['username'].toString(),
-                              style: const TextStyle(color: cblack,)
-                            ),
+                          );
+                        }
+                      );
+                    }
+                  },
+                )
+                : StreamBuilder(                //mặc định thì hiện hết tất cả following ra
+                  stream: stream,
+                      //get the collections, data cua users
+                  builder: (context, AsyncSnapshot<QuerySnapshot<Map<String, dynamic>>> snapshot) {
+                    if (!snapshot.hasData){
+                      return const Center(
+                        child: CircularProgressIndicator(),
+                      );
+                    }
+                    if (snapshot.data!.docs.isEmpty){         //nếu trong những người follow mà kh ai có post gì thì trả về empty
+                      return Padding(
+                        padding: const EdgeInsets.only(top: 128),
+                        child: Center(
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: const [
+                              Icon(Icons.heart_broken, size: 50, color: subText,),
+                              Text("You have not followed anyone yet", style: TextStyle(color: subText),),
+                            ],
                           ),
-                        );
-                      }
-                    );
-                  }
-                },
-              )
-            ],
+                        ),
+                      );
+                    }
+                    else{
+                      return ListView.builder(
+                        shrinkWrap: true,
+                        physics: const BouncingScrollPhysics(),
+                        scrollDirection: Axis.vertical,
+                        itemCount: snapshot.data!.docs.length,     //sd kiểu này nếu không muốn cast type cho snapshot ở trên
+                        itemBuilder: (context, index){
+                          if( id.contains(snapshot.data!.docs[index].data()["uid"])){
+                            return InkWell(
+                              onTap: () => Navigator.of(context).push(
+                                  MaterialPageRoute(
+                                      builder: (context) => ProfileScreen(
+                                          uid: snapshot.data!.docs[index].data()['uid'], myProfile: false,
+                                  ),
+                                ),
+                              ),
+                              child: ListTile(
+                                leading: CircleAvatar(
+                                  backgroundImage: NetworkImage(snapshot.data!.docs[index].data()['photoUrl'].toString()),
+                                ),
+                                title: Text(
+                                  snapshot.data!.docs[index].data()['username'].toString(),
+                                  style: const TextStyle(color: cblack,)
+                                ),
+                              ),
+                            );
+                          }
+                          else{
+                            return const SizedBox.shrink();
+                          }
+                        }
+                      );
+                    }
+                  },
+                )
+              ],
+            ),
           ),
         ),
       ),
