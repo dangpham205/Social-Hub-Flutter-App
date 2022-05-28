@@ -58,18 +58,20 @@ class _HomeScreenState extends State<HomeScreen> {
         ],
       ),
       body: RefreshIndicator(
-        onRefresh: (){
+        onRefresh: ()async{
           return Future.delayed(const Duration(seconds: 1)).then((value) {
-            setState(() {
-              List<dynamic> id = user!.following.toList();
-              id.add(user!.uid);
-              stream = FirebaseFirestore.instance
-                  .collection('posts')
-                  .where('uid', whereIn: id)
-                  .orderBy('uploadDate', descending: true)
-                  .snapshots();
-            });
-          });
+              setState(() {
+                List<dynamic> id = user!.following.toList();
+                id.add(user!.uid);
+                stream = FirebaseFirestore.instance
+                    .collection('posts')
+                    .where('uid', whereIn: id)
+                    .orderBy('uploadDate', descending: true)
+                    .snapshots();
+                
+                print("hế lô 111111111"+id.toString());
+              });
+          },);
         },
         child: ListView(
             physics: const BouncingScrollPhysics(),
@@ -118,9 +120,15 @@ class _HomeScreenState extends State<HomeScreen> {
                     scrollDirection: Axis.vertical,
                     itemCount: snapshot.data!.docs.length,      //bắt buộc phải truyền vô
                     itemBuilder:(context, index) {
-                      return PostCard(
-                        snap: snapshot.data!.docs[index].data(),    //truyền vô cái snap chứa thông tin của post đó, ****nơi xét follow???
-                      );
+                      if( id.contains(snapshot.data!.docs[index]["uid"])){
+                        print("hế lô"+id.toString());
+                        return PostCard(
+                          snap: snapshot.data!.docs[index].data(),    //truyền vô cái snap chứa thông tin của post đó, ****nơi xét follow???
+                        );
+                      }
+                      else{
+                        return const SizedBox.shrink();
+                      }
                     }
                   );
                 }

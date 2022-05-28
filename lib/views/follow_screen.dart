@@ -7,7 +7,8 @@ import '../constants/colors.dart';
 
 class FollowScreen extends StatefulWidget {
   final String uid;
-  const FollowScreen({ Key? key, required this.uid }) : super(key: key);
+  final int selectedTab;
+  const FollowScreen({ Key? key, required this.uid, required this.selectedTab }) : super(key: key);
 
   @override
   State<FollowScreen> createState() => _FollowScreenState();
@@ -52,6 +53,7 @@ class _FollowScreenState extends State<FollowScreen> {
   Widget build(BuildContext context) {
     return DefaultTabController(
       length: 2,
+      initialIndex: widget.selectedTab,
       child: Scaffold(
         appBar: AppBar(
           backgroundColor: mobileBackgroundColor,

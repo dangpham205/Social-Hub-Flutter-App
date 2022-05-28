@@ -145,7 +145,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                             onTap: () {
                               Navigator.of(context).push(
                                 MaterialPageRoute(
-                                  builder: (context) => FollowScreen(uid: widget.uid,)
+                                  builder: (context) => FollowScreen(uid: widget.uid, selectedTab: 0,)
                                 ),
                               );
                             },
@@ -158,7 +158,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                             onTap: () {
                               Navigator.of(context).push(
                                 MaterialPageRoute(
-                                  builder: (context) => FollowScreen(uid: widget.uid,)
+                                  builder: (context) => FollowScreen(uid: widget.uid, selectedTab: 1,)
                                 ),
                               );
                             },

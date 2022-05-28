@@ -8,6 +8,8 @@ const mobileBackgroundColor = Colors.white;
     // cmt screen: 36
     // post detail screen: 89, 105
     // post card: 94, 105
+const mobileBackgroundColor2 = Color.fromARGB(255, 255, 243, 223);
+    // bg phụ màn following, follower
 const webBackgroundColor = Color.fromRGBO(18, 18, 18, 1);
 const mobileSearchColor = Color.fromRGBO(38, 38, 38, 1);
 const blueColor = Color.fromRGBO(0, 149, 246, 1);

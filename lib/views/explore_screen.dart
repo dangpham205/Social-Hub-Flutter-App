@@ -32,8 +32,8 @@ class _ExploreScreenState extends State<ExploreScreen> {
           padding: const EdgeInsets.symmetric(horizontal: 8),
           decoration: const BoxDecoration(
             borderRadius: BorderRadius.vertical(
-              bottom: Radius.circular(4.0),
-              top: Radius.circular(4.0)
+              bottom: Radius.circular(6.0),
+              top: Radius.circular(6.0)
             ),
             color: searchBox,
           ),
