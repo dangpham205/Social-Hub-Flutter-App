@@ -1,3 +1,4 @@
+import 'package:endterm/views/about_us_screen.dart';
 import 'package:endterm/widgets/yes_no_dialog.dart';
 import 'package:flutter/material.dart';
 
@@ -40,6 +41,16 @@ class _ProfileDrawerState extends State<ProfileDrawer> {
               function: () {
                 Navigator.of(context).push(MaterialPageRoute(
                   builder: (context) => const SettingsScreen(),
+                ));
+              }
+            ),
+            drawerItem(
+              text: 'About us',
+              textColor: cblack,
+              icon: Icons.info_outline_rounded,
+              function: () {
+                Navigator.of(context).push(MaterialPageRoute(
+                  builder: (context) => const AboutUsScreen(),
                 ));
               }
             ),
