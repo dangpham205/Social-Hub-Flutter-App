@@ -1,6 +1,6 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 
-import '../data/data_json.dart';
 import '../widgets/video_player_item.dart';
 
 
@@ -14,13 +14,14 @@ class VideoScreen extends StatefulWidget {
 class _VideoScreenState extends State<VideoScreen>
     with SingleTickerProviderStateMixin {
   TabController? _tabController;
-  @override
-  void initState() {
-    // TODO: implement initState
-    super.initState();
 
-    _tabController = TabController(length: items.length, vsync: this);
-  }
+  // @override
+  // void initState() {
+  //   // TODO: implement initState
+  //   super.initState();
+  //
+  //   _tabController = TabController(length: 3, vsync: this);
+  // }
 
   @override
   void dispose() {
@@ -38,22 +39,36 @@ class _VideoScreenState extends State<VideoScreen>
     var size = MediaQuery.of(context).size;
     return RotatedBox(
       quarterTurns: 1,
-      child: TabBarView(
-        controller: _tabController,
-        children: List.generate(items.length, (index) {
-          return VideoPlayerItem(
-            videoUrl: items[index]['videoUrl'],
-            size: size,
-            name: items[index]['name'],
-            caption: items[index]['caption'],
-            songName: items[index]['songName'],
-            profileImg: items[index]['profileImg'],
-            likes: items[index]['likes'],
-            comments: items[index]['comments'],
-            shares: items[index]['shares'],
-            albumImg: items[index]['albumImg'],
+      child: StreamBuilder(
+        stream: FirebaseFirestore.instance
+            .collection('videos')
+            .snapshots(),
+        builder: (BuildContext context, AsyncSnapshot<dynamic> snapshot) {
+          print(snapshot);
+          if (snapshot.connectionState == ConnectionState.waiting) {
+            return const Center(
+              child: CircularProgressIndicator(),
+            );
+          }
+          _tabController = TabController(length: snapshot.data.docs.length, vsync: this);
+          return TabBarView(
+            controller: _tabController,
+            children: List.generate(snapshot.data.docs.length, (index) {
+              return VideoPlayerItem(
+                videoUrl: snapshot.data.docs[index]['videoUrl'],
+                size: size,
+                name: snapshot.data.docs[index]['name'],
+                caption: snapshot.data.docs[index]['caption'],
+                songName: snapshot.data.docs[index]['songName'],
+                profileImg: snapshot.data.docs[index]['profileImg'],
+                likes: snapshot.data.docs[index]['likes'],
+                comments: snapshot.data.docs[index]['comments'],
+                shares: snapshot.data.docs[index]['shares'],
+                albumImg: snapshot.data.docs[index]['albumImg'],
+              );
+            }),
           );
-        }),
+        },
       ),
     );
   }
