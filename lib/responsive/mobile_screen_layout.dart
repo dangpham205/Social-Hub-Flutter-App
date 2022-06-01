@@ -1,6 +1,7 @@
 import 'package:endterm/views/explore_screen.dart';
 import 'package:endterm/views/home_screen.dart';
 import 'package:endterm/views/profile_screen.dart';
+import 'package:endterm/views/video_screen.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -63,8 +64,8 @@ class _MobileScreenLayoutState extends State<MobileScreenLayout> {
         children: [
           const HomeScreen(),
           const ExploreScreen(),
+          const VideoScreen(),
           const UploadScreen(),
-          const Text('notiiiiiiiiiiiiiiiiii'),
           ProfileScreen(uid: FirebaseAuth.instance.currentUser!.uid, myProfile: true,),
         ]
         ,  //liệt kê các page sẽ có (số lượng tương ứng với số icon dưới thanh nav)
@@ -95,14 +96,14 @@ class _MobileScreenLayoutState extends State<MobileScreenLayout> {
                 backgroundColor: primaryColor),
             BottomNavigationBarItem(
                 icon: Icon(
-                  Icons.add,
+                  Icons.video_library,
                   color: tabColor(2),
                 ),
                 label: '',
                 backgroundColor: primaryColor),
             BottomNavigationBarItem(
                 icon: Icon(
-                  Icons.notifications,
+                  Icons.add,
                   color: tabColor(3),
                 ),
                 label: '',
