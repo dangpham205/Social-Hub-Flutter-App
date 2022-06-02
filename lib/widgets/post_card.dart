@@ -10,6 +10,7 @@ import '../models/user.dart';
 import '../providers/user_provider.dart';
 import '../shared/firebase_firestore.dart';
 import '../views/comment_screen.dart';
+import '../views/liked_screen.dart';
 import '../views/profile_screen.dart';
 import 'like_animation.dart';
 import 'yes_no_dialog.dart';
@@ -459,13 +460,22 @@ class _PostCardState extends State<PostCard> {
               mainAxisSize: MainAxisSize.min,
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text(
-                  //số like
-                  '${widget.snap['likes'].length} likes',
-                  style: const TextStyle(
-                    fontWeight: FontWeight.bold, 
-                    fontSize: 14,
-                    color: cblack
+                InkWell(
+                  onTap:() {
+                    Navigator.of(context).push(
+                      MaterialPageRoute(
+                        builder: (context) => LikesScreen(items: widget.snap['likes'], likes: widget.snap['likes'].length,),
+                      ),
+                    );
+                  },
+                  child: Text(
+                    //số like
+                    '${widget.snap['likes'].length} likes',
+                    style: const TextStyle(
+                      fontWeight: FontWeight.bold, 
+                      fontSize: 14,
+                      color: cblack
+                    ),
                   ),
                 ),
                 Container(
