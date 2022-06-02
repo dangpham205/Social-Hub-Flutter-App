@@ -1,14 +1,12 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:endterm/constants/colors.dart';
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
-import '../models/user.dart' as model;
-import '../providers/user_provider.dart';
+import '../constants/colors.dart';
 import 'follow_screen.dart';
 import 'profile_screen.dart';
 
 class FollowingTab extends StatefulWidget {
-  const FollowingTab({ Key? key }) : super(key: key);
+  final String uid;
+  const FollowingTab({ Key? key, required this.uid }) : super(key: key);
 
   @override
   State<FollowingTab> createState() => _FollowingTabState();
@@ -18,23 +16,47 @@ class _FollowingTabState extends State<FollowingTab> {
 
   final TextEditingController _searchController = TextEditingController();
   bool showSearchResults = false;
-  model.User? user;
   List<dynamic> id = [];
   late Stream<QuerySnapshot<Map<String, dynamic>>> stream;
+  var userData = {};
+  bool isLoading = false;
+
+  @override
+  void initState() {
+    super.initState();
+    getUserData();
+  }
+
+  Future getUserData() async {
+    setState(() {
+      isLoading = true;
+    });
+   
+    var userSnapShot = await FirebaseFirestore.instance
+        .collection('users')
+        .doc(widget.uid)
+        .get();
+    userData = userSnapShot.data()!;
+    id = userSnapShot.data()!['following'];
+    if (id.isEmpty){
+      id.add('default');
+    }
+    stream = FirebaseFirestore.instance
+                  .collection('users')
+                  .where('uid', whereIn: id)
+                  .snapshots(includeMetadataChanges: true);
+
+    if (mounted){
+      setState(() {
+        isLoading = false;
+      });
+    }
+
+  }
 
   @override
   void didChangeDependencies() {
     super.didChangeDependencies();
-    user = Provider.of<UserProvider>(context).getUser;
-    id = user!.following.toList();
-    if (id.isEmpty){
-      id.add('default');
-    }
-    print('alo 1' + id.toString());
-    stream = FirebaseFirestore.instance
-                  .collection('users')
-                  .where('uid', whereIn: id)
-                  .snapshots();
   }
 
   @override
@@ -50,23 +72,10 @@ class _FollowingTabState extends State<FollowingTab> {
       body: RefreshIndicator(
         displacement: 0,
         onRefresh: () async {
-          return Future.delayed(const Duration(seconds: 1)).then((value) {
-            setState(() {
-              id = user!.following.toList();
-              if (id.isEmpty){
-                id.add('default');
-              }
-              print('alo' + id.toString());
-              stream = FirebaseFirestore.instance
-                  .collection('users')
-                  .where('uid', whereIn: id)
-                  .snapshots();
-              Navigator.of(context).pushReplacement(
-                MaterialPageRoute(
-                  builder: (context) =>  FollowScreen(uid: user!.uid, selectedTab: 1,)
-              ));
-            });
-          },);
+          Navigator.of(context).pushReplacement(
+            MaterialPageRoute(
+              builder: (context) =>  FollowScreen(uid: widget.uid, selectedTab: 1,)
+          ));
         },
         child: SingleChildScrollView(
           physics: const AlwaysScrollableScrollPhysics(),
@@ -171,6 +180,8 @@ class _FollowingTabState extends State<FollowingTab> {
                     }
                   },
                 )
+                : isLoading ?
+                const Center(child: CircularProgressIndicator(),) 
                 : StreamBuilder(                //mặc định thì hiện hết tất cả following ra
                   stream: stream,
                       //get the collections, data cua users
