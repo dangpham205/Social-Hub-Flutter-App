@@ -210,14 +210,19 @@ class _FollowingTabState extends State<FollowingTab> {
                                   ),
                                 ),
                               ),
-                              child: ListTile(
-                                leading: CircleAvatar(
-                                  backgroundImage: NetworkImage(snapshot.data!.docs[index].data()['photoUrl'].toString()),
-                                ),
-                                title: Text(
-                                  snapshot.data!.docs[index].data()['username'].toString(),
-                                  style: const TextStyle(color: cblack,)
-                                ),
+                              child: Column(
+                                children: [
+                                  ListTile(
+                                    leading: CircleAvatar(
+                                      backgroundImage: NetworkImage(snapshot.data!.docs[index].data()['photoUrl'].toString()),
+                                    ),
+                                    title: Text(
+                                      snapshot.data!.docs[index].data()['username'].toString(),
+                                      style: const TextStyle(color: cblack,)
+                                    ),
+                                  ),
+                                  Container(height: 3, color: mobileBackgroundColor2,)
+                                ],
                               ),
                             );
                           }

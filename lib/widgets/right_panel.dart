@@ -1,5 +1,4 @@
 import 'package:endterm/widgets/tik_tok_icons.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 
@@ -36,6 +35,7 @@ class _RightPanelState extends State<RightPanel> {
   @override
   Widget build(BuildContext context) {
     return Expanded(
+      // ignore: sized_box_for_whitespace
       child: Container(
         height: widget.size.height,
         child: Column(
@@ -78,7 +78,7 @@ class _RightPanelState extends State<RightPanel> {
                     ),
                     Text(
                       widget.likes,
-                      style: TextStyle(
+                      style: const TextStyle(
                           color: white, fontSize: 12, fontWeight: FontWeight.w700),
                     )
                   ],

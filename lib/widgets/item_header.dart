@@ -13,7 +13,7 @@ class ItemHeader extends StatelessWidget {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: <Widget>[
-        Text(
+        const Text(
           "",
           style: TextStyle(
             color: white,
@@ -22,7 +22,7 @@ class ItemHeader extends StatelessWidget {
           ),
         ),
         Container(
-          margin: EdgeInsets.only(right: 10),
+          margin: const EdgeInsets.only(right: 10),
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(20),
             color: Colors.white
@@ -30,7 +30,7 @@ class ItemHeader extends StatelessWidget {
           child: Padding(
             padding: const EdgeInsets.only(left: 15,right: 15,top: 5,bottom: 5),
             child: Row(
-              children: [
+              children: const  [
                 Icon(Icons.camera_alt_outlined,color: Colors.black,),
                 SizedBox(width: 5,),
                 Text(

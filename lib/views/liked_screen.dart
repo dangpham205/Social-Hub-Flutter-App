@@ -1,15 +1,14 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import '../constants/colors.dart';
 import '../widgets/likes_card.dart';
 
 
 class LikesScreen extends StatefulWidget {
-  List<dynamic> items;
+  final List<dynamic> items;
   final int likes;
 
-  LikesScreen({Key? key, required this.items, required this.likes})
+  const LikesScreen({Key? key, required this.items, required this.likes})
       : super(key: key);
 
   @override
@@ -20,7 +19,7 @@ class _LikePostState extends State<LikesScreen> {
 
   @override
   Widget build(BuildContext context) {
-    widget.items.map((e) => print(e));
+    // widget.items.map((e) => print(e));
     // print("Fuck ${widget.items}");
 
     return Scaffold(

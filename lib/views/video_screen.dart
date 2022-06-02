@@ -17,7 +17,6 @@ class _VideoScreenState extends State<VideoScreen>
 
   // @override
   // void initState() {
-  //   // TODO: implement initState
   //   super.initState();
   //
   //   _tabController = TabController(length: 3, vsync: this);
@@ -25,7 +24,6 @@ class _VideoScreenState extends State<VideoScreen>
 
   @override
   void dispose() {
-    // TODO: implement dispose
     super.dispose();
     _tabController?.dispose();
   }
@@ -44,7 +42,6 @@ class _VideoScreenState extends State<VideoScreen>
             .collection('videos')
             .snapshots(),
         builder: (BuildContext context, AsyncSnapshot<dynamic> snapshot) {
-          print(snapshot);
           if (snapshot.connectionState == ConnectionState.waiting) {
             return const Center(
               child: CircularProgressIndicator(),
