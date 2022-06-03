@@ -40,9 +40,12 @@ class _AlbumScreenState extends State<AlbumScreen> {
         ),
         centerTitle: true,
         actions: [
-          Icon(
-            Icons.send_outlined,
-            color: cblack,
+          Padding(
+            padding: const EdgeInsets.only(right: 10),
+            child: Icon(
+              Icons.send_outlined,
+              color: cblack,
+            ),
           ),
         ],
       ),
