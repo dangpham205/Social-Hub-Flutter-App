@@ -22,13 +22,20 @@ class _LikePostState extends State<LikesScreen> {
   @override
   Widget build(BuildContext context) {
     widget.items.map((e) => print(e));
-    print("Fuck ${widget.items}");
+    // print("likes ${widget.items}");
 
     return Scaffold(
       appBar: AppBar(
         backgroundColor: mobileBackgroundColor,
+        leading: IconButton(      
+          icon: const Icon(Icons.arrow_back, color: cblack,),
+          onPressed: () {
+            Navigator.of(context).pop();
+          },
+        ),
         title: const Text(
           'Likes',
+          style: TextStyle(color: cblack),
         ),
         centerTitle: false,
       ),
@@ -42,8 +49,13 @@ class _LikePostState extends State<LikesScreen> {
                       .doc(widget.items[index].toString().trim())
                       .get(),
                   builder: (context,AsyncSnapshot<DocumentSnapshot<Map<String, dynamic>>> snapshot) {
+                  if(!snapshot.hasData){
+                      return const Center(
+                        child: CircularProgressIndicator(),
+                      );
+                    }
                     var user = (snapshot.data);
-                    print("user ${user?.data()}");
+                    // print("user ${user?.data()}");
 
                     return LikeCard(snap: user?.data());
                   }
