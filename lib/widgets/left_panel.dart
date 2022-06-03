@@ -24,7 +24,7 @@ class LeftPanel extends StatelessWidget {
     return Container(
       width: size.width * 0.8,
       height: size.height,
-      decoration: BoxDecoration(),
+      decoration: const BoxDecoration(),
       child: Column(
         mainAxisAlignment: MainAxisAlignment.end,
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -32,39 +32,39 @@ class LeftPanel extends StatelessWidget {
           Row(
             children: [
               getProfile(profileImg),
-              SizedBox(width: 10,),
+              const SizedBox(width: 10,),
               Text(
                 name,
-                style: TextStyle(
+                style: const TextStyle(
                     color: white, fontWeight: FontWeight.w500, fontSize: 16),
               ),
-              SizedBox(width: 10,),
+              const SizedBox(width: 10,),
               Container(
                 padding: const EdgeInsets.all(3.0),
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(3),
                   border: Border.all(color: Colors.white.withOpacity(0.5))
                 ),
-                child: Padding(
-                  padding: const EdgeInsets.all(2),
+                child: const Padding(
+                  padding: EdgeInsets.all(2),
                   child: Text("Follow",style: TextStyle(fontWeight: FontWeight.bold,fontSize: 15,letterSpacing: 0.5),),
                 ),
               )
             ],
           ),
-          SizedBox(
+          const SizedBox(
             height: 10,
           ),
           Text(
             caption,
-            style: TextStyle(color: white),
+            style: const TextStyle(color: white),
           ),
-          SizedBox(
+          const SizedBox(
             height: 5,
           ),
           Row(
             children: <Widget>[
-              Icon(
+              const Icon(
                 Icons.music_note,
                 color: white,
                 size: 15,
@@ -72,7 +72,7 @@ class LeftPanel extends StatelessWidget {
               Flexible(
                 child: Text(
                   songName,
-                  style: TextStyle(color: white, height: 1.5),
+                  style: const TextStyle(color: white, height: 1.5),
                 ),
               )
             ],

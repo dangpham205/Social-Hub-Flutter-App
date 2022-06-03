@@ -7,7 +7,7 @@ Widget getAlbum(albumImg) {
   return Container(
     width: 38,
     height: 38,
-    decoration: BoxDecoration(
+    decoration: const BoxDecoration(
         // shape: BoxShape.circle,
         // color: black
         ),
@@ -35,16 +35,17 @@ Widget getAlbum(albumImg) {
 }
 
 Widget getIcons(icon, count, size) {
+  // ignore: avoid_unnecessary_containers
   return Container(
     child: Column(
       children: <Widget>[
         Icon(icon, color: white, size: size),
-        SizedBox(
+        const SizedBox(
           height: 5,
         ),
         Text(
           count,
-          style: TextStyle(
+          style: const TextStyle(
               color: white, fontSize: 12, fontWeight: FontWeight.w700),
         )
       ],
@@ -53,6 +54,7 @@ Widget getIcons(icon, count, size) {
 }
 
 Widget getProfile(img) {
+  // ignore: sized_box_for_whitespace
   return Container(
     width: 35,
     height: 45,
