@@ -16,7 +16,6 @@ class LikesScreen extends StatefulWidget {
 }
 
 class _LikePostState extends State<LikesScreen> {
-
   @override
   Widget build(BuildContext context) {
     // widget.items.map((e) => print(e));
@@ -25,8 +24,11 @@ class _LikePostState extends State<LikesScreen> {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: mobileBackgroundColor,
-        leading: IconButton(      
-          icon: const Icon(Icons.arrow_back, color: cblack,),
+        leading: IconButton(
+          icon: const Icon(
+            Icons.arrow_back,
+            color: cblack,
+          ),
           onPressed: () {
             Navigator.of(context).pop();
           },
@@ -38,16 +40,19 @@ class _LikePostState extends State<LikesScreen> {
         centerTitle: false,
       ),
       // Display user comments
-      body: ListView.builder(
-          itemCount: widget.items.length,
-          itemBuilder: (ctx, index) =>
-              FutureBuilder(
+      // check nếu có ai like thì hiện lên nếu không thì hiện center text
+      body: widget.items.isNotEmpty
+          ? ListView.builder(
+              itemCount: widget.items.length,
+              itemBuilder: (ctx, index) => FutureBuilder(
                   future: FirebaseFirestore.instance
                       .collection('users')
                       .doc(widget.items[index].toString().trim())
                       .get(),
-                  builder: (context,AsyncSnapshot<DocumentSnapshot<Map<String, dynamic>>> snapshot) {
-                  if(!snapshot.hasData){
+                  builder: (context,
+                      AsyncSnapshot<DocumentSnapshot<Map<String, dynamic>>>
+                          snapshot) {
+                    if (!snapshot.hasData) {
                       return const Center(
                         child: CircularProgressIndicator(),
                       );
@@ -56,9 +61,13 @@ class _LikePostState extends State<LikesScreen> {
                     // print("user ${user?.data()}");
 
                     return LikeCard(snap: user?.data());
-                  }
-              )
-      ),
+                  }))
+          : const Center(
+              child: Text(
+                'No one have liked this post yet!',
+                style: TextStyle(fontSize: 20, color: cblack),
+              ),
+            ),
     );
   }
 }

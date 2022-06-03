@@ -11,6 +11,7 @@ import '../shared/firebase_firestore.dart';
 import '../widgets/comment_card.dart';
 import '../widgets/like_animation.dart';
 import '../widgets/yes_no_dialog.dart';
+import 'like_screen.dart';
 import 'profile_screen.dart';
 
 class PostDetailScreen extends StatefulWidget {
@@ -460,11 +461,21 @@ class _PostDetailScreenState extends State<PostDetailScreen> {
                   mainAxisSize: MainAxisSize.min,
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text(
-                      //số like
-                      '${widget.snap['likes'].length} likes',
-                      style: const TextStyle(
-                          fontWeight: FontWeight.bold, fontSize: 14, color: cblack),
+                    // nhảy qua likescreen
+                    InkWell(
+                      onTap: () {
+                        Navigator.of(context).push(
+                          MaterialPageRoute(
+                            builder: (context) => LikesScreen(items: widget.snap['likes'], likes: widget.snap['likes'].length,),
+                          ),
+                        );
+                      },
+                      child: Text(
+                        //số like
+                        '${widget.snap['likes'].length} likes',
+                        style: const TextStyle(
+                            fontWeight: FontWeight.bold, fontSize: 14, color: cblack),
+                      ),
                     ),
                     Container(
                       //caption
