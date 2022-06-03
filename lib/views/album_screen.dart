@@ -171,6 +171,7 @@ class _AlbumScreenState extends State<AlbumScreen> {
                     style: TextStyle(
                       fontSize: 12,
                       color: cblack,
+                      fontWeight: FontWeight.w600
                     ),
                   ),
                 ],
