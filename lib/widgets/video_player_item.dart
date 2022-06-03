@@ -133,6 +133,7 @@ class _VideoPlayerItemState extends State<VideoPlayerItem> {
                                     shares: "${widget.shares}",
                                     profileImg: "${widget.profileImg}",
                                     albumImg: "${widget.albumImg}",
+                                    songName: "${widget.songName}",
                                   )
                                 ],
                               ))
