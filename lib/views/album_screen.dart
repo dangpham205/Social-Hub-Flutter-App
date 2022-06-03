@@ -1,13 +1,14 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:video_player/video_player.dart';
 
 import '../constants/colors.dart';
 
 class AlbumScreen extends StatefulWidget {
+  // ignore: prefer_typing_uninitialized_variables
   final albumImg;
+  // ignore: prefer_typing_uninitialized_variables
   final albumName;
 
   const AlbumScreen({Key? key, required this.albumImg, required this.albumName})
@@ -27,29 +28,33 @@ class _AlbumScreenState extends State<AlbumScreen> {
     return Scaffold(
       appBar: AppBar(
         leading: IconButton(
-          icon: Icon(
+          icon: const Icon(
             Icons.arrow_back_ios,
             color: cblack,
           ),
           onPressed: () => {Navigator.pop(context)},
         ),
         backgroundColor: mobileBackgroundColor,
-        title: Text(
+        title: const Text(
           "Audio",
           style: TextStyle(color: cblack),
         ),
         centerTitle: true,
-        actions: [
-          Icon(
-            Icons.send_outlined,
-            color: cblack,
+        actions: const [
+          Padding(
+            padding: EdgeInsets.only(right: 10),
+            child: Icon(
+              Icons.send_outlined,
+              color: cblack,
+            ),
           ),
         ],
       ),
+      // ignore: avoid_unnecessary_containers
       body: Container(
         child: ListView(
           children: [
-            Divider(),
+            const Divider(),
             //Album header
             Padding(
               padding: const EdgeInsets.all(10.0),
@@ -92,17 +97,17 @@ class _AlbumScreenState extends State<AlbumScreen> {
                               fontWeight: FontWeight.bold,
                               fontSize: 18),
                         ),
-                        SizedBox(
+                        const SizedBox(
                           height: 12,
                         ),
                         Text("${widget.albumName}",
                             style: TextStyle(
                                 color: cblack.withOpacity(0.7),
                                 fontWeight: FontWeight.bold)),
-                        SizedBox(
+                        const SizedBox(
                           height: 12,
                         ),
-                        Text(
+                        const Text(
                           "3 reels",
                           style: TextStyle(color: subText),
                         )
@@ -115,7 +120,7 @@ class _AlbumScreenState extends State<AlbumScreen> {
             //Save audio button
             Container(
               width: 10,
-              margin: EdgeInsets.only(left: 10, right: 10),
+              margin: const EdgeInsets.only(left: 10, right: 10),
               alignment: Alignment.center,
               decoration: BoxDecoration(
                   border: Border.all(color: subText.withOpacity(0.7)),
@@ -133,7 +138,7 @@ class _AlbumScreenState extends State<AlbumScreen> {
               ),
             ),
             //Audio player
-            SizedBox(
+            const SizedBox(
               height: 25,
             ),
             Padding(
@@ -141,10 +146,11 @@ class _AlbumScreenState extends State<AlbumScreen> {
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  Icon(
+                  const Icon(
                     Icons.play_arrow,
                     color: cblack,
                   ),
+                  // ignore: sized_box_for_whitespace
                   Container(
                     width: size.width * 0.75,
                     child: Stack(
@@ -166,7 +172,7 @@ class _AlbumScreenState extends State<AlbumScreen> {
                       ],
                     ),
                   ),
-                  Text(
+                  const Text(
                     "0:01",
                     style: TextStyle(
                       fontSize: 12,
@@ -178,10 +184,10 @@ class _AlbumScreenState extends State<AlbumScreen> {
               ),
             ),
             //Reels
-            SizedBox(
+            const SizedBox(
               height: 15,
             ),
-            Divider(),
+            const Divider(),
             StreamBuilder(
                 stream: FirebaseFirestore.instance
                     .collection('thumbnails')
@@ -197,7 +203,7 @@ class _AlbumScreenState extends State<AlbumScreen> {
                     child: GridView.builder(
                       shrinkWrap: true,
                       itemCount: snapshot.data.docs.length,
-                      physics: ScrollPhysics(),
+                      physics: const ScrollPhysics(),
                       gridDelegate:
                           const SliverGridDelegateWithFixedCrossAxisCount(
                         crossAxisCount: 3,
@@ -224,10 +230,10 @@ class _AlbumScreenState extends State<AlbumScreen> {
                                 bottom: 5,
                                 child: Row(
                                   children: [
-                                    Icon(Icons.play_arrow_outlined, size: 25),
+                                    const Icon(Icons.play_arrow_outlined, size: 25),
                                     Text(
                                       snapshot.data.docs[index]['views'],
-                                      style: TextStyle(
+                                      style: const TextStyle(
                                           fontWeight: FontWeight.w600),
                                     )
                                   ],

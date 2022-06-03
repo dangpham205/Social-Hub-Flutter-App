@@ -1,5 +1,4 @@
 import 'package:endterm/widgets/right_panel.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:video_player/video_player.dart';
 
@@ -18,7 +17,7 @@ class VideoPlayerItem extends StatefulWidget {
   final String comments;
   final String shares;
   final String albumImg;
-  VideoPlayerItem(
+  const VideoPlayerItem(
       {Key? key,
         required this.size,
         required this.name,
@@ -44,7 +43,6 @@ class _VideoPlayerItemState extends State<VideoPlayerItem> {
 
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
 
     _videoController = VideoPlayerController.network(widget.videoUrl)
@@ -61,7 +59,6 @@ class _VideoPlayerItemState extends State<VideoPlayerItem> {
 
   @override
   void dispose() {
-    // TODO: implement dispose
     super.dispose();
     _videoController.dispose();
 
@@ -83,6 +80,7 @@ class _VideoPlayerItemState extends State<VideoPlayerItem> {
       },
       child: RotatedBox(
         quarterTurns: -1,
+        // ignore: sized_box_for_whitespace
         child: Container(
             height: widget.size.height,
             width: widget.size.width,
@@ -91,13 +89,13 @@ class _VideoPlayerItemState extends State<VideoPlayerItem> {
                 Container(
                   height: widget.size.height,
                   width: widget.size.width,
-                  decoration: BoxDecoration(color: black),
+                  decoration: const BoxDecoration(color: black),
                   child: Stack(
                     children: <Widget>[
                       VideoPlayer(_videoController),
                       Center(
                         child: Container(
-                          decoration: BoxDecoration(
+                          decoration:const  BoxDecoration(
                           ),
                           child: isPlaying(),
                         ),
@@ -105,6 +103,7 @@ class _VideoPlayerItemState extends State<VideoPlayerItem> {
                     ],
                   ),
                 ),
+                // ignore: sized_box_for_whitespace
                 Container(
                   height: widget.size.height,
                   width: widget.size.width,
@@ -115,7 +114,7 @@ class _VideoPlayerItemState extends State<VideoPlayerItem> {
                       child: Column(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: <Widget>[
-                          ItemHeader(),
+                          const ItemHeader(),
                           Expanded(
                               child: Row(
                                 children: <Widget>[
