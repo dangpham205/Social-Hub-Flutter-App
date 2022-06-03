@@ -6,8 +6,6 @@ import 'package:video_player/video_player.dart';
 
 import '../constants/colors.dart';
 
-
-
 class AlbumScreen extends StatefulWidget {
   final albumImg;
   final albumName;
@@ -29,11 +27,17 @@ class _AlbumScreenState extends State<AlbumScreen> {
     return Scaffold(
       appBar: AppBar(
         leading: IconButton(
-          icon: Icon(Icons.arrow_back_ios,color: cblack,),
+          icon: Icon(
+            Icons.arrow_back_ios,
+            color: cblack,
+          ),
           onPressed: () => {Navigator.pop(context)},
         ),
         backgroundColor: mobileBackgroundColor,
-        title: Text("Audio",style: TextStyle(color: cblack),),
+        title: Text(
+          "Audio",
+          style: TextStyle(color: cblack),
+        ),
         centerTitle: true,
         actions: [
           Icon(
@@ -183,6 +187,11 @@ class _AlbumScreenState extends State<AlbumScreen> {
                     .snapshots(),
                 builder:
                     (BuildContext context, AsyncSnapshot<dynamic> snapshot) {
+                  if (!snapshot.hasData) {
+                    return const Center(
+                      child: CircularProgressIndicator(),
+                    );
+                  }
                   return SingleChildScrollView(
                     child: GridView.builder(
                       shrinkWrap: true,
@@ -214,8 +223,12 @@ class _AlbumScreenState extends State<AlbumScreen> {
                                 bottom: 5,
                                 child: Row(
                                   children: [
-                                    Icon(Icons.play_arrow_outlined,size: 25),
-                                    Text(snapshot.data.docs[index]['views'],style: TextStyle(fontWeight: FontWeight.w600),)
+                                    Icon(Icons.play_arrow_outlined, size: 25),
+                                    Text(
+                                      snapshot.data.docs[index]['views'],
+                                      style: TextStyle(
+                                          fontWeight: FontWeight.w600),
+                                    )
                                   ],
                                 ),
                               ),

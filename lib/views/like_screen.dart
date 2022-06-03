@@ -44,6 +44,7 @@ class _LikePostState extends State<LikesScreen> {
                   builder: (context,AsyncSnapshot<DocumentSnapshot<Map<String, dynamic>>> snapshot) {
                     var user = (snapshot.data);
                     print("user ${user?.data()}");
+
                     return LikeCard(snap: user?.data());
                   }
               )
