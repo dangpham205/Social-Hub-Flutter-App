@@ -1,15 +1,13 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:intl/intl.dart';
 
 import '../theme/colors.dart';
 
 class LikeCard extends StatelessWidget {
+  // ignore: prefer_typing_uninitialized_variables
   final snap;
   const LikeCard({Key? key,required this.snap}) : super(key: key);
   @override
   Widget build(BuildContext context) {
-    print(snap);
     return Container(
       padding: const EdgeInsets.symmetric(vertical: 16, horizontal: 16),
       child: Row(
@@ -44,9 +42,9 @@ class LikeCard extends StatelessWidget {
           Padding(
             padding: const EdgeInsets.only(top: 2),
             child: TextButton(
-              // TODO: Follow người dùng
+              //  Follow người dùng
               onPressed: () {},
-              child: Text("Follow"),
+              child: const Text("Follow"),
               style: TextButton.styleFrom(
                 padding: const EdgeInsets.only(left: 10, right: 10),
                 backgroundColor: secondary,
