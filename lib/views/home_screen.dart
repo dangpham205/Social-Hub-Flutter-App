@@ -104,7 +104,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 //nếu không định nghĩa loại snapshot cụ thể ở đây thì itemCount bên dưới sẽ kh lấy đc docs.length
                 //vì nó kh biết docs muốn lấy là docs async, kh thể lấy liền đc
                 if (snapshot.connectionState == ConnectionState.waiting){
-                  return const Center(
+                  return Center(
                     child: CircularProgressIndicator(color: cblack,),
                   );
                 }

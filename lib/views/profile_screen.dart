@@ -78,18 +78,18 @@ class _ProfileScreenState extends State<ProfileScreen> {
               backgroundColor: mobileBackgroundColor,
               title: Text(
                 '@'+userData['username'].toString(),
-                style: const TextStyle(color: cblack),
+                style: TextStyle(color: cblack),
               ),
               actions: [
                 widget.myProfile == false
                 ? IconButton(      //nếu mở trang profile không phải của bản thân (tức là đang vô xem profile ngkhac) thì cần cho phép pop để quay lại (ví dụ về màn home, search)
-                  icon: const Icon(Icons.close, color: cblack,),
+                  icon: Icon(Icons.close, color: cblack,),
                   onPressed: () {
                     Navigator.of(context).pop();
                   },
                 )  
                 : IconButton(
-                  icon: const Icon(Icons.menu, color: cblack,),
+                  icon: Icon(Icons.menu, color: cblack,),
                   onPressed: () => _scaffoldKey.currentState!.openEndDrawer(),
                 ) 
               ],
@@ -116,7 +116,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                       Text(
                         userData['username'].toString(),
                         style:
-                            const TextStyle(fontSize: 20, fontWeight: FontWeight.bold, color: cblack),
+                            TextStyle(fontSize: 20, fontWeight: FontWeight.bold, color: cblack),
                       ),
                       const SizedBox(
                         height: 12,
@@ -271,14 +271,14 @@ class _ProfileScreenState extends State<ProfileScreen> {
       children: [
         Text(
           name,
-          style: const TextStyle(fontSize: 13, color: cblack),
+          style: TextStyle(fontSize: 13, color: cblack),
         ),
         const SizedBox(
           height: 2,
         ),
         Text(
           number.toString(),
-          style: const TextStyle(fontSize: 24, fontWeight: FontWeight.bold, color: cblack),
+          style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold, color: cblack),
         )
       ],
     );

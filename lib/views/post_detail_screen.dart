@@ -92,12 +92,12 @@ class _PostDetailScreenState extends State<PostDetailScreen> {
       appBar: AppBar(
         backgroundColor: mobileBackgroundColor,
         leading: IconButton(
-          icon: const Icon(Icons.arrow_back, color: cblack,),
+          icon: Icon(Icons.arrow_back, color: cblack,),
           onPressed: () {
             Navigator.of(context).pop();
           },
         ),
-        title: const Text(
+        title: Text(
           'POST', 
           style: TextStyle(
             color: cblack,
@@ -150,7 +150,7 @@ class _PostDetailScreenState extends State<PostDetailScreen> {
                             children: [
                               Text(
                                 username, //dùng snap lấy ra username
-                                style: const TextStyle(
+                                style: TextStyle(
                                   fontWeight: FontWeight.bold,
                                   color: cblack
                                 ),
@@ -161,7 +161,7 @@ class _PostDetailScreenState extends State<PostDetailScreen> {
                       ),
                       widget.snap['uid'].toString() == user!.uid.toString() ? IconButton(
                         //3 chấm options
-                        icon: const Icon(Icons.more_vert, color: cblack,),
+                        icon: Icon(Icons.more_vert, color: cblack,),
                         onPressed: () {
                           showDialog(
                             
@@ -196,7 +196,7 @@ class _PostDetailScreenState extends State<PostDetailScreen> {
                                       padding: const EdgeInsets.symmetric(
                                             vertical: 12,
                                             horizontal: 16),
-                                      child: const Text('Delete', style: TextStyle(color: cblack,),)
+                                      child: Text('Delete', style: TextStyle(color: cblack,),)
                                     ),
                                   ),
 
@@ -205,7 +205,7 @@ class _PostDetailScreenState extends State<PostDetailScreen> {
                                       padding: const EdgeInsets.symmetric(
                                             vertical: 12,
                                             horizontal: 16),
-                                      child: const Text('Edit caption', style: TextStyle(color: cblack,),),
+                                      child: Text('Edit caption', style: TextStyle(color: cblack,),),
                                     ),
                                     onTap: () async {
                                       // Navigator.of(context).pop();     
@@ -219,7 +219,7 @@ class _PostDetailScreenState extends State<PostDetailScreen> {
                                         pageBuilder: (_animation, _secondaryAnimation, _child) {
                                           return AlertDialog(
                                             backgroundColor: cwhite,
-                                            title: const Text('Edit caption', style: TextStyle(color: cblack),),
+                                            title: Text('Edit caption', style: TextStyle(color: cblack),),
                                             content: Container(
                                               color: cwhite,
                                               // width: MediaQuery.of(context).size.width/2,
@@ -231,7 +231,7 @@ class _PostDetailScreenState extends State<PostDetailScreen> {
                                                 children: [
                                                   RichText(
                                                     text: TextSpan(
-                                                      style: const TextStyle(color: cblack),
+                                                      style: TextStyle(color: cblack),
                                                       children: [
                                                         TextSpan(
                                                           text: username, //dùng snap lấy ra username
@@ -252,11 +252,11 @@ class _PostDetailScreenState extends State<PostDetailScreen> {
                                                   ),
                                                   const SizedBox(height: 10,),
                                                   TextField(
-                                                    style: const TextStyle(color: cblack),
+                                                    style: TextStyle(color: cblack),
                                                     keyboardType: TextInputType.multiline,
                                                     maxLines: null,
                                                     controller: _editCaptionController,
-                                                    decoration: const InputDecoration(
+                                                    decoration: InputDecoration(
                                                       focusedBorder: UnderlineInputBorder(
                                                         borderSide: BorderSide(color: cblack)
                                                       ),
@@ -315,7 +315,7 @@ class _PostDetailScreenState extends State<PostDetailScreen> {
                                       padding: const EdgeInsets.symmetric(
                                             vertical: 12,
                                             horizontal: 16),
-                                      child: const Text('Cancel', style: TextStyle(color: cblack,),),
+                                      child: Text('Cancel', style: TextStyle(color: cblack,),),
                                     ),
                                     onTap: () async {
                                       Navigator.of(context).pop(); 
@@ -357,7 +357,7 @@ class _PostDetailScreenState extends State<PostDetailScreen> {
                       child: SizedBox(
                         width: double.infinity,
                         child: postImageReady == false ?
-                        const Center(child: Text('Waiting for internet connection', style: TextStyle(color: cblack),),)
+                        Center(child: Text('Waiting for internet connection', style: TextStyle(color: cblack),),)
                         : Image.network(
                           postImageUrl,
                           fit: BoxFit.fitWidth,
@@ -473,7 +473,7 @@ class _PostDetailScreenState extends State<PostDetailScreen> {
                       child: Text(
                         //số like
                         '${widget.snap['likes'].length} likes',
-                        style: const TextStyle(
+                        style: TextStyle(
                             fontWeight: FontWeight.bold, fontSize: 14, color: cblack),
                       ),
                     ),
@@ -483,7 +483,7 @@ class _PostDetailScreenState extends State<PostDetailScreen> {
                       padding: const EdgeInsets.only(top: 4, bottom: 4),
                       child: RichText(
                         text: TextSpan(
-                          style: const TextStyle(color: cblack),
+                          style: TextStyle(color: cblack),
                           children: [
                             TextSpan(
                               text: username, //dùng snap lấy ra username
@@ -540,7 +540,7 @@ class _PostDetailScreenState extends State<PostDetailScreen> {
                           child: TextField(
                             focusNode: focusNode,
                             controller: _commentController,
-                            style: const TextStyle(fontSize: 14, color: cblack),
+                            style: TextStyle(fontSize: 14, color: cblack),
                             decoration: const InputDecoration(
                               hintText: 'Type your comment',
                               hintStyle: TextStyle(color: subText),

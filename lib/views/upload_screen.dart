@@ -150,7 +150,7 @@ class _UploadScreenState extends State<UploadScreen> {
     return _image == null ? Center(
       child: IconButton(
         iconSize: 50,
-        icon: const Icon(Icons.upload, color: cblack,),
+        icon: Icon(Icons.upload, color: cblack,),
         onPressed: () => _selectImage(context),
       ),
     ) :
@@ -166,7 +166,7 @@ class _UploadScreenState extends State<UploadScreen> {
               icon: const Icon(Icons.arrow_back),
               color: cblack,
             ),
-            title: const Text('Upload Post', style: TextStyle(color: cblack),),
+            title: Text('Upload Post', style: TextStyle(color: cblack),),
             actions: [                //nút Post
               TextButton(
                 onPressed: () => uploadPost( user!.uid, user!.username, user!.photoUrl),
@@ -184,7 +184,7 @@ class _UploadScreenState extends State<UploadScreen> {
           body: Column(
             children: [
               _isLoading ? const LinearProgressIndicator() : Container(),   //show indicator khi bấm nút POST
-              const Divider(color: mobileBackgroundColor,),
+              Divider(color: mobileBackgroundColor,),
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceAround,
                 crossAxisAlignment: CrossAxisAlignment.start,
@@ -199,7 +199,7 @@ class _UploadScreenState extends State<UploadScreen> {
                   SizedBox(
                     width: MediaQuery.of(context).size.width*0.7,
                     child: TextField(
-                      style: const TextStyle(color: cblack),
+                      style: TextStyle(color: cblack),
                       textInputAction: TextInputAction.newline,
                       controller: _descriptionController,
                       decoration: const InputDecoration(

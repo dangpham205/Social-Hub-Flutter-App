@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-const mobileBackgroundColor = Colors.white;
+var mobileBackgroundColor = Colors.white;
     // upload screen: 163
     // explore screen: 32
     // profile screen: 88
@@ -14,19 +14,19 @@ const webBackgroundColor = Color.fromRGBO(18, 18, 18, 1);
 const mobileSearchColor = Color.fromRGBO(38, 38, 38, 1);
 const blueColor = Color.fromRGBO(0, 149, 246, 1);
 const primaryColor = Colors.black;
-const secondaryColor = Colors.black;
+const secondaryColor = Colors.grey;
 const loginButton = Color.fromARGB(255, 133, 112, 239);
     //login_screen: 101
     //signup_screen: 145
     // edit profile screen: 170
-const logoColor = Color.fromARGB(255, 0, 13, 157);    
+const logoColor = Colors.blueAccent;    
     //login_screen: 83
     //signup_screen: 101
     //home_screen: 24
-const cwhite = Colors.white;
+var cwhite = Colors.white;
     //login_screen:  95
     //singup_screen: 138
-const cblack = Colors.black;
+var cblack = Colors.black;
     //login_screen:  123, 154, 185
     //singup_screen: 112 , 169, 199, 230, 260
     //home_screen: 31

@@ -61,10 +61,10 @@ class _FollowScreenState extends State<FollowScreen> {
           titleSpacing: 0,
           title: Text(
             '@'+userData['username'].toString(),
-            style: const TextStyle(color: cblack),
+            style: TextStyle(color: cblack),
           ),
           leading: IconButton(      //nếu mở trang profile không phải của bản thân (tức là đang vô xem profile ngkhac) thì cần cho phép pop để quay lại (ví dụ về màn home, search)
-            icon: const Icon(Icons.arrow_back, color: cblack,),
+            icon: Icon(Icons.arrow_back, color: cblack,),
             onPressed: () {
               Navigator.of(context).pop();
             },

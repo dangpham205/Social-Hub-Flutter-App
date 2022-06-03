@@ -33,10 +33,11 @@ class _AboutUsScreenState extends State<AboutUsScreen> with TickerProviderStateM
         leading: IconButton(
           onPressed: () {
             Navigator.of(context).pop();
+            Navigator.of(context).pop();        //phải pop 2 lần (1 lần quay lại màn profile, 1 lần đóng cái drawer)
           },
-          icon: const Icon(Icons.arrow_back, color: cblack,),
+          icon: Icon(Icons.arrow_back, color: cblack,),
         ),
-        title: const Text('Developer team: ', style: TextStyle(color: cblack),),
+        title: Text('Developer team: ', style: TextStyle(color: cblack),),
         elevation: 0,
         backgroundColor: Colors.transparent,
       ),
@@ -62,7 +63,7 @@ class _AboutUsScreenState extends State<AboutUsScreen> with TickerProviderStateM
               ],
             ),
             const SizedBox(height: 50,),
-            const Center(
+            Center(
               child: Text(
                 'Please rate us: ',
                   style: TextStyle(
@@ -299,7 +300,7 @@ class _AboutUsScreenState extends State<AboutUsScreen> with TickerProviderStateM
                 width: 120,
                 height: 40,
                 color: const Color(0xfffbc101),
-                child: const Center(child: Text('Rate !', style: TextStyle(color: cblack, fontWeight: FontWeight.bold),),),
+                child: Center(child: Text('Rate !', style: TextStyle(color: cblack, fontWeight: FontWeight.bold),),),
               ),
             ) : 
             const SizedBox()
@@ -361,7 +362,7 @@ class _AboutUsScreenState extends State<AboutUsScreen> with TickerProviderStateM
         const SizedBox(height: 10,),
         Text(
           name,
-          style: const TextStyle(
+          style: TextStyle(
             color: cblack,
             fontSize: 17,
           ),
@@ -369,7 +370,7 @@ class _AboutUsScreenState extends State<AboutUsScreen> with TickerProviderStateM
         const SizedBox(height: 3,),
         Text(
           id,
-          style: const TextStyle(
+          style: TextStyle(
             color: cblack,
             fontSize: 15,
           ),

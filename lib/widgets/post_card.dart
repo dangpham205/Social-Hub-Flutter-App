@@ -146,7 +146,7 @@ class _PostCardState extends State<PostCard> {
                         children: [
                           Text(
                             username, //dùng snap lấy ra username
-                            style: const TextStyle(
+                            style: TextStyle(
                                 fontWeight: FontWeight.bold, color: cblack),
                           ),
                         ],
@@ -156,7 +156,7 @@ class _PostCardState extends State<PostCard> {
                   widget.snap['uid'].toString() == user!.uid.toString()
                       ? IconButton(
                           //3 chấm options
-                          icon: const Icon(
+                          icon: Icon(
                             Icons.more_vert,
                             color: cblack,
                           ),
@@ -192,7 +192,7 @@ class _PostCardState extends State<PostCard> {
                                       child: Container(
                                           padding: const EdgeInsets.symmetric(
                                               vertical: 12, horizontal: 16),
-                                          child: const Text(
+                                          child: Text(
                                             'Delete',
                                             style: TextStyle(
                                               color: cblack,
@@ -203,7 +203,7 @@ class _PostCardState extends State<PostCard> {
                                         child: Container(
                                           padding: const EdgeInsets.symmetric(
                                               vertical: 12, horizontal: 16),
-                                          child: const Text(
+                                          child: Text(
                                             'Edit caption',
                                             style: TextStyle(
                                               color: cblack,
@@ -229,7 +229,7 @@ class _PostCardState extends State<PostCard> {
                                                 _secondaryAnimation, _child) {
                                               return AlertDialog(
                                                 backgroundColor: cwhite,
-                                                title: const Text(
+                                                title: Text(
                                                   'Edit caption',
                                                   style:
                                                       TextStyle(color: cblack),
@@ -251,7 +251,7 @@ class _PostCardState extends State<PostCard> {
                                                         RichText(
                                                           text: TextSpan(
                                                             style:
-                                                                const TextStyle(
+                                                                TextStyle(
                                                                     color:
                                                                         cblack),
                                                             children: [
@@ -288,7 +288,7 @@ class _PostCardState extends State<PostCard> {
                                                         ),
                                                         TextField(
                                                           style:
-                                                              const TextStyle(
+                                                              TextStyle(
                                                                   color:
                                                                       cblack),
                                                           keyboardType:
@@ -298,7 +298,7 @@ class _PostCardState extends State<PostCard> {
                                                           controller:
                                                               _editCaptionController,
                                                           decoration:
-                                                              const InputDecoration(
+                                                            InputDecoration(
                                                             focusedBorder:
                                                                 UnderlineInputBorder(
                                                                     borderSide:
@@ -374,7 +374,7 @@ class _PostCardState extends State<PostCard> {
                                         child: Container(
                                           padding: const EdgeInsets.symmetric(
                                               vertical: 12, horizontal: 16),
-                                          child: const Text(
+                                          child: Text(
                                             'Cancel',
                                             style: TextStyle(
                                               color: cblack,
@@ -421,7 +421,7 @@ class _PostCardState extends State<PostCard> {
                   child: SizedBox(
                     width: double.infinity,
                     child: postImageReady == false
-                        ? const Center(
+                        ? Center(
                             child: Text(
                               'Waiting for internet connection',
                               style: TextStyle(color: cblack),
@@ -553,7 +553,7 @@ class _PostCardState extends State<PostCard> {
                   child: Text(
                     //số like
                     '${widget.snap['likes'].length} likes',
-                    style: const TextStyle(
+                    style: TextStyle(
                         fontWeight: FontWeight.bold,
                         fontSize: 14,
                         color: cblack),
@@ -565,7 +565,7 @@ class _PostCardState extends State<PostCard> {
                   padding: const EdgeInsets.only(top: 4, bottom: 4),
                   child: RichText(
                     text: TextSpan(
-                      style: const TextStyle(color: cblack),
+                      style: TextStyle(color: cblack),
                       children: [
                         TextSpan(
                           text: username, //dùng snap lấy ra username

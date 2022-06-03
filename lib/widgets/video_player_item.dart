@@ -120,19 +120,19 @@ class _VideoPlayerItemState extends State<VideoPlayerItem> {
                                 children: <Widget>[
                                   LeftPanel(
                                     size: widget.size,
-                                    name: "${widget.name}",
-                                    caption: "${widget.caption}",
-                                    songName: "${widget.songName}",
-                                    profileImg: "${widget.profileImg}",
+                                    name: widget.name,
+                                    caption: widget.caption,
+                                    songName: widget.songName,
+                                    profileImg: widget.profileImg,
                                   ),
                                   RightPanel(
                                     size: widget.size,
-                                    likes: "${widget.likes}",
-                                    comments: "${widget.comments}",
-                                    shares: "${widget.shares}",
-                                    profileImg: "${widget.profileImg}",
-                                    albumImg: "${widget.albumImg}",
-                                    songName: "${widget.songName}",
+                                    likes: widget.likes,
+                                    comments: widget.comments,
+                                    shares: widget.shares,
+                                    profileImg: widget.profileImg,
+                                    albumImg: widget.albumImg,
+                                    songName: widget.songName,
                                   )
                                 ],
                               ))

@@ -46,7 +46,7 @@ class _ExploreScreenState extends State<ExploreScreen> {
               child: Row(
                 mainAxisSize: MainAxisSize.max,
                 crossAxisAlignment: CrossAxisAlignment.center,
-                children: const [
+                children: [
                   Icon(Icons.search, size: 20, color: cwhite,),
                   Text('  Search', style: TextStyle(color: cwhite, fontSize: 14),)
                 ],

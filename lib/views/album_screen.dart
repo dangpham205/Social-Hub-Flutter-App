@@ -28,21 +28,21 @@ class _AlbumScreenState extends State<AlbumScreen> {
     return Scaffold(
       appBar: AppBar(
         leading: IconButton(
-          icon: const Icon(
+          icon: Icon(
             Icons.arrow_back_ios,
             color: cblack,
           ),
           onPressed: () => {Navigator.pop(context)},
         ),
         backgroundColor: mobileBackgroundColor,
-        title: const Text(
+        title: Text(
           "Audio",
           style: TextStyle(color: cblack),
         ),
         centerTitle: true,
-        actions: const [
+        actions: [
           Padding(
-            padding: EdgeInsets.only(right: 10),
+            padding: const EdgeInsets.only(right: 10),
             child: Icon(
               Icons.send_outlined,
               color: cblack,
@@ -146,7 +146,7 @@ class _AlbumScreenState extends State<AlbumScreen> {
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  const Icon(
+                  Icon(
                     Icons.play_arrow,
                     color: cblack,
                   ),
@@ -172,7 +172,7 @@ class _AlbumScreenState extends State<AlbumScreen> {
                       ],
                     ),
                   ),
-                  const Text(
+                  Text(
                     "0:01",
                     style: TextStyle(
                       fontSize: 12,

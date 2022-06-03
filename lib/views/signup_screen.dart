@@ -108,10 +108,10 @@ class _SignUpScreenState extends State<SignUpScreen> {
                     radius: 64,
                     backgroundImage: MemoryImage(_avatar!),
                   )
-                  : const CircleAvatar(   //còn không thì hiện avt mặc định
+                  : CircleAvatar(   //còn không thì hiện avt mặc định
                     radius: 64,
                     backgroundColor: cblack,
-                    backgroundImage: AssetImage('assets/icon.png'),
+                    backgroundImage: const AssetImage('assets/icon.png'),
                   ),   //avatar mặc định
                   Positioned(     //nút thêm ảnh avatar
                     bottom: -6,
@@ -135,7 +135,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                   onTap: signUpUser,      //gọi hàm signUpUser
                   child: Container(        
                     child: _isLoading
-                        ? const Center(         //nếu mà bấm sign up thì sẽ hiện vòng load
+                        ? Center(         //nếu mà bấm sign up thì sẽ hiện vòng load
                             child: CircularProgressIndicator(color: cwhite,),
                           ) 
                         : const Text('SIGN UP', style: TextStyle(fontWeight: FontWeight.bold),),  //sign up xong thì sẽ quay lại hiện chữ trong button (đọc hàm signUpUser)
@@ -162,8 +162,8 @@ class _SignUpScreenState extends State<SignUpScreen> {
                     const SizedBox(width: 10,),
                     InkWell(
                       onTap: navigateToLogIn,
-                      child: const Padding(
-                        padding: EdgeInsets.all(6.0),
+                      child: Padding(
+                        padding: const EdgeInsets.all(6.0),
                         child: Text(
                           'Log In',
                           style: TextStyle(
@@ -197,7 +197,7 @@ class UserPassword extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return TextFormField(
-      style: const TextStyle(color: cblack),
+      style: TextStyle(color: cblack),
       textInputAction: TextInputAction.go,
       controller: _passwordController,
       decoration: const InputDecoration(
@@ -228,7 +228,7 @@ class UserName extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return TextFormField(
-      style: const TextStyle(color: cblack),
+      style: TextStyle(color: cblack),
       textInputAction: TextInputAction.next,
       controller: _usernameController,
       decoration: const InputDecoration(
@@ -258,7 +258,7 @@ class UserEmail extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return TextFormField(
-      style: const TextStyle(color: cblack),
+      style: TextStyle(color: cblack),
       textInputAction: TextInputAction.next,
       controller: _emailController,
       decoration: const InputDecoration(

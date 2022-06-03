@@ -95,7 +95,7 @@ class _FollowingTabState extends State<FollowingTab> {
                       ),
                     ),
                     child: TextFormField(
-                      style: const TextStyle(color: cblack),
+                      style: TextStyle(color: cblack),
                       textInputAction: TextInputAction.search,
                       controller: _searchController,
                       decoration: InputDecoration(
@@ -117,7 +117,7 @@ class _FollowingTabState extends State<FollowingTab> {
                           borderRadius: BorderRadius.circular(6.0),
                         ),
                         hintText: 'Search',
-                        hintStyle: const TextStyle(color: cwhite),
+                        hintStyle: TextStyle(color: cwhite),
                         contentPadding: const EdgeInsets.all(0),
                         suffixIcon: IconButton(
                           icon: const Icon(Icons.close),
@@ -171,7 +171,7 @@ class _FollowingTabState extends State<FollowingTab> {
                               ),
                               title: Text(
                                 snapshot.data!.docs[index].data()['username'].toString(),
-                                style: const TextStyle(color: cblack),
+                                style: TextStyle(color: cblack),
                               ),
                             ),
                           );
@@ -229,7 +229,7 @@ class _FollowingTabState extends State<FollowingTab> {
                                     ),
                                     title: Text(
                                       snapshot.data!.docs[index].data()['username'].toString(),
-                                      style: const TextStyle(color: cblack,)
+                                      style: TextStyle(color: cblack,)
                                     ),
                                   ),
                                   Container(height: 3, color: mobileBackgroundColor2,)

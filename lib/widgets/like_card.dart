@@ -1,8 +1,6 @@
 import 'package:endterm/views/profile_screen.dart';
 import 'package:flutter/material.dart';
 
-import '../theme/colors.dart';
-
 class LikeCard extends StatelessWidget {
   // ignore: prefer_typing_uninitialized_variables
   final snap;

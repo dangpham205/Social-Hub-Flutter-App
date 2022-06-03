@@ -91,7 +91,7 @@ class _LoginScreenState extends State<LoginScreen> {
                   child: Container(        
                     alignment: Alignment.center,
                     child: _isLoading
-                        ? const CircularProgressIndicator(
+                        ? CircularProgressIndicator(
                             color: cwhite,
                           )
                         : const Text('LOG IN', style: TextStyle(fontWeight: FontWeight.bold)),
@@ -115,8 +115,8 @@ class _LoginScreenState extends State<LoginScreen> {
                     const SizedBox(width: 10,),
                     InkWell(
                       onTap: navigateToSignUp,
-                      child: const Padding(
-                        padding: EdgeInsets.all(6.0),
+                      child: Padding(
+                        padding: const EdgeInsets.all(6.0),
                         child: Text(
                           'Sign Up',
                           style: TextStyle(
@@ -151,7 +151,7 @@ class UserPassword extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return TextFormField(
-      style: const TextStyle(color: cblack),
+      style: TextStyle(color: cblack),
       textInputAction: TextInputAction.go,
       controller: _passwordController,
       decoration: const InputDecoration(
@@ -182,7 +182,7 @@ class UserEmail extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return TextFormField(
-      style: const TextStyle(color: cblack),
+      style: TextStyle(color: cblack),
       textInputAction: TextInputAction.next,
       controller: _emailController,
       decoration: const InputDecoration(

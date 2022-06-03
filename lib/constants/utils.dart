@@ -17,8 +17,10 @@ showSnackBar( BuildContext context, String content){
   ScaffoldMessenger.of(context).showSnackBar(
     SnackBar(
       backgroundColor: snackBg,
-      duration: const Duration(milliseconds: 1300),
+      duration: const Duration(milliseconds: 1500),
       content: Text(content, style: const TextStyle(color: Colors.white),),
+      behavior: SnackBarBehavior.floating,
+      margin: const EdgeInsets.only(bottom: 24, left: 12, right: 12),
     ),
   );
 }

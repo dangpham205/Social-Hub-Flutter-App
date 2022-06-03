@@ -27,7 +27,7 @@ class _MobileScreenLayoutState extends State<MobileScreenLayout> {
 
   Color tabColor(int tab){
     if (_tab == tab){
-      return primaryColor;
+      return cblack;
     }
     return secondaryColor;
   }

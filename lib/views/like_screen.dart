@@ -25,7 +25,7 @@ class _LikePostState extends State<LikesScreen> {
       appBar: AppBar(
         backgroundColor: mobileBackgroundColor,
         leading: IconButton(
-          icon: const Icon(
+          icon: Icon(
             Icons.arrow_back,
             color: cblack,
           ),
@@ -33,7 +33,7 @@ class _LikePostState extends State<LikesScreen> {
             Navigator.of(context).pop();
           },
         ),
-        title: const Text(
+        title: Text(
           'Likes',
           style: TextStyle(color: cblack),
         ),
@@ -62,7 +62,7 @@ class _LikePostState extends State<LikesScreen> {
 
                     return LikeCard(snap: user?.data());
                   }))
-          : const Center(
+          : Center(
               child: Text(
                 'No one have liked this post yet!',
                 style: TextStyle(fontSize: 20, color: cblack),

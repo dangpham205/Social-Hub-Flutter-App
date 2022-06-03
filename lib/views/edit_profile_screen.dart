@@ -107,12 +107,12 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
         backgroundColor: mobileBackgroundColor,
         elevation: 1,
         leading: IconButton(      
-          icon: const Icon(Icons.arrow_back, color: cblack,),
+          icon: Icon(Icons.arrow_back, color: cblack,),
           onPressed: () {
             Navigator.of(context).pop();
           },
         ),
-        title: const Text('Update Profile', style: TextStyle(color: cblack),),
+        title: Text('Update Profile', style: TextStyle(color: cblack),),
       ),
       body: SingleChildScrollView(
         child: SizedBox(
@@ -223,7 +223,7 @@ class UserBio extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return TextFormField(
-      style: const TextStyle(color: cblack),
+      style: TextStyle(color: cblack),
       textInputAction: TextInputAction.go,
       controller: _passwordController,
       decoration: const InputDecoration(
@@ -254,7 +254,7 @@ class UserName extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return TextFormField(
-      style: const TextStyle(color: cblack),
+      style: TextStyle(color: cblack),
       textInputAction: TextInputAction.next,
       controller: _usernameController,
       decoration: const InputDecoration(

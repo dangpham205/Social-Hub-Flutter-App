@@ -36,7 +36,7 @@ class SearchScreen extends SearchDelegate {
   ThemeData appBarTheme(BuildContext context) {
     return ThemeData(
       
-      appBarTheme: const AppBarTheme(
+      appBarTheme: AppBarTheme(
         titleSpacing: 0,
         color: mobileBackgroundColor, 
         elevation: 1,
@@ -54,7 +54,7 @@ class SearchScreen extends SearchDelegate {
         border: OutlineInputBorder(
           borderRadius: BorderRadius.circular(6.0),
         ),
-        hintStyle: const  TextStyle(color: cwhite, fontSize: 14),
+        hintStyle: TextStyle(color: cwhite, fontSize: 14),
         iconColor: subText,
         constraints: const BoxConstraints(
           maxHeight: 38
@@ -80,7 +80,7 @@ class SearchScreen extends SearchDelegate {
   @override
   Widget? buildLeading(BuildContext context) {
     return IconButton(
-      icon: const Icon(Icons.arrow_back, color: cblack,),
+      icon: Icon(Icons.arrow_back, color: cblack,),
       onPressed: () {
         close(context, null);
       },
@@ -120,7 +120,7 @@ class SearchScreen extends SearchDelegate {
                   ),
                   title: Text(
                     snapshot.data!.docs[index].data()['username'].toString(),
-                    style: const TextStyle(color: cblack),
+                    style: TextStyle(color: cblack),
                   ),
                 ),
               );
@@ -174,7 +174,7 @@ class SearchScreen extends SearchDelegate {
                   ),
                   title: Text(
                     snapshot.data!.docs[index].data()['username'].toString(),
-                    style: const TextStyle(color: cblack),
+                    style: TextStyle(color: cblack),
                   ),
                 ),
               );
