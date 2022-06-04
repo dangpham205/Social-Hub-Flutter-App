@@ -101,7 +101,7 @@ class _FollowerTabState extends State<FollowerTab> {
                       decoration: InputDecoration(
                         fillColor: searchBox,
                         filled: true,
-                        prefixIcon: const Icon(Icons.search),
+                        prefixIcon: Icon(Icons.search, color: cblack,),
                         prefixIconColor: cwhite,
                         constraints: const BoxConstraints(
                           maxHeight: 42
@@ -117,10 +117,10 @@ class _FollowerTabState extends State<FollowerTab> {
                           borderRadius: BorderRadius.circular(6.0),
                         ),
                         hintText: 'Search',
-                        hintStyle: TextStyle(color: cwhite),
+                        hintStyle: TextStyle(color: cblack),
                         contentPadding: const EdgeInsets.all(0),
                         suffixIcon: IconButton(
-                          icon: const Icon(Icons.close),
+                          icon: Icon(Icons.close, color: cblack),
                           onPressed: (){
                             _searchController.text = '';
                             FocusScope.of(context).unfocus();

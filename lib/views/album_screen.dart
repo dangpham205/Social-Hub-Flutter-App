@@ -49,6 +49,7 @@ class _AlbumScreenState extends State<AlbumScreen> {
         ],
       ),
       // ignore: avoid_unnecessary_containers
+      backgroundColor: mobileBackgroundColor,
       body: Container(
         child: ListView(
           children: [

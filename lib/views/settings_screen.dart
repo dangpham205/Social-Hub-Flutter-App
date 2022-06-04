@@ -100,12 +100,12 @@ class _SettingsScreenState extends State<SettingsScreen> {
                     }
                     else{
                       mobileBackgroundColor = Colors.white;
-                      mobileBackgroundColor2 = const Color.fromARGB(255, 244, 225, 225);
+                      mobileBackgroundColor2 = Colors.white;
                       cwhite = Colors.white;
                       cblack = Colors.black;
                       optionColor = Colors.white;
                       postCardBg = const Color(0xFFf0ecf6);
-                      searchBox = const Color(0xffd3c5e3);
+                      searchBox = const Color(0xffe1d9ec);
                     }
                   }
                 );

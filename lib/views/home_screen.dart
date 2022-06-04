@@ -53,13 +53,6 @@ class _HomeScreenState extends State<HomeScreen> {
           color: logoColor,
           height: 50,
         ),
-        actions: [
-          IconButton(                                   //chat
-              onPressed: () {},
-              icon: const Icon(Icons.chat),
-              color: cblack,
-          ),
-        ],
       ),
       body: RefreshIndicator(
         backgroundColor: mobileBackgroundColor,
@@ -145,13 +138,6 @@ class _HomeScreenState extends State<HomeScreen> {
                             }
                           }
                         ),
-                        // const Center(
-                        //   child: Text('------------------------End------------------------', style: TextStyle(color: subText),),
-                        // ),
-                        // Container(
-                        //   height: 8,
-                        //   color: mobileBackgroundColor,
-                        // )
                       ],
                     );
                   }
