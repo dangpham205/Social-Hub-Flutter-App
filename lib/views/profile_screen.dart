@@ -2,12 +2,15 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:endterm/views/follow_screen.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import '../constants/colors.dart';
+import '../providers/user_provider.dart';
 import '../shared/firebase_firestore.dart';
 import '../widgets/profile_button.dart';
 import '../widgets/profile_drawer.dart';
 import 'edit_profile_screen.dart';
 import 'post_detail_screen.dart';
+import '../models/user.dart' as model;
 
 class ProfileScreen extends StatefulWidget {
   final String uid;
@@ -68,6 +71,12 @@ class _ProfileScreenState extends State<ProfileScreen> {
 
   @override
   Widget build(BuildContext context) {
+
+    List id = [];
+    final model.User? user = Provider.of<UserProvider>(context).getUser; //lấy ra th user hiện tại
+    id = user!.following;
+    id.add(user.uid);
+    
     return isLoading ? const Center(
             child: CircularProgressIndicator(),
           )
@@ -218,6 +227,13 @@ class _ProfileScreenState extends State<ProfileScreen> {
                           InkWell(
                             onTap: () {
                               openDiscover ? openDiscover = false : openDiscover = true;
+                              if (openDiscover){
+                                id = user.following;
+                                id.add(user.uid);
+                              } 
+                              else{
+                                id.clear();
+                              }
                               setState(() {
                                 
                               });   
@@ -241,27 +257,81 @@ class _ProfileScreenState extends State<ProfileScreen> {
                       ? StreamBuilder(
                         stream: FirebaseFirestore.instance
                           .collection('users')
-                          .where('uid', whereNotIn: userData['following'])
-                          .snapshots(includeMetadataChanges: true),
+                          .where('uid', whereNotIn: id)
+                          .limit(9)
+                          .snapshots(),
                         builder:(context, AsyncSnapshot<QuerySnapshot<Map<String, dynamic>>> snapshot) {
-                          return Expanded(
-                            child: ListView.builder(
-                              physics: const BouncingScrollPhysics(),
-                              scrollDirection: Axis.horizontal,
-                              shrinkWrap: true,
-                              itemCount: 1,
-                              itemBuilder: (BuildContext context, int index) {
-                                return Expanded(
-                                  child: Row(
+                          if (snapshot.connectionState == ConnectionState.waiting){
+                            return Center(
+                              child: CircularProgressIndicator(color: cblack,),
+                            );
+                          }
+                          else{
+                            return Container(
+                              color: mobileBackgroundColor,
+                              height: 170,
+                              width: MediaQuery.of(context).size.width,
+                              child: ListView.builder(
+                                physics: const AlwaysScrollableScrollPhysics(),
+                                scrollDirection: Axis.horizontal,
+                                shrinkWrap: true,
+                                itemCount: snapshot.data!.docs.length,
+                                itemBuilder: (BuildContext context, int index) {
+                                  return Row(
                                     children: [
-                                      Text(snapshot.data!.docs[index].data()['username'].toString()),
-                                      Container(width: 6, color: mobileBackgroundColor2,)
+                                      const SizedBox(width: 6,),
+                                      InkWell(
+                                        onTap: () {
+                                          Navigator.of(context).push(
+                                            MaterialPageRoute(
+                                              builder: (context) => ProfileScreen(
+                                                uid: snapshot.data!.docs[index].data()['uid'],
+                                                myProfile: false,
+                                              ),
+                                            )
+                                          );
+                                        },
+                                        child: Container(
+                                          width: 120,
+                                          height: 150,
+                                          decoration: BoxDecoration(
+                                            color: cwhite ,
+                                            border: Border.all(color: cblack, width: 1),
+                                            borderRadius: BorderRadius.circular(4),
+                                          ),
+                                          child: Column(
+                                            mainAxisAlignment: MainAxisAlignment.center,
+                                            children: [
+                                              CircleAvatar(
+                                                backgroundImage: NetworkImage(snapshot.data!.docs[index].data()['photoUrl'].toString()),
+                                                radius: 32,
+                                              ),
+                                              const SizedBox(height: 8,),
+                                              Text(
+                                                snapshot.data!.docs[index].data()['username'].toString(),
+                                                style: TextStyle(color: cblack, fontWeight: FontWeight.bold),
+                                              ),
+                                              const SizedBox(height: 4,),
+                                              snapshot.data!.docs[index].data()['bio'].toString().length > 4
+                                              ? Text(
+                                                snapshot.data!.docs[index].data()['bio'].toString().substring(0,4)+"...",
+                                                style: const TextStyle(color: subText,),
+                                              )
+                                              : Text(
+                                                snapshot.data!.docs[index].data()['bio'].toString(),
+                                                style: const TextStyle(color: subText,),
+                                              )
+                                            ],
+                                          ),
+                                        ),
+                                      ),
+                                      const SizedBox(width: 2,)
                                     ],
-                                  ),
-                                );
-                              }
-                            ),
-                          );
+                                  );
+                                }
+                              ),
+                            );
+                          }
                         }
                       )
                       : const SizedBox.shrink(),
