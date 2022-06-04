@@ -25,6 +25,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
   int followingCount = 0;
   bool isFollowing = false;
   bool isLoading = false;
+  bool openDiscover = false;
 
   // DocumentSnapshot? snapshot;
   // String? username,bio,avatarUrl;
@@ -168,7 +169,10 @@ class _ProfileScreenState extends State<ProfileScreen> {
                         ],
                       ),
                       const SizedBox( height: 12,),
-                      FirebaseAuth.instance.currentUser!.uid == widget.uid
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          FirebaseAuth.instance.currentUser!.uid == widget.uid
                           ? ProfileButton(                    //nếu user truyền vô screen là current user (chính chủ) thì hiện nút edit profile
                               buttonColor: Colors.teal,
                               borderColor: Colors.white,
@@ -197,19 +201,40 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                       followerCount--;
                                     });
                                   },)
-                              : ProfileButton(                          //còn không thì hiện nút follow
-                                  buttonColor: Colors.blueAccent,
-                                  borderColor: Colors.white,
-                                  buttonText: 'FOLLOW',
-                                  buttonTextColor: Colors.white,
-                                  function: () async {
-                                    await FirestoreMethods().followUser(FirebaseAuth.instance.currentUser!.uid, widget.uid);
-                                    setState(() {
-                                      isFollowing = true;
-                                      followerCount++;
-                                    });
-                                  },
-                                ),
+                          : ProfileButton(                          //còn không thì hiện nút follow
+                              buttonColor: Colors.blueAccent,
+                              borderColor: Colors.white,
+                              buttonText: 'FOLLOW',
+                              buttonTextColor: Colors.white,
+                              function: () async {
+                                await FirestoreMethods().followUser(FirebaseAuth.instance.currentUser!.uid, widget.uid);
+                                setState(() {
+                                  isFollowing = true;
+                                  followerCount++;
+                                });
+                              },
+                            ),
+                          InkWell(
+                            onTap: () {
+                              openDiscover ? openDiscover = false : openDiscover = true;
+                              setState(() {
+                                
+                              });   
+                            },
+                            child: Container(
+                              padding: const EdgeInsets.symmetric(horizontal: 4),
+                              decoration: BoxDecoration(
+                                color: openDiscover ? const Color.fromARGB(255, 217, 210, 210) : Colors.white ,
+                                border: Border.all(color: Colors.black),
+                                borderRadius: BorderRadius.circular(4),
+                              ),
+                              alignment: Alignment.center,
+                              child: const Icon(Icons.person_add, color: Colors.black,),
+                              height: 36,
+                            ),
+                          )
+                        ],
+                      ),
                       const SizedBox( height: 16,),
                       Container(
                         height: 4,
@@ -256,11 +281,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                       MaterialPageRoute(
                                         builder: (context) => PostDetailScreen(snap: snapshot.data!.docs[index].data())
                                       ),
-                                    ).then((value) {
-                                      setState(() {
-                                        getUserData();
-                                      });
-                                    });
+                                    );
                                   },
                                   child: Image(
                                     fit: BoxFit.cover,

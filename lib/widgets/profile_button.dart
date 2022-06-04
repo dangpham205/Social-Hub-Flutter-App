@@ -29,7 +29,7 @@ class ProfileButton extends StatelessWidget {
           ),
           alignment: Alignment.center,
           child: Text(buttonText, style: TextStyle(fontWeight: FontWeight.bold, color: buttonTextColor),),
-          width: MediaQuery.of(context).size.width*0.8,
+          width: MediaQuery.of(context).size.width*0.6,
           height: 36,
         ),
       ),

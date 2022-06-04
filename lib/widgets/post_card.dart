@@ -97,8 +97,8 @@ class _PostCardState extends State<PostCard> {
 
   @override
   Widget build(BuildContext context) {
-    final User? user =
-        Provider.of<UserProvider>(context).getUser; //lấy ra th user hiện tại
+
+    final User? user = Provider.of<UserProvider>(context).getUser; //lấy ra th user hiện tại
 
     return Container(
       color: mobileBackgroundColor,
@@ -319,26 +319,18 @@ class _PostCardState extends State<PostCard> {
                                                           height: 15,
                                                         ),
                                                         Row(
-                                                          mainAxisAlignment:
-                                                              MainAxisAlignment
-                                                                  .center,
+                                                          mainAxisAlignment: MainAxisAlignment.center,
                                                           children: [
                                                             GestureDetector(
                                                               onTap: () {
-                                                                Navigator.of(
-                                                                        context)
-                                                                    .pop();
-                                                                Navigator.of(
-                                                                        context)
-                                                                    .pop();
+                                                                Navigator.of(context).pop();
+                                                                Navigator.of(context).pop();
                                                                 FirestoreMethods().updateCaption(
-                                                                    widget.snap[
-                                                                        'postId'],
-                                                                    _editCaptionController
-                                                                        .text);
+                                                                    widget.snap['postId'],
+                                                                    _editCaptionController.text
+                                                                );
                                                                 setState(() {
-                                                                  _editCaptionController
-                                                                      .text = '';
+                                                                  _editCaptionController.text = '';
                                                                 });
                                                                 // .then((value) {
                                                                 //   Future.delayed(const Duration(milliseconds: 500)).then((value) {
@@ -351,39 +343,32 @@ class _PostCardState extends State<PostCard> {
                                                                 // });
                                                               },
                                                               child: Container(
-                                                                padding: const EdgeInsets
-                                                                        .symmetric(
-                                                                    horizontal:
-                                                                        20,
-                                                                    vertical:
-                                                                        10),
-                                                                child: const Text(
-                                                                    "Confirm"),
+                                                                padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+                                                                child: const Text("Confirm"),
                                                                 color: txtBtn,
                                                               ),
                                                             ),
                                                           ],
                                                         )
                                                       ],
-                                                    )),
+                                                    )
+                                                  ),
                                               );
                                             },
                                           );
-                                        }),
+                                        }
+                                      ),
                                     InkWell(
                                         child: Container(
                                           padding: const EdgeInsets.symmetric(
-                                              vertical: 12, horizontal: 16),
-                                          child: Text(
-                                            'Cancel',
-                                            style: TextStyle(
-                                              color: cblack,
-                                            ),
-                                          ),
+                                              vertical: 12, 
+                                              horizontal: 16),
+                                          child: Text('Cancel', style: TextStyle(color: cblack,),),
                                         ),
                                         onTap: () async {
                                           Navigator.of(context).pop();
-                                        })
+                                        }
+                                      )
                                   ],
                                 ),
                               ),
@@ -420,13 +405,8 @@ class _PostCardState extends State<PostCard> {
                   ),
                   child: SizedBox(
                     width: double.infinity,
-                    child: postImageReady == false
-                        ? Center(
-                            child: Text(
-                              'Waiting for internet connection',
-                              style: TextStyle(color: cblack),
-                            ),
-                          )
+                    child: postImageReady == false ? 
+                    Center(child: Text('Waiting for internet connection', style: TextStyle(color: cblack),),)
                         : Image.network(
                             postImageUrl,
                             fit: BoxFit.fitWidth,
@@ -448,10 +428,11 @@ class _PostCardState extends State<PostCard> {
                     duration: const Duration(milliseconds: 200),
                     //nó sẽ foward và reverse (scale trong file like_animation) trong 200 milisec sau đó hiện thêm 1s (startAnimation trong cùng file)
                     onEnd: () {
-                      setState(() {
-                        isLikeDisplaying =
-                            false; //khi chỉnh này thành false lại thì opa thành 0 ===> biến mất
-                      });
+                      if (mounted){
+                        setState(() {
+                          isLikeDisplaying = false; //khi chỉnh này thành false lại thì opa thành 0 ===> biến mất
+                        });
+                      }
                     },
                   ),
                 ),
@@ -477,6 +458,9 @@ class _PostCardState extends State<PostCard> {
                           user.uid,
                           widget.snap['likes'],
                         );
+                        setState(() {
+                          
+                        });
                       },
                       icon: widget.snap['likes'].contains(user.uid)
                           ? const Icon(

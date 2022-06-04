@@ -25,24 +25,24 @@ class PostDetailScreen extends StatefulWidget {
 
 class _PostDetailScreenState extends State<PostDetailScreen> {
 
+  bool isLikeDisplaying = false; //mặc định thì like sẽ không hiển thị lên
   bool postImageReady = false;
   String postImageUrl = '';
-  bool gettingUserData = false;
   var userData = {};
   String avatarUrl = '';
   String username = '';
-  bool isLikeDisplaying = false; //mặc định thì like sẽ không hiển thị lên
-  final TextEditingController _commentController = TextEditingController();
   final TextEditingController _editCaptionController = TextEditingController();
+  bool gettingUserData = false;
+  final TextEditingController _commentController = TextEditingController();
   FocusNode focusNode = FocusNode();
 
 
 
   @override
   void initState() {
+    super.initState();
     getAvatarAndUsername();
     loadPostImages();
-    super.initState();
   }
 
   @override
@@ -60,7 +60,7 @@ class _PostDetailScreenState extends State<PostDetailScreen> {
     });
     var userSnapShot = await FirebaseFirestore.instance
         .collection('users')
-        .doc(widget.snap['uid'].toString())
+        .doc(widget.snap['uid'])
         .get();
     userData = userSnapShot.data()!;
 
@@ -285,7 +285,6 @@ class _PostDetailScreenState extends State<PostDetailScreen> {
                                                           );
                                                           setState(() {
                                                             _editCaptionController.text = '';
-                                                            
                                                           });
                                                           // .then((value) {
                                                           //   Future.delayed(const Duration(milliseconds: 500)).then((value) {
@@ -371,9 +370,8 @@ class _PostDetailScreenState extends State<PostDetailScreen> {
                     AnimatedOpacity(
                       opacity: isLikeDisplaying ? 1 : 0,
                       //cái nút like vẫn luôn ở đó, chỉ là check xem ng dùng có bấm like không để chỉnh opa thôi
-                      duration: const Duration(
-                          milliseconds:
-                              100), //mất 10 milisec để hiện từ opa 0 lên 1
+                      duration: const Duration(milliseconds: 100), 
+                      //mất 10 milisec để hiện từ opa 0 lên 1
                       child: LikeAnimation(
                         child: const Icon(
                           Icons.thumb_up,
@@ -401,8 +399,8 @@ class _PostDetailScreenState extends State<PostDetailScreen> {
                   LikeAnimation(
                     // isDisplaying: true,
                     isDisplaying: widget.snap['likes'].contains(user.uid),
-                    smallLike:
-                        true, //smallLike là like bằng nút like, mặc định là false(like bằng double   tap)
+                    smallLike: true, 
+                    //smallLike là like bằng nút like, mặc định là false(like bằng double   tap)
                     child: IconButton(
                       //LIKE
                       onPressed: () async {
@@ -415,14 +413,14 @@ class _PostDetailScreenState extends State<PostDetailScreen> {
                           
                         });
                       },
-                      icon: widget.snap['likes'].contains(user.uid) ? 
-                        const Icon(
+                      icon: widget.snap['likes'].contains(user.uid) 
+                      ? const Icon(
                           Icons.thumb_up,
                           color: txtBtn,)
                         : const Icon(
                           Icons.thumb_up,
-                          color: unlikeBtn,)
-                    ),
+                          color: unlikeBtn,
+                        )),
                   ),
                   IconButton(
                     //COMMENT
@@ -473,7 +471,10 @@ class _PostDetailScreenState extends State<PostDetailScreen> {
                       onTap: () {
                         Navigator.of(context).push(
                           MaterialPageRoute(
-                            builder: (context) => LikesScreen(items: widget.snap['likes'], likes: widget.snap['likes'].length,),
+                            builder: (context) => LikesScreen(
+                              items: widget.snap['likes'], 
+                              likes: widget.snap['likes'].length,
+                            ),
                           ),
                         );
                       },
@@ -481,7 +482,9 @@ class _PostDetailScreenState extends State<PostDetailScreen> {
                         //số like
                         '${widget.snap['likes'].length} likes',
                         style: TextStyle(
-                            fontWeight: FontWeight.bold, fontSize: 14, color: cblack),
+                            fontWeight: FontWeight.bold,
+                            fontSize: 14,
+                            color: cblack),
                       ),
                     ),
                     Container(
@@ -489,7 +492,7 @@ class _PostDetailScreenState extends State<PostDetailScreen> {
                       width: double.infinity,
                       padding: const EdgeInsets.only(top: 4, bottom: 4),
                       child: InkWell(
-                        onTap: () {
+                        onTap: (){
                           Navigator.of(context).push(
                             MaterialPageRoute(
                               builder: (context) => ProfileScreen(
