@@ -103,6 +103,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
               child: ListView(
                 children: [
                   Column(
+                    mainAxisSize: MainAxisSize.max,
                     children: [
                       const SizedBox(
                         height: 20,
@@ -224,18 +225,46 @@ class _ProfileScreenState extends State<ProfileScreen> {
                             child: Container(
                               padding: const EdgeInsets.symmetric(horizontal: 4),
                               decoration: BoxDecoration(
-                                color: openDiscover ? const Color.fromARGB(255, 217, 210, 210) : Colors.white ,
-                                border: Border.all(color: Colors.black),
+                                color: openDiscover ? const Color.fromARGB(255, 217, 210, 210) : cwhite ,
+                                border: Border.all(color: cblack),
                                 borderRadius: BorderRadius.circular(4),
                               ),
                               alignment: Alignment.center,
-                              child: const Icon(Icons.person_add, color: Colors.black,),
+                              child: Icon(Icons.person_add, color: cblack,),
                               height: 36,
                             ),
                           )
                         ],
                       ),
                       const SizedBox( height: 16,),
+                      openDiscover
+                      ? StreamBuilder(
+                        stream: FirebaseFirestore.instance
+                          .collection('users')
+                          .where('uid', whereNotIn: userData['following'])
+                          .snapshots(includeMetadataChanges: true),
+                        builder:(context, AsyncSnapshot<QuerySnapshot<Map<String, dynamic>>> snapshot) {
+                          return Expanded(
+                            child: ListView.builder(
+                              physics: const BouncingScrollPhysics(),
+                              scrollDirection: Axis.horizontal,
+                              shrinkWrap: true,
+                              itemCount: 1,
+                              itemBuilder: (BuildContext context, int index) {
+                                return Expanded(
+                                  child: Row(
+                                    children: [
+                                      Text(snapshot.data!.docs[index].data()['username'].toString()),
+                                      Container(width: 6, color: mobileBackgroundColor2,)
+                                    ],
+                                  ),
+                                );
+                              }
+                            ),
+                          );
+                        }
+                      )
+                      : const SizedBox.shrink(),
                       Container(
                         height: 4,
                         color: const Color.fromARGB(255, 244, 225, 225),
