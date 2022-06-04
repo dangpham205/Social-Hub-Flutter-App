@@ -32,8 +32,8 @@ class _ExploreScreenState extends State<ExploreScreen> {
         title: Container(
           height: 38,
           padding: const EdgeInsets.symmetric(horizontal: 8),
-          decoration: const BoxDecoration(
-            borderRadius: BorderRadius.vertical(
+          decoration: BoxDecoration(
+            borderRadius: const BorderRadius.vertical(
               bottom: Radius.circular(6.0),
               top: Radius.circular(6.0)
             ),
@@ -49,7 +49,7 @@ class _ExploreScreenState extends State<ExploreScreen> {
                 mainAxisSize: MainAxisSize.max,
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
-                  Text('  Search', style: TextStyle(color: cwhite, fontSize: 14),)
+                  Text('  Search', style: TextStyle(color: cblack, fontSize: 14),)
                 ],
               ),
             ),

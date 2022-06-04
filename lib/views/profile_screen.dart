@@ -175,8 +175,8 @@ class _ProfileScreenState extends State<ProfileScreen> {
                         children: [
                           FirebaseAuth.instance.currentUser!.uid == widget.uid
                           ? ProfileButton(                    //nếu user truyền vô screen là current user (chính chủ) thì hiện nút edit profile
-                              buttonColor: Colors.teal,
-                              borderColor: Colors.white,
+                              buttonColor: snackBg,
+                              borderColor: Colors.transparent,
                               buttonText: 'EDIT PROFILE',
                               buttonTextColor: Colors.white,
                               function: () {
@@ -266,8 +266,8 @@ class _ProfileScreenState extends State<ProfileScreen> {
                       )
                       : const SizedBox.shrink(),
                       Container(
-                        height: 4,
-                        color: const Color.fromARGB(255, 244, 225, 225),
+                        height: 0.99,
+                        color: const Color(0xffcccccc),
                       ),
                       StreamBuilder(                                  //hiển thị các post dưới dạng grid
                         stream: FirebaseFirestore.instance

@@ -109,7 +109,7 @@ class _FollowingTabState extends State<FollowingTab> {
                         ),
                         focusedBorder: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(6.0),
-                          borderSide: const BorderSide(
+                          borderSide: BorderSide(
                             color: searchBox,
                             width: 1.0,
                           ),

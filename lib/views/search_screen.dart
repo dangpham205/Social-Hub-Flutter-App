@@ -46,7 +46,7 @@ class SearchScreen extends SearchDelegate {
         filled: true,
         focusedBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(6.0),
-          borderSide: const BorderSide(
+          borderSide: BorderSide(
             color: searchBox,
             width: 1.0,
           ),

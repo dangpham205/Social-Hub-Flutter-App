@@ -20,7 +20,7 @@ const loginButton = Color.fromARGB(255, 133, 112, 239);
     //login_screen: 101
     //signup_screen: 145
     // edit profile screen: 170
-const logoColor = Colors.blueAccent;    
+const logoColor = Color(0xFF8570EF);    
     //login_screen: 83
     //signup_screen: 101
     //home_screen: 24
@@ -60,12 +60,12 @@ const dividerColor = Color.fromARGB(255, 108, 105, 105);
 const darkColor = Color.fromARGB(255, 154, 153, 153);    
     // upload screen: 223
     // profile screen: 119
-const snackBg = Color.fromARGB(255, 133, 112, 239);
+const snackBg = Color(0xFF8570EF);
     // utils: 19
-var postCardBg = const Color.fromARGB(255, 244, 225, 225);    
+var postCardBg = const Color(0xFFf0ecf6);    
     // post detail screen: 115, 339, 451
     // post card: 104, 265, 333
 const unlikeBtn = Colors.grey;
     // post detail screen: 302, 310, 318, 329
     // post card: 288, 303, 310, 320
-const searchBox = Colors.grey;
+var searchBox = const Color(0xffd3c5e3);

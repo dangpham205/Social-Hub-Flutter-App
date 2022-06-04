@@ -44,7 +44,8 @@ class _HomeScreenState extends State<HomeScreen> {
     // id.add(user.uid);
 
     return Scaffold(
-      appBar: AppBar(                                   //app bar
+      appBar: AppBar(                 
+        elevation: 0,                  //app bar
         backgroundColor: mobileBackgroundColor,
         centerTitle: false,
         title: SvgPicture.asset(                  //logo app
@@ -144,13 +145,13 @@ class _HomeScreenState extends State<HomeScreen> {
                             }
                           }
                         ),
-                        const Center(
-                          child: Text('------------------------End------------------------', style: TextStyle(color: subText),),
-                        ),
-                        Container(
-                          height: 8,
-                          color: mobileBackgroundColor,
-                        )
+                        // const Center(
+                        //   child: Text('------------------------End------------------------', style: TextStyle(color: subText),),
+                        // ),
+                        // Container(
+                        //   height: 8,
+                        //   color: mobileBackgroundColor,
+                        // )
                       ],
                     );
                   }
