@@ -21,3 +21,6 @@ done	+ pop màn search
 	+ up videos
 	+ dark mode, light mode	
 	+ slide discover people ở màn profile
+
+responsive
+quay clip

@@ -144,8 +144,8 @@ class _HomeScreenState extends State<HomeScreen> {
                             }
                           }
                         ),
-                        Center(
-                          child: Text('----------END----------', style: TextStyle(color: cblack),),
+                        const Center(
+                          child: Text('------------------------End------------------------', style: TextStyle(color: subText),),
                         ),
                         Container(
                           height: 8,

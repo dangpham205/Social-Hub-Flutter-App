@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import '../constants/colors.dart';
 import 'package:intl/intl.dart';
 
+import '../views/profile_screen.dart';
+
 class CommentCard extends StatefulWidget {
   // ignore: prefer_typing_uninitialized_variables
   final snap;
@@ -26,10 +28,22 @@ class _CommentCardState extends State<CommentCard> {
       ),
       child: Row(
         children: [
-          CircleAvatar(
-            //avatar
-            radius: 18,
-            backgroundImage: NetworkImage(widget.snap['avatarUrl']), //dùng snap lấy ra avatar của user
+          InkWell(
+            onTap: () {
+              Navigator.of(context).push(
+                MaterialPageRoute(
+                  builder: (context) => ProfileScreen(
+                    uid: widget.snap['uid'],
+                    myProfile: false,
+                  ),
+                ),
+              );
+            },
+            child: CircleAvatar(
+              //avatar
+              radius: 18,
+              backgroundImage: NetworkImage(widget.snap['avatarUrl']), //dùng snap lấy ra avatar của user
+            ),
           ),
           Expanded(
             child: Padding(

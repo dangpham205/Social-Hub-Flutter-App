@@ -211,6 +211,10 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                   },
                                 ),
                       const SizedBox( height: 16,),
+                      Container(
+                        height: 4,
+                        color: const Color.fromARGB(255, 244, 225, 225),
+                      ),
                       StreamBuilder(                                  //hiển thị các post dưới dạng grid
                         stream: FirebaseFirestore.instance
                           .collection('posts')
@@ -220,6 +224,20 @@ class _ProfileScreenState extends State<ProfileScreen> {
                         builder: (context, AsyncSnapshot<QuerySnapshot<Map<String, dynamic>>> snapshot) {
                           if (snapshot.connectionState == ConnectionState.waiting) {
                             return const Center(child: CircularProgressIndicator(),);
+                          }
+                          if (snapshot.data!.docs.isEmpty){         //nếu trong những người follow mà kh ai có post gì thì trả về empty
+                            return Padding(
+                              padding: const EdgeInsets.only(top: 50),
+                              child: Center(
+                                child: Column(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: const [
+                                    Icon(Icons.heart_broken, size: 50, color: subText,),
+                                    Text("No posts yet", style: TextStyle(color: subText),),
+                                  ],
+                                ),
+                              ),
+                            );
                           }
                           else{
                             return GridView.builder(

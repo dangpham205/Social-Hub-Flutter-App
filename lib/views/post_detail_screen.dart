@@ -252,14 +252,17 @@ class _PostDetailScreenState extends State<PostDetailScreen> {
                                                     ),
                                                   ),
                                                   const SizedBox(height: 10,),
-                                                  TextField(
+                                                  TextFormField(
                                                     style: TextStyle(color: cblack),
                                                     keyboardType: TextInputType.multiline,
                                                     maxLines: null,
                                                     controller: _editCaptionController,
                                                     decoration: InputDecoration(
-                                                      focusedBorder: UnderlineInputBorder(
-                                                        borderSide: BorderSide(color: cblack)
+                                                      focusedBorder: const OutlineInputBorder(
+                                                          borderSide: BorderSide(color: Colors.purple, width: 1.0),
+                                                      ),
+                                                      enabledBorder: const OutlineInputBorder(
+                                                          borderSide: BorderSide(color: Colors.grey, width: 1.0),
                                                       ),
                                                       labelText: "... New Caption Here",
                                                       labelStyle: TextStyle(
@@ -462,6 +465,9 @@ class _PostDetailScreenState extends State<PostDetailScreen> {
                   mainAxisSize: MainAxisSize.min,
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
+                    Container(
+                      height: 8,
+                    ),
                     // nhảy qua likescreen
                     InkWell(
                       onTap: () {
@@ -482,25 +488,37 @@ class _PostDetailScreenState extends State<PostDetailScreen> {
                       //caption
                       width: double.infinity,
                       padding: const EdgeInsets.only(top: 4, bottom: 4),
-                      child: RichText(
-                        text: TextSpan(
-                          style: TextStyle(color: cblack),
-                          children: [
-                            TextSpan(
-                              text: username, //dùng snap lấy ra username
-                              style: const TextStyle(
-                                  fontWeight: FontWeight.bold, fontSize: 16),
+                      child: InkWell(
+                        onTap: () {
+                          Navigator.of(context).push(
+                            MaterialPageRoute(
+                              builder: (context) => ProfileScreen(
+                                uid: widget.snap['uid'],
+                                myProfile: false,
+                              ),
                             ),
-                            const TextSpan(
-                              text: "  ",
-                            ),
-                            TextSpan(
-                              text: widget
-                                  .snap['description'], //dùng snap lấy ra caption
-                              style: const TextStyle(
-                                  fontWeight: FontWeight.w300, fontSize: 14),
-                            ),
-                          ],
+                          );
+                        },
+                        child: RichText(
+                          text: TextSpan(
+                            style: TextStyle(color: cblack),
+                            children: [
+                              TextSpan(
+                                text: username, //dùng snap lấy ra username
+                                style: const TextStyle(
+                                    fontWeight: FontWeight.bold, fontSize: 16),
+                              ),
+                              const TextSpan(
+                                text: "  ",
+                              ),
+                              TextSpan(
+                                text: widget
+                                    .snap['description'], //dùng snap lấy ra caption
+                                style: const TextStyle(
+                                    fontWeight: FontWeight.w300, fontSize: 14),
+                              ),
+                            ],
+                          ),
                         ),
                       ),
                     ),
