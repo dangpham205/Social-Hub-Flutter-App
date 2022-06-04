@@ -66,7 +66,7 @@ class _AlbumScreenState extends State<AlbumScreen> {
                         height: 80,
                         decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(10),
-                            color: Colors.white),
+                            color: cwhite),
                       ),
                       Center(
                         child: Container(
@@ -211,7 +211,7 @@ class _AlbumScreenState extends State<AlbumScreen> {
                       ),
                       itemBuilder: (context, index) {
                         return Container(
-                          color: Colors.black,
+                          color: cblack,
                           child: Stack(
                             children: [
                               CachedNetworkImage(
