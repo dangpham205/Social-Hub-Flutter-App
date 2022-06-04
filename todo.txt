@@ -1,6 +1,0 @@
-refactor màu: 
-còn:
-    post card
-
-thoongs nhat lai mau
-responsive

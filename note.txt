@@ -1,6 +1,6 @@
 models dùng chứa các Class
 views để chứa các screen
 shared dùng để chưa các phương thức xác thực, lưu trữ của firebase
-    +firebase_auth.dart : dùng để chứa các method xác của auth
+    +firebase_auth.dart : dùng để chứa các method xác thực của auth
     +firebase_firestore.dart : chứa các phương thức lưu lên database
     +firebase_storage.dart : chứa các phương thức lưu file lên storage
