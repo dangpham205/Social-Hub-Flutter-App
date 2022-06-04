@@ -3,6 +3,10 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
+import '../responsive/mobile_screen_layout.dart';
+import '../responsive/responsive_layout.dart';
+import '../responsive/web_screen_layout.dart';
+
 class SettingsScreen extends StatefulWidget {
   const SettingsScreen({ Key? key }) : super(key: key);
 
@@ -13,6 +17,7 @@ class SettingsScreen extends StatefulWidget {
 class _SettingsScreenState extends State<SettingsScreen> {
 
   bool _value = false;
+  bool _temp = false;
 
   @override
   void initState() {
@@ -29,6 +34,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
     else{
       _value = false;
     }
+    _temp = _value;
     setState(() {
       
     });
@@ -43,40 +49,59 @@ class _SettingsScreenState extends State<SettingsScreen> {
         leading: IconButton(
           icon: const Icon(Icons.arrow_back),
           onPressed: () {
-            Navigator.of(context).pop();        //phải pop 2 lần (1 lần quay lại màn profile, 1 lần đóng cái drawer)
-            Navigator.of(context).pop();
+            if( _value != _temp){
+              Navigator.of(context).pushAndRemoveUntil(
+                MaterialPageRoute(
+                  builder: (context) => const ResponsiveLayout(
+                    webScreenLayout: WebScreenLayout(),
+                    mobileScreenLayout: MobileScreenLayout(),
+                ),
+              ),(route) => false
+              );
+            }
+            else{
+              Navigator.of(context).pop();        //phải pop 2 lần (1 lần quay lại màn profile, 1 lần đóng cái drawer)
+              Navigator.of(context).pop();
+            }
           },
         ),
         title: const Text('Settings'),
         titleSpacing: 0,
       ),
+      backgroundColor: mobileBackgroundColor,
       body: Container(
-      color: Colors.white,
+      color: optionColor,
       padding: const EdgeInsets.only(top: 8,bottom: 8, right: 6, left: 12),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.start,
         children: [
           Icon(Icons.dark_mode, color: cblack,),
           const SizedBox(width: 16,),
-          const Expanded(child: Text('Dark mode', style: TextStyle(fontWeight: FontWeight.bold, color:Colors.black),)),
+          Expanded(child: Text('Dark mode', style: TextStyle(fontWeight: FontWeight.bold, color:cblack),)),
           CupertinoSwitch(
             value: _value,
-            onChanged: (newValue) {
+            onChanged: (newValue) async {
+              SharedPreferences prefs = await SharedPreferences.getInstance();
+              _value = newValue;
+              prefs.setBool('darkMode', _value);
               setState(
-                () async{
-                  _value = newValue;
-                  // prefs.setBool('darkMode', _value);
-                  // if(_value == true){
-                  //   print("vaaa"+_value.toString());
-                  //   mobileBackgroundColor = Colors.black;
-                  //   cblack = Colors.white;
-                  //   cwhite = Colors.black;
-                  // }
-                  // else{
-                  //   mobileBackgroundColor = Colors.white;
-                  //   cwhite = Colors.white;
-                  //   cblack = Colors.black;
-                  // }
+                () {
+                  if(_value == true){
+                    mobileBackgroundColor = Colors.black;
+                    mobileBackgroundColor2 = Colors.black;
+                    cblack = Colors.white;
+                    cwhite = Colors.black;
+                    optionColor = Colors.grey;
+                    postCardBg = const Color.fromARGB(255, 209, 204, 204);
+                  }
+                  else{
+                    mobileBackgroundColor = Colors.white;
+                    mobileBackgroundColor2 = const Color.fromARGB(255, 244, 225, 225);
+                    cwhite = Colors.white;
+                    cblack = Colors.black;
+                    optionColor = Colors.white;
+                    postCardBg = const Color.fromARGB(255, 245, 184, 184);
+                  }
                 }
               );
             }

@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import '../constants/colors.dart';
 import '../widgets/like_card.dart';
 
+// ignore: must_be_immutable
 class LikesScreen extends StatefulWidget {
   List<dynamic> items;
   final int likes;
@@ -33,12 +34,14 @@ class _LikePostState extends State<LikesScreen> {
             Navigator.of(context).pop();
           },
         ),
+        titleSpacing: 0,
         title: Text(
           'Likes',
           style: TextStyle(color: cblack),
         ),
         centerTitle: false,
       ),
+      backgroundColor: mobileBackgroundColor,
       // Display user comments
       // check nếu có ai like thì hiện lên nếu không thì hiện center text
       body: widget.items.isNotEmpty

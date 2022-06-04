@@ -114,6 +114,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
         ),
         title: Text('Update Profile', style: TextStyle(color: cblack),),
       ),
+      backgroundColor: mobileBackgroundColor,
       body: SingleChildScrollView(
         child: SizedBox(
           height: MediaQuery.of(context).size.height,

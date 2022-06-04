@@ -1,3 +1,4 @@
+import 'package:endterm/constants/colors.dart';
 import 'package:endterm/views/profile_screen.dart';
 import 'package:flutter/material.dart';
 
@@ -40,15 +41,15 @@ class LikeCard extends StatelessWidget {
                       children: [
                         TextSpan(
                             text: snap['username'],
-                            style: const TextStyle(
+                            style: TextStyle(
                                 fontWeight: FontWeight.bold,
-                                color: Colors.black)),
+                                color: cblack)),
                       ],
                     ),
                   ),
                   Text(snap['bio'],
                       style: const TextStyle(
-                          fontWeight: FontWeight.w400, color: Colors.grey))
+                          fontWeight: FontWeight.w400, color: subText))
                 ],
               ),
             )),

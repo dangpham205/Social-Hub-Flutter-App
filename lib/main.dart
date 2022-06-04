@@ -9,6 +9,7 @@ import 'package:flutter/material.dart';
 import 'package:endterm/constants/colors.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:provider/provider.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 void main() async{
   WidgetsFlutterBinding.ensureInitialized();
@@ -25,6 +26,8 @@ void main() async{
   else{
     await Firebase.initializeApp();
   }
+  SharedPreferences prefs = await SharedPreferences.getInstance();
+  prefs.remove('darkMode');
   runApp(const MyApp());
 }
 

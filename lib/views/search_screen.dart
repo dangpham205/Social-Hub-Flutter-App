@@ -35,7 +35,7 @@ class SearchScreen extends SearchDelegate {
   @override
   ThemeData appBarTheme(BuildContext context) {
     return ThemeData(
-      
+      scaffoldBackgroundColor: mobileBackgroundColor,
       appBarTheme: AppBarTheme(
         titleSpacing: 0,
         color: mobileBackgroundColor, 

@@ -73,7 +73,8 @@ class _MobileScreenLayoutState extends State<MobileScreenLayout> {
         controller: pageController,     
         onPageChanged: onPageChanged,   //thay đổi state của _tab bằng index của tab trong list children ở trên
       ),
-      bottomNavigationBar: Padding(
+      bottomNavigationBar: Container(
+        color: mobileBackgroundColor,
         padding: const EdgeInsets.only(top: 8.0),
         child: CupertinoTabBar(
           border: null,

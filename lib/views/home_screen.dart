@@ -61,6 +61,7 @@ class _HomeScreenState extends State<HomeScreen> {
         ],
       ),
       body: RefreshIndicator(
+        backgroundColor: mobileBackgroundColor,
         onRefresh: ()async{
           return Future.delayed(const Duration(seconds: 1)).then((value) {
             

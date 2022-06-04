@@ -73,10 +73,10 @@ class _FollowScreenState extends State<FollowScreen> {
             indicatorColor: dividerColor,
             tabs: [
               Tab(
-                child: Text(followerCount.toString()+' followers', style: const TextStyle(color: Colors.black),),
+                child: Text(followerCount.toString()+' followers', style: TextStyle(color: cblack),),
               ),
               Tab(
-                child: Text(followingCount.toString()+' following', style: const TextStyle(color: Colors.black),),
+                child: Text(followingCount.toString()+' following', style: TextStyle(color: cblack),),
               ),              
             ],
           ),

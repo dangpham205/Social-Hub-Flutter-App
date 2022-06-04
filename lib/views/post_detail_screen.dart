@@ -97,6 +97,7 @@ class _PostDetailScreenState extends State<PostDetailScreen> {
             Navigator.of(context).pop();
           },
         ),
+        titleSpacing: 0,
         title: Text(
           'POST', 
           style: TextStyle(
@@ -114,7 +115,7 @@ class _PostDetailScreenState extends State<PostDetailScreen> {
           children: [Column(
             children: [
               Container(
-                decoration: const BoxDecoration(
+                decoration: BoxDecoration(
                   // borderRadius: BorderRadius.vertical(top: Radius.circular(26.0)),
                   color: postCardBg,
                 ),
@@ -453,7 +454,7 @@ class _PostDetailScreenState extends State<PostDetailScreen> {
               ),
                   
               Container(
-                decoration: const BoxDecoration(
+                decoration: BoxDecoration(
                   color: postCardBg,
                 ),
                 padding: const EdgeInsets.only(left: 8,right: 8, bottom: 8),
@@ -575,9 +576,8 @@ class _PostDetailScreenState extends State<PostDetailScreen> {
               ),
               Container(
                 width: MediaQuery.of(context).size.width,
-                padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 12),
+                height: 4,
                 color: postCardBg,
-                child: const Text('Comments', style: TextStyle(color: subText, fontWeight: FontWeight.bold),),
               )
             ],
           ),

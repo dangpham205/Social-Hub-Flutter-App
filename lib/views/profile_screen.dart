@@ -94,6 +94,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                 ) 
               ],
             ),
+            backgroundColor: mobileBackgroundColor,
             body: RefreshIndicator(
               onRefresh: () async{
                 getUserData();

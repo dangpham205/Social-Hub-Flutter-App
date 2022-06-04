@@ -41,6 +41,7 @@ class _AboutUsScreenState extends State<AboutUsScreen> with TickerProviderStateM
         elevation: 0,
         backgroundColor: Colors.transparent,
       ),
+      backgroundColor: mobileBackgroundColor,
       body: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
@@ -321,7 +322,7 @@ class _AboutUsScreenState extends State<AboutUsScreen> with TickerProviderStateM
               child: Container(
                 width: 105,
                 height: 105,
-                child: const Text('a'),
+                child: const Text(''),
                 decoration: const BoxDecoration(
                   shape: BoxShape.circle,
                   gradient: LinearGradient(

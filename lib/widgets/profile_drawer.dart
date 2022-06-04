@@ -35,16 +35,6 @@ class _ProfileDrawerState extends State<ProfileDrawer> {
               },
             ),
             drawerItem(
-              text: 'Saved',
-              textColor: cblack,
-              icon: Icons.bookmark,
-              function: () {
-                Navigator.of(context).push(MaterialPageRoute(
-                  builder: (context) => const SettingsScreen(),
-                ));
-              }
-            ),
-            drawerItem(
               text: 'About us',
               textColor: cblack,
               icon: Icons.info_outline_rounded,

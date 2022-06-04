@@ -69,6 +69,7 @@ class _FollowingTabState extends State<FollowingTab> {
   Widget build(BuildContext context) {
     
     return Scaffold(
+      backgroundColor: mobileBackgroundColor,
       body: RefreshIndicator(
         displacement: 0,
         onRefresh: () async {

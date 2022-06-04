@@ -109,8 +109,8 @@ class _PostCardState extends State<PostCard> {
           Column(
         children: [
           Container(
-            decoration: const BoxDecoration(
-              borderRadius: BorderRadius.vertical(top: Radius.circular(26.0)),
+            decoration: BoxDecoration(
+              borderRadius: const BorderRadius.vertical(top: Radius.circular(26.0)),
               color: postCardBg,
             ),
             //container chứa avatar, tên ng dùng và dấu 3 chấm trên đầu bài viết
@@ -529,9 +529,9 @@ class _PostCardState extends State<PostCard> {
 
           //CAPTION VÀ SỐ LIKE, NUMBER OF COMMENT
           Container(
-            decoration: const BoxDecoration(
+            decoration: BoxDecoration(
               borderRadius:
-                  BorderRadius.vertical(bottom: Radius.circular(26.0)),
+                  const BorderRadius.vertical(bottom: Radius.circular(26.0)),
               color: postCardBg,
             ),
             padding: const EdgeInsets.only(left: 8, right: 8, bottom: 16),

@@ -147,15 +147,20 @@ class _UploadScreenState extends State<UploadScreen> {
   Widget build(BuildContext context) {
 
 
-    return _image == null ? Center(
-      child: IconButton(
-        iconSize: 50,
-        icon: Icon(Icons.upload, color: cblack,),
-        onPressed: () => _selectImage(context),
+    return _image == null 
+    ? Container(
+      width: MediaQuery.of(context).size.width,
+      height: MediaQuery.of(context).size.height,
+      color: mobileBackgroundColor,
+      child: Center(
+        child: IconButton(
+          iconSize: 50,
+          icon: Icon(Icons.upload, color: cblack,),
+          onPressed: () => _selectImage(context),
+        ),
       ),
-    ) :
-
-    SingleChildScrollView(
+    ) 
+    : SingleChildScrollView(
       child: SizedBox(
         height: MediaQuery.of(context).size.height,
         child: Scaffold(
@@ -181,6 +186,7 @@ class _UploadScreenState extends State<UploadScreen> {
               ),
             ],
           ),
+          backgroundColor: mobileBackgroundColor,
           body: Column(
             children: [
               _isLoading ? const LinearProgressIndicator() : Container(),   //show indicator khi bấm nút POST

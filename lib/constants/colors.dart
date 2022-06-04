@@ -8,13 +8,14 @@ var mobileBackgroundColor = Colors.white;
     // cmt screen: 36
     // post detail screen: 89, 105
     // post card: 94, 105
-const mobileBackgroundColor2 = Color.fromARGB(255, 255, 243, 223);
+var mobileBackgroundColor2 = const Color.fromARGB(255, 244, 225, 225);
     // bg phụ màn following, follower
 const webBackgroundColor = Color.fromRGBO(18, 18, 18, 1);
 const mobileSearchColor = Color.fromRGBO(38, 38, 38, 1);
 const blueColor = Color.fromRGBO(0, 149, 246, 1);
 const primaryColor = Colors.black;
 const secondaryColor = Colors.grey;
+var optionColor = Colors.white;
 const loginButton = Color.fromARGB(255, 133, 112, 239);
     //login_screen: 101
     //signup_screen: 145
@@ -61,7 +62,7 @@ const darkColor = Color.fromARGB(255, 154, 153, 153);
     // profile screen: 119
 const snackBg = Color.fromARGB(255, 133, 112, 239);
     // utils: 19
-const postCardBg = Color.fromARGB(255, 245, 184, 184);    
+var postCardBg = const Color.fromARGB(255, 244, 225, 225);    
     // post detail screen: 115, 339, 451
     // post card: 104, 265, 333
 const unlikeBtn = Colors.grey;

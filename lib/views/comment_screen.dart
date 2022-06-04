@@ -43,6 +43,7 @@ class _CommentScreenState extends State<CommentScreen> {
         title: Text('Comments', style: TextStyle(color: cblack),),
         centerTitle: false,
       ),
+      backgroundColor: mobileBackgroundColor,
       body: StreamBuilder(
         stream: FirebaseFirestore.instance
             .collection('posts')
@@ -54,7 +55,20 @@ class _CommentScreenState extends State<CommentScreen> {
           if (snapshot.connectionState == ConnectionState.waiting){
             return const Center(child: CircularProgressIndicator(),);
           }
-
+          if (snapshot.data!.docs.isEmpty){         //nếu trong những người follow mà kh ai có post gì thì trả về empty
+            return Padding(
+              padding: const EdgeInsets.only(top: 0),
+              child: Center(
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: const [
+                    Icon(Icons.heart_broken, size: 50, color: subText,),
+                    Text("No comments yet", style: TextStyle(color: subText),),
+                  ],
+                ),
+              ),
+            );
+          }
           return ListView.builder(
             itemCount: snapshot.data!.docs.length,
             itemBuilder: (context, index) => CommentCard(
