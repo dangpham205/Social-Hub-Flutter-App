@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
 import '../constants/colors.dart';
+import '../constants/global_variables.dart';
 import '../constants/utils.dart';
 import '../responsive/mobile_screen_layout.dart';
 import '../responsive/responsive_layout.dart';
@@ -74,7 +75,10 @@ class _LoginScreenState extends State<LoginScreen> {
           height: MediaQuery.of(context).size.height,
           child: SafeArea(
               child: Container(
-            padding: const EdgeInsets.symmetric(horizontal: 30),
+                padding: MediaQuery.of(context).size.width > webScreenSize
+                    ? EdgeInsets.symmetric(
+                    horizontal: MediaQuery.of(context).size.width / 3)
+                    : const EdgeInsets.symmetric(horizontal: 32),
             width: double.infinity,   //return width cua man hinh
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.center,    //center tat ca children theo chieu truc cross ==> chieu ngang

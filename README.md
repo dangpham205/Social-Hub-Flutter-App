@@ -22,5 +22,7 @@ done	+ pop màn search
 	+ dark mode, light mode	
 	+ slide discover people ở màn profile
 
+Câu lệnh chạy phiên bản web: flutter run -d chrome --web-renderer html
+
 responsive
 quay clip
