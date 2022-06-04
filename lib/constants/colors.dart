@@ -8,7 +8,7 @@ var mobileBackgroundColor = Colors.white;
     // cmt screen: 36
     // post detail screen: 89, 105
     // post card: 94, 105
-var mobileBackgroundColor2 = const Color.fromARGB(255, 244, 225, 225);
+var mobileBackgroundColor2 = Colors.white;
     // bg phụ màn following, follower
 const webBackgroundColor = Color.fromRGBO(18, 18, 18, 1);
 const mobileSearchColor = Color.fromRGBO(38, 38, 38, 1);
@@ -68,4 +68,4 @@ var postCardBg = const Color(0xFFf0ecf6);
 const unlikeBtn = Colors.grey;
     // post detail screen: 302, 310, 318, 329
     // post card: 288, 303, 310, 320
-var searchBox = const Color(0xffd3c5e3);
+var searchBox = const Color(0xffe1d9ec);

@@ -58,7 +58,7 @@ class _AboutUsScreenState extends State<AboutUsScreen> with TickerProviderStateM
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                userCol('https://i.pinimg.com/236x/0e/1c/f0/0e1cf00605082d11da6385459a3a1687.jpg', 'Võ Nguyễn Duy Anh', ' 519H0272'),
+                userCol('https://i.pinimg.com/236x/0c/b0/5f/0cb05fc0b2cfa01d5311f827c24cba8d.jpg', 'Võ Nguyễn Duy Anh', ' 519H0272'),
                 const SizedBox(width: 50,),
                 userCol('https://preview.redd.it/d3n9acugx3g41.jpg?auto=webp&s=f41237f465caf15dc38349b8a4e691a584632f0b', 'Nguyễn Chí Nhân', ' 519H0127'),
               ],
