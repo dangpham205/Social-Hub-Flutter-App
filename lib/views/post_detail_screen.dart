@@ -375,7 +375,7 @@ class _PostDetailScreenState extends State<PostDetailScreen> {
                       child: LikeAnimation(
                         child: const Icon(
                           Icons.thumb_up,
-                          color: Colors.blue,
+                          color: logoColor,
                           size: 70,
                         ),
                         isDisplaying: isLikeDisplaying,
@@ -416,7 +416,7 @@ class _PostDetailScreenState extends State<PostDetailScreen> {
                       icon: widget.snap['likes'].contains(user.uid) 
                       ? const Icon(
                           Icons.thumb_up,
-                          color: txtBtn,)
+                          color: logoColor,)
                         : const Icon(
                           Icons.thumb_up,
                           color: unlikeBtn,

@@ -421,7 +421,7 @@ class _PostCardState extends State<PostCard> {
                   child: LikeAnimation(
                     child: const Icon(
                       Icons.thumb_up,
-                      color: Colors.blue,
+                      color: logoColor,
                       size: 70,
                     ),
                     isDisplaying: isLikeDisplaying,
@@ -465,7 +465,7 @@ class _PostCardState extends State<PostCard> {
                       icon: widget.snap['likes'].contains(user.uid)
                           ? const Icon(
                               Icons.thumb_up,
-                              color: Colors.blue,
+                              color: logoColor,
                             )
                           : const Icon(
                               Icons.thumb_up,
@@ -612,7 +612,7 @@ class _PostCardState extends State<PostCard> {
             ),
           ),
           const SizedBox(
-            height: 20,
+            height: 10,
           ),
         ],
       ),
