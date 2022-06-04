@@ -83,67 +83,81 @@ class _HomeScreenState extends State<HomeScreen> {
             });
           },);
         },
-        child: ListView(
-            physics: const BouncingScrollPhysics(),
-            shrinkWrap: true,
-            scrollDirection: Axis.vertical,
-            children: [
-            StreamBuilder(
-              stream: stream,                              //dùng stream để load ra các post
-              // stream: FirebaseFirestore.instance
-              //     .collection('posts')
-              //     .where('uid', whereIn: id)
-              //     .orderBy('uploadDate', descending: true)
-              //     .snapshots(),
-              //stream sẽ là các bài post, khi có các bài post mới đc add lên, stream builder sẽ build lại
-              builder:(context, AsyncSnapshot<QuerySnapshot<Map<String, dynamic>>> snapshot) {
-                //mặc định thì builder sẽ có snapshot
-                // cta sẽ định nghĩa snapshot ở đây là AsyncSnapshot vì sẽ build các post dựa vào realtime changes
-                // và kiểu của AsyncSnapshot này sẽ là QuerySnapshot của cloud_firestore chứa DocumentSnapshot
-                //và cta sẽ cast cái document (JSON obj) đó thành 1 Map (giống fromSnapShot trong file user và post.dart)
-          
-                //nếu không định nghĩa loại snapshot cụ thể ở đây thì itemCount bên dưới sẽ kh lấy đc docs.length
-                //vì nó kh biết docs muốn lấy là docs async, kh thể lấy liền đc
-                if (snapshot.connectionState == ConnectionState.waiting){
-                  return Center(
-                    child: CircularProgressIndicator(color: cblack,),
-                  );
-                }
-                if (snapshot.data!.docs.isEmpty){         //nếu trong những người follow mà kh ai có post gì thì trả về empty
-                  return Padding(
-                    padding: const EdgeInsets.only(top: 128),
-                    child: Center(
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: const [
-                          Icon(Icons.heart_broken, size: 50, color: subText,),
-                          Text("You don't have any posts yet", style: TextStyle(color: subText),),
-                        ],
+        child: SingleChildScrollView(
+          physics: const AlwaysScrollableScrollPhysics(),
+          child: ListView(
+              physics: const BouncingScrollPhysics(),
+              shrinkWrap: true,
+              scrollDirection: Axis.vertical,
+              children: [
+              StreamBuilder(
+                stream: stream,                              //dùng stream để load ra các post
+                // stream: FirebaseFirestore.instance
+                //     .collection('posts')
+                //     .where('uid', whereIn: id)
+                //     .orderBy('uploadDate', descending: true)
+                //     .snapshots(),
+                //stream sẽ là các bài post, khi có các bài post mới đc add lên, stream builder sẽ build lại
+                builder:(context, AsyncSnapshot<QuerySnapshot<Map<String, dynamic>>> snapshot) {
+                  //mặc định thì builder sẽ có snapshot
+                  // cta sẽ định nghĩa snapshot ở đây là AsyncSnapshot vì sẽ build các post dựa vào realtime changes
+                  // và kiểu của AsyncSnapshot này sẽ là QuerySnapshot của cloud_firestore chứa DocumentSnapshot
+                  //và cta sẽ cast cái document (JSON obj) đó thành 1 Map (giống fromSnapShot trong file user và post.dart)
+            
+                  //nếu không định nghĩa loại snapshot cụ thể ở đây thì itemCount bên dưới sẽ kh lấy đc docs.length
+                  //vì nó kh biết docs muốn lấy là docs async, kh thể lấy liền đc
+                  if (snapshot.connectionState == ConnectionState.waiting){
+                    return Center(
+                      child: CircularProgressIndicator(color: cblack,),
+                    );
+                  }
+                  if (snapshot.data!.docs.isEmpty){         //nếu trong những người follow mà kh ai có post gì thì trả về empty
+                    return Padding(
+                      padding: const EdgeInsets.only(top: 128),
+                      child: Center(
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: const [
+                            Icon(Icons.heart_broken, size: 50, color: subText,),
+                            Text("You don't have any posts yet", style: TextStyle(color: subText),),
+                          ],
+                        ),
                       ),
-                    ),
-                  );
-                }
-                else{
-                  return ListView.builder(
-                    physics: const BouncingScrollPhysics(),
-                    shrinkWrap: true,
-                    scrollDirection: Axis.vertical,
-                    itemCount: snapshot.data!.docs.length,      //bắt buộc phải truyền vô
-                    itemBuilder:(context, index) {
-                      if( id.contains(snapshot.data!.docs[index]["uid"])){
-                        return PostCard(
-                          snap: snapshot.data!.docs[index].data(),    //truyền vô cái snap chứa thông tin của post đó, ****nơi xét follow???
-                        );
-                      }
-                      else{
-                        return const SizedBox.shrink();
-                      }
-                    }
-                  );
-                }
-              },
-            ),
-          ]
+                    );
+                  }
+                  else{
+                    return Column(
+                      children: [
+                        ListView.builder(
+                          physics: const BouncingScrollPhysics(),
+                          shrinkWrap: true,
+                          scrollDirection: Axis.vertical,
+                          itemCount: snapshot.data!.docs.length,      //bắt buộc phải truyền vô
+                          itemBuilder:(context, index) {
+                            if( id.contains(snapshot.data!.docs[index]["uid"])){
+                              return PostCard(
+                                snap: snapshot.data!.docs[index].data(),    //truyền vô cái snap chứa thông tin của post đó, ****nơi xét follow???
+                              );
+                            }
+                            else{
+                              return const SizedBox.shrink();
+                            }
+                          }
+                        ),
+                        Center(
+                          child: Text('----------END----------', style: TextStyle(color: cblack),),
+                        ),
+                        Container(
+                          height: 8,
+                          color: mobileBackgroundColor,
+                        )
+                      ],
+                    );
+                  }
+                },
+              ),
+            ]
+          ),
         ),
       ),
     );
