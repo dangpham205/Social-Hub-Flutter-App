@@ -29,11 +29,20 @@ class _HomeScreenState extends State<HomeScreen> {
     user = Provider.of<UserProvider>(context).getUser;
     id = user!.following.toList();
     id.add(user!.uid);
-    stream = FirebaseFirestore.instance
-                  .collection('posts')
-                  .where('uid', whereIn: id)
-                  .orderBy('uploadDate', descending: true)
-                  .snapshots();
+    if (id.length > 8){
+      stream = FirebaseFirestore.instance
+                    .collection('posts')
+                    .where('uid', whereIn: id.sublist(0,8))
+                    .orderBy('uploadDate', descending: true)
+                    .snapshots();
+    }
+    else{
+      stream = FirebaseFirestore.instance
+                    .collection('posts')
+                    .where('uid', whereIn: id)
+                    .orderBy('uploadDate', descending: true)
+                    .snapshots();
+    }
   }
 
   @override
@@ -59,14 +68,14 @@ class _HomeScreenState extends State<HomeScreen> {
         onRefresh: ()async{
           return Future.delayed(const Duration(seconds: 1)).then((value) {
             
-            setState(() {
-              List<dynamic> id = user!.following.toList();
-              id.add(user!.uid);
-              stream = FirebaseFirestore.instance
-                  .collection('posts')
-                  .where('uid', whereIn: id)
-                  .orderBy('uploadDate', descending: true)
-                  .snapshots();
+            // setState(() {
+              // List<dynamic> id = user!.following.toList();
+              // id.add(user!.uid);
+              // stream = FirebaseFirestore.instance
+                  // .collection('posts')
+                  // .where('uid', whereIn: id)
+                  // .orderBy('uploadDate', descending: true)
+                  // .snapshots();
               Navigator.of(context).pushReplacement(
                 MaterialPageRoute(
                   builder: (context) => const ResponsiveLayout(
@@ -74,7 +83,7 @@ class _HomeScreenState extends State<HomeScreen> {
                     mobileScreenLayout: MobileScreenLayout(),
                 ),
               ));
-            });
+            // });
           },);
         },
         child: SingleChildScrollView(

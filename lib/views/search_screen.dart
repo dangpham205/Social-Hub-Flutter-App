@@ -146,7 +146,7 @@ class SearchScreen extends SearchDelegate {
     return FutureBuilder(
       future: FirebaseFirestore.instance
         .collection('users')
-        .where('uid', whereIn: id)
+        .where('uid', whereIn: id.length > 8 ? id.sublist(0,8) : id)
         .get(), 
         //get the collections, data cua users
       builder: (context, AsyncSnapshot<QuerySnapshot<Map<String, dynamic>>> snapshot) {

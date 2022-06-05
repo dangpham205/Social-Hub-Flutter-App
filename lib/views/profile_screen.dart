@@ -257,7 +257,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                       ? StreamBuilder(
                         stream: FirebaseFirestore.instance
                           .collection('users')
-                          .where('uid', whereNotIn: id)
+                          .where('uid', whereNotIn: id.length > 8 ? id.sublist(0,8) : id)
                           .limit(9)
                           .snapshots(),
                         builder:(context, AsyncSnapshot<QuerySnapshot<Map<String, dynamic>>> snapshot) {
