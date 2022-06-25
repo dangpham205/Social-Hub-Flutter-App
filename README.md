@@ -10,7 +10,7 @@
 - Nguyễn Chí Nhân - 519H0127
 
 ---
-
+Link video demo cho ứng dụng Social Hub của nhóm: https://www.youtube.com/watch?v=Y40NVPH8aS4
 Câu lệnh chạy phiên bản web: flutter run -d chrome --web-renderer html
 
 ### **Chức năng:**
